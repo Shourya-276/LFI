@@ -3,13 +3,6 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { toast } from "sonner";
 
 const Disbursement = () => {
@@ -61,24 +54,38 @@ const Disbursement = () => {
                 </div>
               </div>
               
-              <div>
-                <h2 className="text-xl font-semibold mb-4">Disbursement History</h2>
-                
-                {/* Empty state */}
-                <div className="py-12 flex flex-col items-center justify-center text-center">
-                  <div className="h-16 w-16 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center mb-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                    </svg>
-                  </div>
-                  <h3 className="font-medium text-lg mb-2">No disbursements yet</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6 max-w-md">Your loan has been approved, but no disbursements have been made yet. Request your first disbursement below.</p>
+              <div className="mb-6">
+                <div className="flex justify-between items-center mb-4">
+                  <h2 className="text-xl font-semibold">Disbursement History</h2>
                   <Button 
                     onClick={() => setShowRequestForm(true)}
-                    className="bg-brand-purple hover:bg-brand-purple/90"
+                    className="bg-indigo-600 hover:bg-indigo-700 text-white"
                   >
-                    Request New Disbursement
+                    <span className="mr-1">+</span> Request New Disbursement
                   </Button>
+                </div>
+                
+                <div className="overflow-x-auto">
+                  <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead>
+                      <tr>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Date</th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">UTR Number</th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Transaction Amt.</th>
+                        <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Recipient Name</th>
+                      </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                      {[1, 2, 3, 4].map((item) => (
+                        <tr key={item}>
+                          <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">15-Mar-2025</td>
+                          <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">0987654321XYZ</td>
+                          <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">₹2,00,000</td>
+                          <td className="px-4 py-3 text-sm text-gray-900 dark:text-gray-100">Amit Verma</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               </div>
             </div>

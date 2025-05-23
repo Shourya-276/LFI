@@ -1,12 +1,19 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star } from "lucide-react";
+import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star, BellDot } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { useLoan } from "../contexts/LoanContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import ChatWidget from "./ChatWidget";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavLinkProps {
   to: string;
@@ -54,6 +61,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const getInitials = (name: string) => {
     return name.split(" ").map(n => n[0]).join("").toUpperCase();
   };
+
+  // Sample notifications
+  const notifications = [
+    { id: 1, message: "Your loan has been approved", time: "1 hour ago", read: false },
+    { id: 2, message: "New loan offers available", time: "3 hours ago", read: false },
+    { id: 3, message: "Document verification complete", time: "Yesterday", read: true },
+  ];
 
   const navLinks = [
     {
@@ -134,6 +148,32 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
           
           <div className="flex items-center gap-4">
+            {/* Notification Bell */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" size="icon" className="relative">
+                  <BellDot className="h-5 w-5" />
+                  <span className="absolute top-0 right-0 h-2 w-2 bg-red-500 rounded-full"></span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <div className="p-2 font-medium border-b">Notifications</div>
+                <div className="max-h-80 overflow-y-auto">
+                  {notifications.map((notification) => (
+                    <DropdownMenuItem key={notification.id} className={`p-3 ${!notification.read ? 'bg-blue-50 dark:bg-gray-700/50' : ''}`}>
+                      <div className="flex flex-col gap-1">
+                        <div className="text-sm">{notification.message}</div>
+                        <div className="text-xs text-gray-500">{notification.time}</div>
+                      </div>
+                    </DropdownMenuItem>
+                  ))}
+                </div>
+                <div className="p-2 text-center text-sm border-t">
+                  <Link to="#" className="text-brand-purple hover:underline">View all notifications</Link>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
             <div className="relative rounded-full w-8 h-8 flex items-center justify-center bg-gray-100 dark:bg-gray-700 cursor-pointer" onClick={toggleTheme}>
               {theme === "light" ? 
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
