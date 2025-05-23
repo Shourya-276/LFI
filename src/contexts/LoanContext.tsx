@@ -2,7 +2,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
-interface PersonalDetails {
+export interface PersonalDetails {
   name: string;
   middleName: string;
   lastName: string;
@@ -20,7 +20,7 @@ interface PersonalDetails {
   city: string;
 }
 
-interface EmployedIncomeDetails {
+export interface EmployedIncomeDetails {
   employmentType: "salaried";
   employerType: string;
   grossSalary: string;
@@ -37,7 +37,7 @@ interface EmployedIncomeDetails {
   }[];
 }
 
-interface SelfEmployedIncomeDetails {
+export interface SelfEmployedIncomeDetails {
   employmentType: "self-employed";
   grossITRIncome: string;
   netITRIncome: string;
@@ -51,9 +51,9 @@ interface SelfEmployedIncomeDetails {
   }[];
 }
 
-type IncomeDetails = EmployedIncomeDetails | SelfEmployedIncomeDetails;
+export type IncomeDetails = EmployedIncomeDetails | SelfEmployedIncomeDetails;
 
-interface PropertyDetails {
+export interface PropertyDetails {
   isPropertySelected: boolean;
   propertyStatus?: string;
   propertyType?: string;
@@ -74,7 +74,7 @@ interface PropertyDetails {
   registrationFees?: string;
 }
 
-interface CoApplicantDetails {
+export interface CoApplicantDetails {
   personalDetails: PersonalDetails;
   incomeDetails: IncomeDetails;
 }

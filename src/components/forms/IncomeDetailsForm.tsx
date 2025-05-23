@@ -25,6 +25,9 @@ import {
 } from "@/components/ui/select";
 import { toast } from "sonner";
 
+// Import types from LoanContext
+import type { EmployedIncomeDetails, SelfEmployedIncomeDetails } from "../../contexts/LoanContext";
+
 // Define the schema for employed income details
 const employedIncomeSchema = z.object({
   employmentType: z.literal("salaried"),
@@ -152,6 +155,15 @@ const IncomeDetailsForm = () => {
         existingLoans: data.existingLoans || [],
       };
       saveIncomeDetails(selfEmployedIncomeDetails);
+    }
+  };
+
+  // Add the handleClear function that was missing
+  const handleClear = () => {
+    if (form.formState.isDirty) {
+      form.reset();
+    } else {
+      goToPreviousStep();
     }
   };
 

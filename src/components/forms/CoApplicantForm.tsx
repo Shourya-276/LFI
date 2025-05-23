@@ -157,6 +157,9 @@ const CoApplicantForm: React.FC<CoApplicantFormProps> = ({ onClose }) => {
         netSalary: data.incomeDetails.netSalary,
         rentIncome: data.incomeDetails.rentIncome || "",
         pension: data.incomeDetails.pension || "",
+        annualBonus: "", // Add missing required fields
+        monthlyIncentive: "",
+        existingLoans: [] // Add missing required field
       },
     };
     
