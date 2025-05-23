@@ -27,8 +27,8 @@ export interface EmployedIncomeDetails {
   netSalary: string;
   rentIncome: string;
   annualBonus: string;
-  pension: string;
   monthlyIncentive: string;
+  pension: string;
   existingLoans: {
     type: string;
     emiRate: string;

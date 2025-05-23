@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -133,6 +132,14 @@ const IncomeDetailsForm = () => {
   const onSubmit = (data: IncomeDetailsFormValues) => {
     // Ensure all required fields are properly typed when submitting
     if (data.employmentType === "salaried") {
+      // Fix: Ensure existingLoans has all required fields set to non-optional values
+      const processedExistingLoans = (data.existingLoans || []).map(loan => ({
+        type: loan.type || "",
+        emiRate: loan.emiRate || "",
+        outstandingAmount: loan.outstandingAmount || "",
+        balanceTenure: loan.balanceTenure || ""
+      }));
+
       const salariedIncomeDetails: EmployedIncomeDetails = {
         employmentType: "salaried",
         employerType: data.employerType || "",
@@ -142,17 +149,25 @@ const IncomeDetailsForm = () => {
         annualBonus: data.annualBonus || "",
         pension: data.pension || "",
         monthlyIncentive: data.monthlyIncentive || "",
-        existingLoans: data.existingLoans || [],
+        existingLoans: processedExistingLoans,
       };
       saveIncomeDetails(salariedIncomeDetails);
     } else if (data.employmentType === "self-employed") {
+      // Fix: Ensure existingLoans has all required fields set to non-optional values
+      const processedExistingLoans = (data.existingLoans || []).map(loan => ({
+        type: loan.type || "",
+        emiRate: loan.emiRate || "",
+        outstandingAmount: loan.outstandingAmount || "",
+        balanceTenure: loan.balanceTenure || ""
+      }));
+
       const selfEmployedIncomeDetails: SelfEmployedIncomeDetails = {
         employmentType: "self-employed",
         grossITRIncome: data.grossITRIncome || "",
         netITRIncome: data.netITRIncome || "",
         rentIncome: data.rentIncome || "",
         gstReturn: data.gstReturn || "",
-        existingLoans: data.existingLoans || [],
+        existingLoans: processedExistingLoans,
       };
       saveIncomeDetails(selfEmployedIncomeDetails);
     }
