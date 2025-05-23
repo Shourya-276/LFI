@@ -8,8 +8,9 @@ import PropertyDetailsForm from "../components/forms/PropertyDetailsForm";
 import FinalStepForm from "../components/forms/FinalStepForm";
 
 const Profile = () => {
+  // Use optional chaining to prevent destructuring errors
   const { application } = useLoan();
-  const { formStep } = application;
+  const formStep = application?.formStep || 1;
 
   const renderFormStep = () => {
     switch (formStep) {

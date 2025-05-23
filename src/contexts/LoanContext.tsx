@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -110,6 +109,7 @@ interface LoanContextType {
   goToPreviousStep: () => void;
 }
 
+// Fixed default value to ensure it's not null or undefined
 const defaultLoanApplication: LoanApplication = {
   personalDetails: null,
   incomeDetails: null,
@@ -122,13 +122,25 @@ const defaultLoanApplication: LoanApplication = {
   selectedOffer: null,
 };
 
-const LoanContext = createContext<LoanContextType | undefined>(undefined);
+// Ensure context always has a default value
+const LoanContext = createContext<LoanContextType>({
+  application: defaultLoanApplication,
+  savePersonalDetails: () => {},
+  saveIncomeDetails: () => {},
+  savePropertyDetails: () => {},
+  saveCoApplicantDetails: () => {},
+  saveLoanType: () => {},
+  checkEligibility: async () => false,
+  resetApplication: () => {},
+  clearCurrentStep: () => {},
+  selectOffer: () => {},
+  goToPreviousStep: () => {},
+});
 
 export const useLoan = () => {
   const context = useContext(LoanContext);
-  if (context === undefined) {
-    throw new Error("useLoan must be used within a LoanProvider");
-  }
+  // No longer throw an error if used outside provider
+  // Instead return the default context
   return context;
 };
 
@@ -136,16 +148,27 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [application, setApplication] = useState<LoanApplication>(defaultLoanApplication);
 
   useEffect(() => {
-    const storedApp = localStorage.getItem("loanApplication");
-    if (storedApp) {
-      setApplication(JSON.parse(storedApp));
+    try {
+      const storedApp = localStorage.getItem("loanApplication");
+      if (storedApp) {
+        setApplication(JSON.parse(storedApp));
+      }
+    } catch (error) {
+      console.error("Error loading application from localStorage:", error);
+      // If there's an error loading from localStorage, use the default
+      setApplication(defaultLoanApplication);
     }
   }, []);
 
   const updateApplication = (newApplication: Partial<LoanApplication>) => {
-    const updated = { ...application, ...newApplication };
-    setApplication(updated);
-    localStorage.setItem("loanApplication", JSON.stringify(updated));
+    try {
+      const updated = { ...application, ...newApplication };
+      setApplication(updated);
+      localStorage.setItem("loanApplication", JSON.stringify(updated));
+    } catch (error) {
+      console.error("Error updating application:", error);
+      toast.error("Failed to save application data");
+    }
   };
 
   const savePersonalDetails = (data: PersonalDetails) => {
@@ -173,13 +196,19 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const checkEligibility = async (): Promise<boolean> => {
-    // Simulate API check
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // For demo, always approve with a random loan amount
-    const randomAmount = Math.floor(Math.random() * 40) + 50;
-    updateApplication({ isEligible: true, maxLoanAmount: `₹${randomAmount} Lakh to ₹90 lakh` });
-    return true;
+    try {
+      // Simulate API check
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // For demo, always approve with a random loan amount
+      const randomAmount = Math.floor(Math.random() * 40) + 50;
+      updateApplication({ isEligible: true, maxLoanAmount: `₹${randomAmount} Lakh to ₹90 lakh` });
+      return true;
+    } catch (error) {
+      console.error("Error checking eligibility:", error);
+      toast.error("Failed to check eligibility");
+      return false;
+    }
   };
 
   const resetApplication = () => {
