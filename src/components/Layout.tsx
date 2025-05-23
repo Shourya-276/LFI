@@ -1,7 +1,6 @@
-
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, User, Check, Search, ArrowRight, Menu, X } from "lucide-react";
+import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { useLoan } from "../contexts/LoanContext";
@@ -46,7 +45,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  const isProfileComplete = !!application.personalDetails;
+  const isProfileComplete = !!application.personalDetails && !!application.incomeDetails && !!application.propertyDetails;
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -89,6 +88,30 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       label: "Apply for Loan",
       active: location.pathname === "/apply-loan",
       onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
+    },
+    {
+      to: "/my-loan-applications",
+      icon: <FileText size={18} />,
+      label: "My Loan Applications",
+      active: location.pathname === "/my-loan-applications",
+    },
+    {
+      to: "/document",
+      icon: <FileText size={18} />,
+      label: "Documents",
+      active: location.pathname === "/document",
+    },
+    {
+      to: "/disbursement",
+      icon: <DollarSign size={18} />,
+      label: "Disbursement",
+      active: location.pathname === "/disbursement",
+    },
+    {
+      to: "/review",
+      icon: <Star size={18} />,
+      label: "Review",
+      active: location.pathname === "/review",
     },
   ];
 
