@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useLoan } from "../../contexts/LoanContext";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -133,7 +132,35 @@ const CoApplicantForm: React.FC<CoApplicantFormProps> = ({ onClose }) => {
   }, [form.watch("personalDetails.district"), selectedDistrict, form]);
 
   const onSubmit = (data: CoApplicantFormValues) => {
-    saveCoApplicantDetails(data);
+    const coApplicantData = {
+      personalDetails: {
+        name: data.personalDetails.name,
+        middleName: data.personalDetails.middleName || "",
+        lastName: data.personalDetails.lastName,
+        email: data.personalDetails.email,
+        mobile: data.personalDetails.mobile,
+        aadhaarNumber: data.personalDetails.aadhaarNumber,
+        panCardNumber: data.personalDetails.panCardNumber,
+        gender: data.personalDetails.gender,
+        dateOfBirth: data.personalDetails.dateOfBirth.toISOString(),
+        streetAddress: data.personalDetails.streetAddress || "",
+        pinCode: data.personalDetails.pinCode || "",
+        country: data.personalDetails.country || "india",
+        state: data.personalDetails.state || "",
+        district: data.personalDetails.district || "",
+        city: data.personalDetails.city || "",
+      },
+      incomeDetails: {
+        employmentType: "salaried" as const, // Set a default for co-applicant
+        employerType: data.incomeDetails.employerType,
+        grossSalary: data.incomeDetails.grossSalary,
+        netSalary: data.incomeDetails.netSalary,
+        rentIncome: data.incomeDetails.rentIncome || "",
+        pension: data.incomeDetails.pension || "",
+      },
+    };
+    
+    saveCoApplicantDetails(coApplicantData);
     onClose();
   };
 

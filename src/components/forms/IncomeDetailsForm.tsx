@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -127,14 +128,30 @@ const IncomeDetailsForm = () => {
   }, [selectedEmploymentType, form]);
 
   const onSubmit = (data: IncomeDetailsFormValues) => {
-    saveIncomeDetails(data);
-  };
-
-  const handleClear = () => {
-    if (form.formState.isDirty) {
-      form.reset();
-    } else {
-      goToPreviousStep();
+    // Ensure all required fields are properly typed when submitting
+    if (data.employmentType === "salaried") {
+      const salariedIncomeDetails: EmployedIncomeDetails = {
+        employmentType: "salaried",
+        employerType: data.employerType || "",
+        grossSalary: data.grossSalary || "",
+        netSalary: data.netSalary || "",
+        rentIncome: data.rentIncome || "",
+        annualBonus: data.annualBonus || "",
+        pension: data.pension || "",
+        monthlyIncentive: data.monthlyIncentive || "",
+        existingLoans: data.existingLoans || [],
+      };
+      saveIncomeDetails(salariedIncomeDetails);
+    } else if (data.employmentType === "self-employed") {
+      const selfEmployedIncomeDetails: SelfEmployedIncomeDetails = {
+        employmentType: "self-employed",
+        grossITRIncome: data.grossITRIncome || "",
+        netITRIncome: data.netITRIncome || "",
+        rentIncome: data.rentIncome || "",
+        gstReturn: data.gstReturn || "",
+        existingLoans: data.existingLoans || [],
+      };
+      saveIncomeDetails(selfEmployedIncomeDetails);
     }
   };
 

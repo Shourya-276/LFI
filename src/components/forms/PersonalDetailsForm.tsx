@@ -95,10 +95,26 @@ const PersonalDetailsForm = () => {
   }, [form.watch("district"), selectedDistrict, form]);
 
   const onSubmit = (data: PersonalDetailsFormValues) => {
-    savePersonalDetails({
-      ...data,
+    // Ensure all required fields are included when saving
+    const personalDetails = {
+      name: data.name,
+      middleName: data.middleName || "",
+      lastName: data.lastName,
+      email: data.email,
+      mobile: data.mobile,
+      aadhaarNumber: data.aadhaarNumber,
+      panCardNumber: data.panCardNumber,
+      gender: data.gender,
       dateOfBirth: data.dateOfBirth.toISOString(),
-    });
+      streetAddress: data.streetAddress,
+      pinCode: data.pinCode,
+      country: data.country,
+      state: data.state,
+      district: data.district,
+      city: data.city,
+    };
+    
+    savePersonalDetails(personalDetails);
   };
 
   return (

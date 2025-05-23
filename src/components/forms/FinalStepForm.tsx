@@ -21,8 +21,11 @@ const FinalStepForm = () => {
   const [showCoApplicant, setShowCoApplicant] = useState<boolean>(false);
 
   const handleLoanTypeChange = (value: string) => {
-    setLoanType(value);
-    saveLoanType(value);
+    // Ensure loanType is a non-empty string
+    if (value) {
+      setLoanType(value);
+      saveLoanType(value);
+    }
   };
 
   const handleCheckEligibility = async () => {
