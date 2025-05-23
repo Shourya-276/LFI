@@ -11,6 +11,12 @@ const Profile = () => {
   // Use optional chaining to prevent destructuring errors
   const { application } = useLoan();
   const formStep = application?.formStep || 1;
+  
+  // Check if all required forms are completed
+  const isFormComplete = 
+    application?.personalDetails && 
+    application?.incomeDetails && 
+    application?.propertyDetails;
 
   const renderFormStep = () => {
     switch (formStep) {
@@ -47,7 +53,11 @@ const Profile = () => {
       <div className="space-y-6">
         <div>
           <h1 className="text-2xl font-bold">My Profile</h1>
-          <p className="text-gray-600 dark:text-gray-400">Complete your profile to apply for loans</p>
+          <p className="text-gray-600 dark:text-gray-400">
+            {isFormComplete 
+              ? "Profile complete! You can now apply for loans." 
+              : "Complete your profile to apply for loans"}
+          </p>
         </div>
 
         {/* Progress Indicator */}
@@ -84,6 +94,27 @@ const Profile = () => {
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           {renderFormStep()}
         </div>
+        
+        {/* Congratulations Animation - Only shows when profile is complete */}
+        {isFormComplete && (
+          <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/50 animate-fade-in" onClick={(e) => e.currentTarget === e.target && e.currentTarget.classList.add('hidden')}>
+            <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg text-center max-w-md animate-scale-in">
+              <div className="w-20 h-20 rounded-full bg-green-100 mx-auto flex items-center justify-center mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-2xl font-bold mb-2">Congratulations!</h2>
+              <p className="text-gray-600 dark:text-gray-400 mb-4">Your profile is now complete. You can now apply for loans.</p>
+              <button 
+                className="px-4 py-2 bg-brand-purple text-white rounded hover:bg-brand-purple/90 transition-colors"
+                onClick={(e) => e.currentTarget.closest('.fixed')?.classList.add('hidden')}
+              >
+                Continue
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );

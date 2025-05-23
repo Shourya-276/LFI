@@ -14,6 +14,10 @@ import { toast } from "sonner";
 
 const Disbursement = () => {
   const [showRequestForm, setShowRequestForm] = useState(false);
+  
+  const handleFileChange = (docType: string) => {
+    toast.success(`${docType} uploaded successfully!`);
+  };
 
   const handleRequestDisbursement = () => {
     toast.success("Disbursement request submitted successfully!");
@@ -23,8 +27,8 @@ const Disbursement = () => {
   return (
     <Layout>
       <div className="max-w-4xl mx-auto">
-        <h1 className="text-2xl font-bold mb-2">Loan Disbursement Details</h1>
-        <p className="text-gray-600 dark:text-gray-400 mb-8">Track and manage your loan disbursement</p>
+        <h1 className="text-2xl font-bold mb-2">{showRequestForm ? "Request For New Disbursement" : "Loan Disbursement Details"}</h1>
+        <p className="text-gray-600 dark:text-gray-400 mb-8">{showRequestForm ? "Upload required documents for disbursement" : "Track and manage your loan disbursement"}</p>
         
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
           {!showRequestForm ? (
@@ -73,7 +77,7 @@ const Disbursement = () => {
                     onClick={() => setShowRequestForm(true)}
                     className="bg-brand-purple hover:bg-brand-purple/90"
                   >
-                    Request Disbursement
+                    Request New Disbursement
                   </Button>
                 </div>
               </div>
@@ -81,7 +85,7 @@ const Disbursement = () => {
           ) : (
             <div>
               <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-semibold">Request Disbursement</h2>
+                <h2 className="text-xl font-semibold">Required Documents</h2>
                 <Button variant="ghost" onClick={() => setShowRequestForm(false)}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
@@ -90,62 +94,72 @@ const Disbursement = () => {
               </div>
               
               <div className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Document Upload Section based on image */}
+                <div className="space-y-5">
+                  {/* OCR Receipt */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">Available Amount</label>
-                    <Input value="₹65,00,000" readOnly className="bg-gray-50 dark:bg-gray-800" />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Request Amount</label>
-                    <Input placeholder="Enter Amount" />
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Disbursement Purpose</label>
-                    <Select>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Purpose" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="booking">Booking Amount</SelectItem>
-                        <SelectItem value="partial-payment">Partial Payment</SelectItem>
-                        <SelectItem value="full-payment">Full Payment</SelectItem>
-                        <SelectItem value="processing-fees">Processing Fees</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Preferred Disbursement Date</label>
-                    <Input type="date" />
-                  </div>
-                  
-                  <div className="col-span-full">
-                    <label className="block text-sm font-medium mb-2">Bank Details</label>
-                    
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <Input placeholder="Account Number" />
-                      <Input placeholder="IFSC Code" />
-                      <Input placeholder="Bank Name" />
-                      <Input placeholder="Branch Name" />
+                    <p className="mb-1 text-sm font-medium">OCR receipt</p>
+                    <p className="text-xs text-gray-500 mb-2">JPG/PNG/PDF format accepted</p>
+                    <div className="flex items-center gap-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                      <Input type="file" className="hidden" id="ocrReceipt" onChange={() => handleFileChange("OCR Receipt")} />
+                      <label htmlFor="ocrReceipt" className="flex items-center justify-center w-full gap-2 text-gray-600 dark:text-gray-400 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        Drag file here or Browse
+                      </label>
                     </div>
                   </div>
                   
-                  <div className="col-span-full">
-                    <label className="block text-sm font-medium mb-2">Additional Notes</label>
-                    <textarea
-                      className="w-full min-h-[100px] rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-purple focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700 dark:text-gray-50 dark:focus:ring-brand-purple dark:focus:ring-offset-gray-900"
-                      placeholder="Any specific instructions or requirements..."
-                    ></textarea>
+                  {/* OCR Reflection */}
+                  <div>
+                    <p className="mb-1 text-sm font-medium">OCR reflection</p>
+                    <p className="text-xs text-gray-500 mb-2">JPG/PNG/PDF format accepted</p>
+                    <div className="flex items-center gap-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                      <Input type="file" className="hidden" id="ocrReflection" onChange={() => handleFileChange("OCR Reflection")} />
+                      <label htmlFor="ocrReflection" className="flex items-center justify-center w-full gap-2 text-gray-600 dark:text-gray-400 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        Drag file here or Browse
+                      </label>
+                    </div>
+                  </div>
+                  
+                  {/* Demand Letter */}
+                  <div>
+                    <p className="mb-1 text-sm font-medium">Demand Letter</p>
+                    <p className="text-xs text-gray-500 mb-2">JPG/PNG/PDF format accepted</p>
+                    <div className="flex items-center gap-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                      <Input type="file" className="hidden" id="demandLetter" onChange={() => handleFileChange("Demand Letter")} />
+                      <label htmlFor="demandLetter" className="flex items-center justify-center w-full gap-2 text-gray-600 dark:text-gray-400 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        Drag file here or Browse
+                      </label>
+                    </div>
+                  </div>
+                  
+                  {/* Architect Letter */}
+                  <div>
+                    <p className="mb-1 text-sm font-medium">Architect Letter</p>
+                    <p className="text-xs text-gray-500 mb-2">JPG/PNG/PDF format accepted</p>
+                    <div className="flex items-center gap-2 border border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-4">
+                      <Input type="file" className="hidden" id="architectLetter" onChange={() => handleFileChange("Architect Letter")} />
+                      <label htmlFor="architectLetter" className="flex items-center justify-center w-full gap-2 text-gray-600 dark:text-gray-400 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                        </svg>
+                        Drag file here or Browse
+                      </label>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="flex justify-end gap-4 pt-4">
-                  <Button variant="outline" onClick={() => setShowRequestForm(false)}>Cancel</Button>
+                <div className="flex justify-center pt-4">
                   <Button onClick={handleRequestDisbursement} className="bg-brand-purple hover:bg-brand-purple/90">
-                    Submit Request
+                    Request Disbursement
                   </Button>
                 </div>
               </div>

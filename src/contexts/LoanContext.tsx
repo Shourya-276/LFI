@@ -107,6 +107,7 @@ interface LoanContextType {
   clearCurrentStep: () => void;
   selectOffer: (offer: any) => void;
   goToPreviousStep: () => void;
+  isProfileComplete: () => boolean;
 }
 
 // Fixed default value to ensure it's not null or undefined
@@ -135,6 +136,7 @@ const LoanContext = createContext<LoanContextType>({
   clearCurrentStep: () => {},
   selectOffer: () => {},
   goToPreviousStep: () => {},
+  isProfileComplete: () => false,
 });
 
 export const useLoan = () => {
@@ -242,6 +244,10 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
     updateApplication({ selectedOffer: offer });
     toast.success("Loan offer selected!");
   };
+  
+  const isProfileComplete = () => {
+    return !!(application.personalDetails && application.incomeDetails && application.propertyDetails);
+  };
 
   const value: LoanContextType = {
     application,
@@ -254,7 +260,8 @@ export const LoanProvider: React.FC<{ children: React.ReactNode }> = ({ children
     resetApplication,
     clearCurrentStep,
     selectOffer,
-    goToPreviousStep
+    goToPreviousStep,
+    isProfileComplete
   };
 
   return <LoanContext.Provider value={value}>{children}</LoanContext.Provider>;

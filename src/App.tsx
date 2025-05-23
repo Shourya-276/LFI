@@ -19,6 +19,8 @@ import ApplyLoan from "./pages/ApplyLoan";
 import DocumentUpload from "./pages/DocumentUpload";
 import Disbursement from "./pages/Disbursement";
 import NotFound from "./pages/NotFound";
+import MyLoanApplications from "./pages/MyLoanApplications";
+import Review from "./pages/Review";
 
 const queryClient = new QueryClient();
 
@@ -62,8 +64,10 @@ const App = () => (
                 <Route path="/check-eligibility" element={<ProtectedRoute><CheckEligibility /></ProtectedRoute>} />
                 <Route path="/explore-loan-offers" element={<ProtectedRoute><ExploreLoanOffers /></ProtectedRoute>} />
                 <Route path="/apply-loan" element={<ProtectedRoute><ApplyLoan /></ProtectedRoute>} />
+                <Route path="/my-loan-applications" element={<ProtectedRoute><MyLoanApplications /></ProtectedRoute>} />
                 <Route path="/document" element={<ProtectedRoute><DocumentUpload /></ProtectedRoute>} />
                 <Route path="/disbursement" element={<ProtectedRoute><Disbursement /></ProtectedRoute>} />
+                <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />
