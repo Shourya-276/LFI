@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star, BellDot } from "lucide-react";
+import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star, BellDot, Users, Building, BarChart3, CheckSquare } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
 import { useLoan } from "../contexts/LoanContext";
@@ -69,65 +69,130 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
     { id: 3, message: "Document verification complete", time: "Yesterday", read: true },
   ];
 
-  const navLinks = [
-    {
-      to: "/dashboard",
-      icon: <Home size={18} />,
-      label: "Home",
-      active: location.pathname === "/dashboard",
-    },
-    {
-      to: "/profile",
-      icon: <User size={18} />,
-      label: "My Profile",
-      active: location.pathname === "/profile",
-    },
-    {
-      to: isProfileComplete ? "/check-eligibility" : "/profile",
-      icon: <Check size={18} />,
-      label: "Check Eligibility",
-      active: location.pathname === "/check-eligibility",
-      onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-    },
-    {
-      to: isProfileComplete ? "/explore-loan-offers" : "/profile",
-      icon: <Search size={18} />,
-      label: "Explore loan offers",
-      active: location.pathname === "/explore-loan-offers",
-      onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-    },
-    {
-      to: isProfileComplete ? "/apply-loan" : "/profile",
-      icon: <ArrowRight size={18} />,
-      label: "Apply for Loan",
-      active: location.pathname === "/apply-loan",
-      onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-    },
-    {
-      to: "/my-loan-applications",
-      icon: <FileText size={18} />,
-      label: "My Loan Applications",
-      active: location.pathname === "/my-loan-applications",
-    },
-    {
-      to: "/document",
-      icon: <FileText size={18} />,
-      label: "Documents",
-      active: location.pathname === "/document",
-    },
-    {
-      to: "/disbursement",
-      icon: <DollarSign size={18} />,
-      label: "Disbursement",
-      active: location.pathname === "/disbursement",
-    },
-    {
-      to: "/review",
-      icon: <Star size={18} />,
-      label: "Review",
-      active: location.pathname === "/review",
-    },
-  ];
+  // Different navigation for different user roles
+  const getNavLinks = () => {
+    if (user?.role === 'salesmanager') {
+      return [
+        {
+          to: "/dashboard",
+          icon: <Home size={18} />,
+          label: "Home",
+          active: location.pathname === "/dashboard",
+        },
+        {
+          to: "/profile",
+          icon: <User size={18} />,
+          label: "My Profile",
+          active: location.pathname === "/profile",
+        },
+        {
+          to: "/check-eligibility",
+          icon: <Check size={18} />,
+          label: "Check Eligibility",
+          active: location.pathname === "/check-eligibility",
+        },
+        {
+          to: "/leads",
+          icon: <Users size={18} />,
+          label: "Leads",
+          active: location.pathname === "/leads",
+        },
+        {
+          to: "/apply-loan",
+          icon: <ArrowRight size={18} />,
+          label: "Apply for Loan",
+          active: location.pathname === "/apply-loan",
+        },
+        {
+          to: "/bank-sanctions",
+          icon: <Building size={18} />,
+          label: "Bank Sanctions",
+          active: location.pathname === "/bank-sanctions",
+        },
+        {
+          to: "/disbursement-management",
+          icon: <DollarSign size={18} />,
+          label: "Disbursement",
+          active: location.pathname === "/disbursement-management",
+        },
+        {
+          to: "/reports",
+          icon: <BarChart3 size={18} />,
+          label: "Report",
+          active: location.pathname === "/reports",
+        },
+        {
+          to: "/tasks",
+          icon: <CheckSquare size={18} />,
+          label: "Task",
+          active: location.pathname === "/tasks",
+        },
+      ];
+    } else {
+      // Customer navigation
+      return [
+        {
+          to: "/dashboard",
+          icon: <Home size={18} />,
+          label: "Home",
+          active: location.pathname === "/dashboard",
+        },
+        {
+          to: "/profile",
+          icon: <User size={18} />,
+          label: "My Profile",
+          active: location.pathname === "/profile",
+        },
+        {
+          to: isProfileComplete ? "/check-eligibility" : "/profile",
+          icon: <Check size={18} />,
+          label: "Check Eligibility",
+          active: location.pathname === "/check-eligibility",
+          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
+        },
+        {
+          to: isProfileComplete ? "/explore-loan-offers" : "/profile",
+          icon: <Search size={18} />,
+          label: "Explore loan offers",
+          active: location.pathname === "/explore-loan-offers",
+          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
+        },
+        {
+          to: isProfileComplete ? "/apply-loan" : "/profile",
+          icon: <ArrowRight size={18} />,
+          label: "Apply for Loan",
+          active: location.pathname === "/apply-loan",
+          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
+        },
+        {
+          to: "/my-loan-applications",
+          icon: <FileText size={18} />,
+          label: "My Loan Applications",
+          active: location.pathname === "/my-loan-applications",
+        },
+        {
+          to: "/document",
+          icon: <FileText size={18} />,
+          label: "Documents",
+          active: location.pathname === "/document",
+        },
+        {
+          to: "/disbursement",
+          icon: <DollarSign size={18} />,
+          label: "Disbursement",
+          active: location.pathname === "/disbursement",
+        },
+        {
+          to: "/review",
+          icon: <Star size={18} />,
+          label: "Review",
+          active: location.pathname === "/review",
+        },
+      ];
+    }
+  };
+
+  const navLinks = getNavLinks();
 
   return (
     <div className="flex flex-col min-h-screen bg-blue-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
@@ -210,6 +275,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <div>
                   <h3 className="font-medium">{user.name}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                  {user.role === 'salesmanager' && (
+                    <p className="text-xs text-brand-purple">Sales Manager</p>
+                  )}
                 </div>
               </div>
             </div>

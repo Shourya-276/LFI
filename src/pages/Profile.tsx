@@ -1,14 +1,16 @@
 
 import React from "react";
 import Layout from "../components/Layout";
+import { useAuth } from "../contexts/AuthContext";
 import { useLoan } from "../contexts/LoanContext";
 import PersonalDetailsForm from "../components/forms/PersonalDetailsForm";
 import IncomeDetailsForm from "../components/forms/IncomeDetailsForm";
 import PropertyDetailsForm from "../components/forms/PropertyDetailsForm";
 import FinalStepForm from "../components/forms/FinalStepForm";
+import SalesManagerProfileForm from "../components/forms/SalesManagerProfileForm";
 
 const Profile = () => {
-  // Use optional chaining to prevent destructuring errors
+  const { user } = useAuth();
   const { application } = useLoan();
   const formStep = application?.formStep || 1;
   
@@ -18,6 +20,27 @@ const Profile = () => {
     application?.incomeDetails && 
     application?.propertyDetails;
 
+  // If user is sales manager, show simplified profile form
+  if (user?.role === 'salesmanager') {
+    return (
+      <Layout>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold">My Profile</h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Manage your sales manager profile information
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <SalesManagerProfileForm />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // Customer profile with multi-step forms
   const renderFormStep = () => {
     switch (formStep) {
       case 1:
