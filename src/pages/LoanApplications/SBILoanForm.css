@@ -1,0 +1,485 @@
+
+.sbi-form-container {
+  width: 940px;
+  min-height: 1320px;
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-sizing: border-box;
+  margin: 0 auto;
+  font-family: 'Arial', sans-serif;
+  font-size: 11px;
+  line-height: 1.1;
+  position: relative;
+}
+
+/* Header Styles */
+.sbi-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #4a3c9a;
+  color: #ffffff;
+  height: 32px;
+  padding: 0 12px;
+  border-bottom: 1px solid #000000;
+}
+
+.sbi-header-title {
+  font-weight: bold;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.sbi-header-options {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sbi-checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Custom checkbox styling for simple white checkmarks */
+.sbi-checkbox {
+  width: 12px;
+  height: 12px;
+  margin-right: 4px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: 1px solid #000000;
+  background: #ffffff;
+  position: relative;
+  vertical-align: middle;
+}
+
+.sbi-checkbox:checked {
+  background: #ffffff;
+  border: 1px solid #000000;
+}
+
+.sbi-checkbox:checked::after {
+  content: "✓";
+  position: absolute;
+  top: -1.5px;
+  left: 1px;
+  font-size: 10px;
+  color: #000000;
+  font-weight: bold;
+}
+
+.sbi-checkbox-text {
+  color: inherit;
+  font-size: inherit;
+  white-space: nowrap;
+}
+
+/* Main content layout */
+.sbi-main-row {
+  display: flex;
+  padding: 8px 12px 0 12px;
+  gap: 12px;
+}
+
+.sbi-fields {
+  flex: 1;
+  min-width: 0;
+}
+
+.sbi-form-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 5px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sbi-name-row {
+  align-items: flex-start;
+}
+
+/* Label styles */
+.sbi-label {
+  min-width: 130px;
+  font-weight: normal;
+  font-size: 11px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
+.sbi-label-small {
+  min-width: 160px;
+  font-weight: normal;
+  font-size: 11px;
+  color: #000000;
+  flex-shrink: 0;
+}
+
+.sbi-label-pan {
+  min-width: 35px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 8px;
+}
+
+.sbi-label-mobile {
+  min-width: 50px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 8px;
+}
+
+.sbi-label-marital {
+  min-width: 85px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 12px;
+}
+
+.sbi-label-kyc {
+  min-width: 150px;
+  font-weight: normal;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-kyc-long {
+  min-width: 380px;
+  font-weight: normal;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-city {
+  min-width: 40px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 12px;
+}
+
+.sbi-label-state {
+  min-width: 45px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 12px;
+}
+
+.sbi-label-pincode {
+  min-width: 65px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 12px;
+}
+
+.sbi-label-months {
+  min-width: 200px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  margin-left: 12px;
+}
+
+.sbi-label-same-address {
+  min-width: 260px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-relationship {
+  min-width: 180px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-long {
+  min-width: 380px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-medium {
+  min-width: 200px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+}
+
+.sbi-label-very-long {
+  min-width: 520px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  line-height: 1.2;
+}
+
+/* Name field specific styles */
+.sbi-name-field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.sbi-name-labels {
+  display: flex;
+  font-size: 9px;
+  color: #666666;
+  margin-bottom: 2px;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 2px;
+}
+
+.sbi-name-labels span {
+  flex: 1;
+  text-align: left;
+}
+
+/* Letter box styles */
+.letter-box-row {
+  display: flex;
+  gap: 1px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.letter-box {
+  width: 15px;
+  height: 15px;
+  border: 1px solid #000000;
+  text-align: center;
+  font-size: 10px;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-weight: normal;
+  background: #ffffff;
+  color: #000000;
+  padding: 0;
+  margin-bottom: 4px;
+  outline: none;
+  box-sizing: border-box;
+  text-transform: uppercase;
+}
+
+.letter-box:focus {
+  border: 2px solid #4a3c9a;
+  background: #f8f8ff;
+}
+
+/* KYC section */
+.sbi-kyc-title {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.sbi-kyc-row {
+  margin-bottom: 3px;
+}
+
+/* Defence personnel section - Fixed to match original layout */
+.sbi-defence-section {
+  background: #f5f5f5;
+  border: 1px solid #cccccc;
+  padding: 6px;
+  margin: 8px 0;
+  border-radius: 2px;
+}
+
+.sbi-defence-row {
+  background: transparent;
+  border: none;
+  padding: 2px 0;
+  margin: 2px 0;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sbi-defence-label {
+  min-width: 160px;
+  font-weight: bold;
+  font-size: 11px;
+  color: #000000;
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+/* Photo and signature section */
+.sbi-photo-col {
+  width: 140px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.sbi-photo-box {
+  width: 130px;
+  height: 160px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #666666;
+  font-size: 10px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  line-height: 1.2;
+  padding: 4px;
+}
+
+.sbi-sign-box {
+  width: 130px;
+  height: 70px;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #666666;
+  font-size: 10px;
+  text-align:end;
+  display: flex;
+  align-items:end;
+  justify-content:center;
+  padding-bottom: 2px;
+}
+
+/* Address section - Fixed layout to match original */
+.sbi-address-section {
+  margin-top: 12px;
+  padding: 0 12px;
+}
+
+.sbi-address-header {
+  margin-bottom: 8px;
+}
+
+.sbi-address-label-row {
+  margin-bottom: 4px;
+}
+
+.sbi-address-label-residential,
+.sbi-address-label-permanent {
+  font-weight: bold;
+  font-size: 12px;
+  color: #ffffff;
+  background: #4a3c9a;
+  padding: 4px 12px;
+  border-radius: 2px;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* Relationship row */
+.sbi-relationship-row {
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* Same address row */
+.sbi-same-address-row {
+  margin: 8px 0;
+  background: #f9f9f9;
+  border: 1px solid #dddddd;
+  padding: 4px 8px;
+  border-radius: 2px;
+}
+
+/* Checkbox styling for better alignment */
+.sbi-form-row .sbi-checkbox-label {
+  margin-right: 12px;
+  font-size: 11px;
+  font-weight: normal;
+  color: #000000;
+  display: flex;
+  align-items: center;
+}
+
+/* Ensure proper spacing and alignment */
+.sbi-form-row > * {
+  margin-bottom: 0;
+}
+
+/* Fine-tune specific element spacing */
+.sbi-form-row .letter-box-row {
+  margin-left: 0;
+}
+
+/* Print styles for PDF export */
+@media print {
+  .sbi-form-container {
+    border: none;
+    margin: 0;
+    box-shadow: none;
+  }
+  
+  .letter-box {
+    border: 1px solid #000000 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .sbi-checkbox {
+    border: 1px solid #000000 !important;
+    background: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .sbi-checkbox:checked {
+    background: #ffffff !important;
+    border: 1px solid #000000 !important;
+  }
+  
+  .sbi-checkbox:checked::after {
+    color: #000000 !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .sbi-header-row {
+    background: #4a3c9a !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .sbi-address-label-residential,
+  .sbi-address-label-permanent {
+    background: #4a3c9a !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+/* Make sure all borders are consistent */
+* {
+  box-sizing: border-box;
+}
+
+/* Additional spacing adjustments */
+.sbi-form-row:last-child {
+  margin-bottom: 8px;
+}
