@@ -208,7 +208,6 @@ const LoanCoordinatorLayout: React.FC<LoanCoordinatorLayoutProps> = ({ children 
                 icon={link.icon}
                 label={link.label}
                 active={link.active}
-                onClick={link.onClick}
               />
             ))}
           </nav>
@@ -257,10 +256,7 @@ const LoanCoordinatorLayout: React.FC<LoanCoordinatorLayoutProps> = ({ children 
                     icon={link.icon}
                     label={link.label}
                     active={link.active}
-                    onClick={() => {
-                      closeMobileMenu();
-                      if (link.onClick) link.onClick();
-                    }}
+                    onClick={closeMobileMenu}
                   />
                 ))}
               </nav>
