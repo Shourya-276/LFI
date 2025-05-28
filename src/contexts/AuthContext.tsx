@@ -8,6 +8,7 @@ interface User {
   email: string;
   mobile?: string;
   isVerified: boolean;
+  role: 'customer' | 'salesmanager';
 }
 
 interface AuthContextType {
@@ -50,13 +51,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // Check if it's a sales manager email
+      const isSalesManager = email.includes('@salesmanager.com');
+      
       // For demo, accept any valid-looking email with password
       if (email && password.length > 3) {
         const mockUser: User = {
           id: "user-" + Math.floor(Math.random() * 1000),
-          name: email.split("@")[0],
+          name: isSalesManager ? email.split("@")[0] : email.split("@")[0],
           email,
-          isVerified: true
+          isVerified: true,
+          role: isSalesManager ? 'salesmanager' : 'customer'
         };
         
         setUser(mockUser);
@@ -82,6 +87,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
+      // Check if it's a sales manager email
+      const isSalesManager = email.includes('@salesmanager.com');
+      
       // For demo, accept any valid data
       if (name && email && mobile && password.length > 3) {
         const mockUser: User = {
@@ -89,7 +97,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name,
           email,
           mobile,
-          isVerified: false
+          isVerified: false,
+          role: isSalesManager ? 'salesmanager' : 'customer'
         };
         
         setUser(mockUser);
@@ -119,7 +128,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: "google-user-" + Math.floor(Math.random() * 1000),
         name: "Google User",
         email: "google.user@gmail.com",
-        isVerified: true
+        isVerified: true,
+        role: 'customer'
       };
       
       setUser(mockUser);
