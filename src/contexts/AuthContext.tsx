@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -8,7 +7,7 @@ interface User {
   email: string;
   mobile?: string;
   isVerified: boolean;
-  role: 'customer' | 'salesmanager';
+  role: 'customer' | 'salesmanager' | 'loancoordinator';
 }
 
 interface AuthContextType {

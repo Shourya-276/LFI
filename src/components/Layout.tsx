@@ -150,19 +150,19 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {
           to: "/disbursement",
           icon: <DollarSign size={18} />,
-          label: "Disbursement",
+          label: "Disbursement Review",
           active: location.pathname === "/disbursement",
         },
         {
           to: "/reports",
           icon: <BarChart3 size={18} />,
-          label: "Report",
+          label: "Reports",
           active: location.pathname === "/reports",
         },
         {
           to: "/tasks",
           icon: <CheckSquare size={18} />,
-          label: "Task",
+          label: "Tasks",
           active: location.pathname === "/tasks",
         },
       ];
