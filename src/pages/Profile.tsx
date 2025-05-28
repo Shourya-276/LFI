@@ -1,4 +1,3 @@
-
 import React from "react";
 import Layout from "../components/Layout";
 import { useAuth } from "../contexts/AuthContext";
@@ -38,6 +37,12 @@ const Profile = () => {
         </div>
       </Layout>
     );
+  }
+
+  // If user is loan coordinator, redirect to their dedicated profile page
+  if (user?.role === 'loancoordinator') {
+    window.location.href = '/loan-coordinator-profile';
+    return null;
   }
 
   // Customer profile with multi-step forms

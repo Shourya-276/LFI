@@ -1,12 +1,11 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star, BellDot, Users, Building, BarChart3, CheckSquare } from "lucide-react";
+import { Home, User, Building, DollarSign, BarChart3, CheckSquare, Menu, X, BellDot } from "lucide-react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTheme } from "../contexts/ThemeContext";
-import { useLoan } from "../contexts/LoanContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import ChatWidget from "./ChatWidget";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,25 +38,15 @@ const NavLink: React.FC<NavLinkProps> = ({ to, icon, label, active, onClick }) =
   );
 };
 
-interface LayoutProps {
+interface LoanCoordinatorLayoutProps {
   children: React.ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+const LoanCoordinatorLayout: React.FC<LoanCoordinatorLayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
-  const { application } = useLoan();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
-  // If user is loan coordinator, redirect to their dedicated dashboard
-  if (user?.role === 'loancoordinator') {
-    window.location.href = '/loan-coordinator-dashboard';
-    return null;
-  }
-
-  const isProfileComplete = !!application.personalDetails && !!application.incomeDetails && !!application.propertyDetails;
 
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
@@ -69,135 +58,49 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   // Sample notifications
   const notifications = [
-    { id: 1, message: "Your loan has been approved", time: "1 hour ago", read: false },
-    { id: 2, message: "New loan offers available", time: "3 hours ago", read: false },
-    { id: 3, message: "Document verification complete", time: "Yesterday", read: true },
+    { id: 1, message: "New loan application received", time: "1 hour ago", read: false },
+    { id: 2, message: "Document verification completed", time: "3 hours ago", read: false },
+    { id: 3, message: "Bank sanction approved", time: "Yesterday", read: true },
   ];
 
-  // Different navigation for different user roles
-  const getNavLinks = () => {
-    if (user?.role === 'salesmanager') {
-      return [
-        {
-          to: "/dashboard",
-          icon: <Home size={18} />,
-          label: "Home",
-          active: location.pathname === "/dashboard",
-        },
-        {
-          to: "/profile",
-          icon: <User size={18} />,
-          label: "My Profile",
-          active: location.pathname === "/profile",
-        },
-        {
-          to: "/check-eligibility",
-          icon: <Check size={18} />,
-          label: "Check Eligibility",
-          active: location.pathname === "/check-eligibility",
-        },
-        {
-          to: "/leads",
-          icon: <Users size={18} />,
-          label: "Leads",
-          active: location.pathname === "/leads",
-        },
-        {
-          to: "/apply-loan",
-          icon: <ArrowRight size={18} />,
-          label: "Apply for Loan",
-          active: location.pathname === "/apply-loan",
-        },
-        {
-          to: "/bank-sanctions",
-          icon: <Building size={18} />,
-          label: "Bank Sanctions",
-          active: location.pathname === "/bank-sanctions",
-        },
-        {
-          to: "/disbursement-management",
-          icon: <DollarSign size={18} />,
-          label: "Disbursement",
-          active: location.pathname === "/disbursement-management",
-        },
-        {
-          to: "/reports",
-          icon: <BarChart3 size={18} />,
-          label: "Report",
-          active: location.pathname === "/reports",
-        },
-        {
-          to: "/tasks",
-          icon: <CheckSquare size={18} />,
-          label: "Task",
-          active: location.pathname === "/tasks",
-        },
-      ];
-    } else {
-      // Customer navigation
-      return [
-        {
-          to: "/dashboard",
-          icon: <Home size={18} />,
-          label: "Home",
-          active: location.pathname === "/dashboard",
-        },
-        {
-          to: "/profile",
-          icon: <User size={18} />,
-          label: "My Profile",
-          active: location.pathname === "/profile",
-        },
-        {
-          to: isProfileComplete ? "/check-eligibility" : "/profile",
-          icon: <Check size={18} />,
-          label: "Check Eligibility",
-          active: location.pathname === "/check-eligibility",
-          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-        },
-        {
-          to: isProfileComplete ? "/explore-loan-offers" : "/profile",
-          icon: <Search size={18} />,
-          label: "Explore loan offers",
-          active: location.pathname === "/explore-loan-offers",
-          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-        },
-        {
-          to: isProfileComplete ? "/apply-loan" : "/profile",
-          icon: <ArrowRight size={18} />,
-          label: "Apply for Loan",
-          active: location.pathname === "/apply-loan",
-          onClick: !isProfileComplete ? () => alert("Please complete your profile first") : undefined
-        },
-        {
-          to: "/my-loan-applications",
-          icon: <FileText size={18} />,
-          label: "My Loan Applications",
-          active: location.pathname === "/my-loan-applications",
-        },
-        {
-          to: "/document",
-          icon: <FileText size={18} />,
-          label: "Documents",
-          active: location.pathname === "/document",
-        },
-        {
-          to: "/disbursement",
-          icon: <DollarSign size={18} />,
-          label: "Disbursement",
-          active: location.pathname === "/disbursement",
-        },
-        {
-          to: "/review",
-          icon: <Star size={18} />,
-          label: "Review",
-          active: location.pathname === "/review",
-        },
-      ];
-    }
-  };
-
-  const navLinks = getNavLinks();
+  const navLinks = [
+    {
+      to: "/loan-coordinator-dashboard",
+      icon: <Home size={18} />,
+      label: "Home",
+      active: location.pathname === "/loan-coordinator-dashboard",
+    },
+    {
+      to: "/loan-coordinator-profile",
+      icon: <User size={18} />,
+      label: "My Profile",
+      active: location.pathname === "/loan-coordinator-profile",
+    },
+    {
+      to: "/loan-coordinator-bank-sanctions",
+      icon: <Building size={18} />,
+      label: "Bank Sanction",
+      active: location.pathname === "/loan-coordinator-bank-sanctions",
+    },
+    {
+      to: "/loan-coordinator-disbursement",
+      icon: <DollarSign size={18} />,
+      label: "Disbursement",
+      active: location.pathname === "/loan-coordinator-disbursement",
+    },
+    {
+      to: "/loan-coordinator-reports",
+      icon: <BarChart3 size={18} />,
+      label: "Report",
+      active: location.pathname === "/loan-coordinator-reports",
+    },
+    {
+      to: "/loan-coordinator-tasks",
+      icon: <CheckSquare size={18} />,
+      label: "Task",
+      active: location.pathname === "/loan-coordinator-tasks",
+    },
+  ];
 
   return (
     <div className="flex flex-col min-h-screen bg-blue-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100">
@@ -208,7 +111,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Button variant="ghost" className="md:hidden mr-2" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
-            <Link to="/dashboard" className="flex items-center">
+            <Link to="/loan-coordinator-dashboard" className="flex items-center">
               <img 
                 src="/lovable-uploads/fa221462-754a-4d8b-ba2c-5c28aca42f6c.png" 
                 alt="Loan for India" 
@@ -218,6 +121,20 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </div>
           
           <div className="flex items-center gap-4">
+            {/* Search Bar */}
+            <div className="hidden md:flex items-center bg-gray-100 dark:bg-gray-700 rounded-lg px-4 py-2 w-96">
+              <input 
+                type="text" 
+                placeholder="Search information" 
+                className="bg-transparent outline-none flex-1 text-sm"
+              />
+              <button className="text-gray-500 dark:text-gray-400">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </button>
+            </div>
+
             {/* Notification Bell */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -237,9 +154,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                       </div>
                     </DropdownMenuItem>
                   ))}
-                </div>
-                <div className="p-2 text-center text-sm border-t">
-                  <Link to="#" className="text-brand-purple hover:underline">View all notifications</Link>
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -280,9 +194,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                 <div>
                   <h3 className="font-medium">{user.name}</h3>
                   <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
-                  {user.role === 'salesmanager' && (
-                    <p className="text-xs text-brand-purple">Sales Manager</p>
-                  )}
+                  <p className="text-xs text-brand-purple">Loan Coordinator</p>
                 </div>
               </div>
             </div>
@@ -331,6 +243,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                     <div>
                       <h3 className="font-medium">{user.name}</h3>
                       <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
+                      <p className="text-xs text-brand-purple">Loan Coordinator</p>
                     </div>
                   </div>
                 </div>
@@ -373,19 +286,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         )}
 
         {/* Main content */}
-        <main className="flex-1 flex">
-          <div className="flex-1 max-w-7xl mx-auto p-4 md:p-6">
-            {children}
-          </div>
-          
-          {/* Chat widget */}
-          <div className="fixed bottom-4 right-4 z-40">
-            <ChatWidget isOpen={isChatOpen} setIsOpen={setIsChatOpen} />
-          </div>
+        <main className="flex-1 max-w-7xl mx-auto p-4 md:p-6">
+          {children}
         </main>
       </div>
     </div>
   );
 };
 
-export default Layout;
+export default LoanCoordinatorLayout;

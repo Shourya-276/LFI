@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +12,9 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import SalesManagerDashboard from "./pages/SalesManagerDashboard";
+import LoanCoordinatorDashboard from "./pages/LoanCoordinatorDashboard";
+import LoanCoordinatorProfile from "./pages/LoanCoordinatorProfile";
+import LoanCoordinatorBankSanctions from "./pages/LoanCoordinatorBankSanctions";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
@@ -56,6 +58,10 @@ const DashboardWrapper = () => {
   
   if (user?.role === 'salesmanager') {
     return <SalesManagerDashboard />;
+  }
+  
+  if (user?.role === 'loancoordinator') {
+    return <LoanCoordinatorDashboard />;
   }
   
   return <Dashboard />;
@@ -104,6 +110,11 @@ const App = () => (
                 <Route path="/disbursement-management" element={<ProtectedRoute><DisbursementManagement /></ProtectedRoute>} />
                 <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
                 <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
+                
+                {/* Loan Coordinator specific routes */}
+                <Route path="/loan-coordinator-dashboard" element={<ProtectedRoute><LoanCoordinatorDashboard /></ProtectedRoute>} />
+                <Route path="/loan-coordinator-profile" element={<ProtectedRoute><LoanCoordinatorProfile /></ProtectedRoute>} />
+                <Route path="/loan-coordinator-bank-sanctions" element={<ProtectedRoute><LoanCoordinatorBankSanctions /></ProtectedRoute>} />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />
