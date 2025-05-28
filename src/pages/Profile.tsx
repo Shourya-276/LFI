@@ -8,6 +8,7 @@ import IncomeDetailsForm from "../components/forms/IncomeDetailsForm";
 import PropertyDetailsForm from "../components/forms/PropertyDetailsForm";
 import FinalStepForm from "../components/forms/FinalStepForm";
 import SalesManagerProfileForm from "../components/forms/SalesManagerProfileForm";
+import LoanCoordinatorProfileForm from "../components/forms/LoanCoordinatorProfileForm";
 
 const Profile = () => {
   const { user } = useAuth();
@@ -34,6 +35,26 @@ const Profile = () => {
 
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
             <SalesManagerProfileForm />
+          </div>
+        </div>
+      </Layout>
+    );
+  }
+
+  // If user is loan coordinator, show loan coordinator profile form
+  if (user?.role === 'loancoordinator') {
+    return (
+      <Layout>
+        <div className="space-y-6">
+          <div>
+            <h1 className="text-2xl font-bold">My Profile</h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Manage your loan coordinator profile information
+            </p>
+          </div>
+
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-6">
+            <LoanCoordinatorProfileForm />
           </div>
         </div>
       </Layout>
