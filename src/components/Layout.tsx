@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Home, User, Check, Search, ArrowRight, Menu, X, FileText, DollarSign, Star, BellDot, Users, Building, BarChart3, CheckSquare } from "lucide-react";
@@ -124,45 +125,6 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           to: "/tasks",
           icon: <CheckSquare size={18} />,
           label: "Task",
-          active: location.pathname === "/tasks",
-        },
-      ];
-    } else if (user?.role === 'loancoordinator') {
-      return [
-        {
-          to: "/dashboard",
-          icon: <Home size={18} />,
-          label: "Home",
-          active: location.pathname === "/dashboard",
-        },
-        {
-          to: "/profile",
-          icon: <User size={18} />,
-          label: "My Profile",
-          active: location.pathname === "/profile",
-        },
-        {
-          to: "/bank-sanctions",
-          icon: <Building size={18} />,
-          label: "Bank Sanctions",
-          active: location.pathname === "/bank-sanctions",
-        },
-        {
-          to: "/disbursement",
-          icon: <DollarSign size={18} />,
-          label: "Disbursement Review",
-          active: location.pathname === "/disbursement",
-        },
-        {
-          to: "/reports",
-          icon: <BarChart3 size={18} />,
-          label: "Reports",
-          active: location.pathname === "/reports",
-        },
-        {
-          to: "/tasks",
-          icon: <CheckSquare size={18} />,
-          label: "Tasks",
           active: location.pathname === "/tasks",
         },
       ];
