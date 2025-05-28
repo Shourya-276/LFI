@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,7 +13,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import SalesManagerDashboard from "./pages/SalesManagerDashboard";
-import LoanCoordinatorDashboard from "./pages/LoanCoordinatorDashboard";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
@@ -28,9 +28,6 @@ import BankSanctions from "./pages/BankSanctions";
 import DisbursementManagement from "./pages/DisbursementManagement";
 import Reports from "./pages/Reports";
 import Tasks from "./pages/Tasks";
-import LoanCoordinatorReports from "./pages/LoanCoordinatorReports";
-import LoanCoordinatorTasks from "./pages/LoanCoordinatorTasks";
-import LoanCoordinatorDisbursementReview from "./pages/LoanCoordinatorDisbursementReview";
 
 const queryClient = new QueryClient();
 
@@ -61,10 +58,6 @@ const DashboardWrapper = () => {
     return <SalesManagerDashboard />;
   }
   
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorDashboard />;
-  }
-  
   return <Dashboard />;
 };
 
@@ -77,39 +70,6 @@ const CheckEligibilityWrapper = () => {
   }
   
   return <CheckEligibility />;
-};
-
-// Role-based reports wrapper
-const ReportsWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorReports />;
-  }
-  
-  return <Reports />;
-};
-
-// Role-based tasks wrapper
-const TasksWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorTasks />;
-  }
-  
-  return <Tasks />;
-};
-
-// Role-based disbursement management wrapper
-const DisbursementManagementWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorDisbursementReview />;
-  }
-  
-  return <DisbursementManagement />;
 };
 
 const App = () => (
@@ -138,12 +98,12 @@ const App = () => (
                 <Route path="/disbursement" element={<ProtectedRoute><Disbursement /></ProtectedRoute>} />
                 <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
                 
-                {/* Multi-role routes */}
+                {/* Sales Manager specific routes */}
                 <Route path="/leads" element={<ProtectedRoute><LeadsManagement /></ProtectedRoute>} />
                 <Route path="/bank-sanctions" element={<ProtectedRoute><BankSanctions /></ProtectedRoute>} />
-                <Route path="/disbursement-management" element={<ProtectedRoute><DisbursementManagementWrapper /></ProtectedRoute>} />
-                <Route path="/reports" element={<ProtectedRoute><ReportsWrapper /></ProtectedRoute>} />
-                <Route path="/tasks" element={<ProtectedRoute><TasksWrapper /></ProtectedRoute>} />
+                <Route path="/disbursement-management" element={<ProtectedRoute><DisbursementManagement /></ProtectedRoute>} />
+                <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
+                <Route path="/tasks" element={<ProtectedRoute><Tasks /></ProtectedRoute>} />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />
