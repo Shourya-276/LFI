@@ -1,4 +1,3 @@
-
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -8,7 +7,7 @@ interface User {
   email: string;
   mobile?: string;
   isVerified: boolean;
-  role: 'customer' | 'salesmanager';
+  role: 'customer' | 'salesmanager' | 'loancoordinator';
 }
 
 interface AuthContextType {
@@ -51,17 +50,18 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Check if it's a sales manager email
+      // Check user role based on email
       const isSalesManager = email.includes('@salesmanager.com');
+      const isLoanCoordinator = email.includes('@loancoordinator.com');
       
       // For demo, accept any valid-looking email with password
       if (email && password.length > 3) {
         const mockUser: User = {
           id: "user-" + Math.floor(Math.random() * 1000),
-          name: isSalesManager ? email.split("@")[0] : email.split("@")[0],
+          name: email.split("@")[0],
           email,
           isVerified: true,
-          role: isSalesManager ? 'salesmanager' : 'customer'
+          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
         };
         
         setUser(mockUser);
@@ -87,8 +87,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Check if it's a sales manager email
+      // Check user role based on email
       const isSalesManager = email.includes('@salesmanager.com');
+      const isLoanCoordinator = email.includes('@loancoordinator.com');
       
       // For demo, accept any valid data
       if (name && email && mobile && password.length > 3) {
@@ -98,7 +99,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           email,
           mobile,
           isVerified: false,
-          role: isSalesManager ? 'salesmanager' : 'customer'
+          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
         };
         
         setUser(mockUser);

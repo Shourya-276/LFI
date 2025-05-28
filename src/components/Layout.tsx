@@ -128,6 +128,45 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           active: location.pathname === "/tasks",
         },
       ];
+    } else if (user?.role === 'loancoordinator') {
+      return [
+        {
+          to: "/dashboard",
+          icon: <Home size={18} />,
+          label: "Home",
+          active: location.pathname === "/dashboard",
+        },
+        {
+          to: "/profile",
+          icon: <User size={18} />,
+          label: "My Profile",
+          active: location.pathname === "/profile",
+        },
+        {
+          to: "/bank-sanctions",
+          icon: <Building size={18} />,
+          label: "Bank Sanctions",
+          active: location.pathname === "/bank-sanctions",
+        },
+        {
+          to: "/disbursement",
+          icon: <DollarSign size={18} />,
+          label: "Disbursement",
+          active: location.pathname === "/disbursement",
+        },
+        {
+          to: "/reports",
+          icon: <BarChart3 size={18} />,
+          label: "Report",
+          active: location.pathname === "/reports",
+        },
+        {
+          to: "/tasks",
+          icon: <CheckSquare size={18} />,
+          label: "Task",
+          active: location.pathname === "/tasks",
+        },
+      ];
     } else {
       // Customer navigation
       return [
@@ -277,6 +316,9 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
                   <p className="text-sm text-gray-500 dark:text-gray-400">{user.email}</p>
                   {user.role === 'salesmanager' && (
                     <p className="text-xs text-brand-purple">Sales Manager</p>
+                  )}
+                  {user.role === 'loancoordinator' && (
+                    <p className="text-xs text-brand-purple">Loan Coordinator</p>
                   )}
                 </div>
               </div>
