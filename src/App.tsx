@@ -12,28 +12,15 @@ import { LoanProvider } from "./contexts/LoanContext";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import SalesManagerDashboard from "./pages/SalesManagerDashboard";
-import LoanCoordinatorDashboard from "./pages/LoanCoordinatorDashboard";
 import Profile from "./pages/Profile";
-import LoanCoordinatorProfile from "./pages/LoanCoordinatorProfile";
 import CheckEligibility from "./pages/CheckEligibility";
-import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
 import ExploreLoanOffers from "./pages/ExploreLoanOffers";
 import ApplyLoan from "./pages/ApplyLoan";
 import DocumentUpload from "./pages/DocumentUpload";
 import Disbursement from "./pages/Disbursement";
-import LoanCoordinatorDisbursementReview from "./pages/LoanCoordinatorDisbursementReview";
 import NotFound from "./pages/NotFound";
 import MyLoanApplications from "./pages/MyLoanApplications";
 import Review from "./pages/Review";
-import LeadsManagement from "./pages/LeadsManagement";
-import BankSanctions from "./pages/BankSanctions";
-import LoanCoordinatorBankSanctions from "./pages/LoanCoordinatorBankSanctions";
-import DisbursementManagement from "./pages/DisbursementManagement";
-import Reports from "./pages/Reports";
-import LoanCoordinatorReports from "./pages/LoanCoordinatorReports";
-import Tasks from "./pages/Tasks";
-import LoanCoordinatorTasks from "./pages/LoanCoordinatorTasks";
 
 const queryClient = new QueryClient();
 
@@ -56,87 +43,6 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-// Role-based dashboard wrapper
-const DashboardWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'salesmanager') {
-    return <SalesManagerDashboard />;
-  }
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorDashboard />;
-  }
-  
-  return <Dashboard />;
-};
-
-// Role-based profile wrapper
-const ProfileWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorProfile />;
-  }
-  
-  return <Profile />;
-};
-
-// Role-based check eligibility wrapper
-const CheckEligibilityWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'salesmanager') {
-    return <SalesManagerCheckEligibility />;
-  }
-  
-  return <CheckEligibility />;
-};
-
-// Role-based bank sanctions wrapper
-const BankSanctionsWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorBankSanctions />;
-  }
-  
-  return <BankSanctions />;
-};
-
-// Role-based disbursement wrapper
-const DisbursementWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorDisbursementReview />;
-  }
-  
-  return <Disbursement />;
-};
-
-// Role-based reports wrapper
-const ReportsWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorReports />;
-  }
-  
-  return <Reports />;
-};
-
-// Role-based tasks wrapper
-const TasksWrapper = () => {
-  const { user } = useAuth();
-  
-  if (user?.role === 'loancoordinator') {
-    return <LoanCoordinatorTasks />;
-  }
-  
-  return <Tasks />;
-};
-
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider>
@@ -153,24 +59,15 @@ const App = () => (
                 <Route path="/signup" element={<Signup />} />
                 
                 {/* Protected routes */}
-                <Route path="/dashboard" element={<ProtectedRoute><DashboardWrapper /></ProtectedRoute>} />
-                <Route path="/profile" element={<ProtectedRoute><ProfileWrapper /></ProtectedRoute>} />
-                <Route path="/check-eligibility" element={<ProtectedRoute><CheckEligibilityWrapper /></ProtectedRoute>} />
+                <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+                <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+                <Route path="/check-eligibility" element={<ProtectedRoute><CheckEligibility /></ProtectedRoute>} />
                 <Route path="/explore-loan-offers" element={<ProtectedRoute><ExploreLoanOffers /></ProtectedRoute>} />
                 <Route path="/apply-loan" element={<ProtectedRoute><ApplyLoan /></ProtectedRoute>} />
                 <Route path="/my-loan-applications" element={<ProtectedRoute><MyLoanApplications /></ProtectedRoute>} />
                 <Route path="/document" element={<ProtectedRoute><DocumentUpload /></ProtectedRoute>} />
-                <Route path="/disbursement" element={<ProtectedRoute><DisbursementWrapper /></ProtectedRoute>} />
+                <Route path="/disbursement" element={<ProtectedRoute><Disbursement /></ProtectedRoute>} />
                 <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
-                
-                {/* Sales Manager and Loan Coordinator shared routes */}
-                <Route path="/bank-sanctions" element={<ProtectedRoute><BankSanctionsWrapper /></ProtectedRoute>} />
-                <Route path="/reports" element={<ProtectedRoute><ReportsWrapper /></ProtectedRoute>} />
-                <Route path="/tasks" element={<ProtectedRoute><TasksWrapper /></ProtectedRoute>} />
-                
-                {/* Sales Manager specific routes */}
-                <Route path="/leads" element={<ProtectedRoute><LeadsManagement /></ProtectedRoute>} />
-                <Route path="/disbursement-management" element={<ProtectedRoute><DisbursementManagement /></ProtectedRoute>} />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />

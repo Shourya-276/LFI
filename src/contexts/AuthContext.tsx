@@ -1,3 +1,4 @@
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { toast } from "sonner";
 
@@ -7,7 +8,6 @@ interface User {
   email: string;
   mobile?: string;
   isVerified: boolean;
-  role: 'customer' | 'salesmanager' | 'loancoordinator';
 }
 
 interface AuthContextType {
@@ -50,18 +50,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Check user role based on email
-      const isSalesManager = email.includes('@salesmanager.com');
-      const isLoanCoordinator = email.includes('@loancoordinator.com');
-      
       // For demo, accept any valid-looking email with password
       if (email && password.length > 3) {
         const mockUser: User = {
           id: "user-" + Math.floor(Math.random() * 1000),
           name: email.split("@")[0],
           email,
-          isVerified: true,
-          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
+          isVerified: true
         };
         
         setUser(mockUser);
@@ -87,10 +82,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1000));
       
-      // Check user role based on email
-      const isSalesManager = email.includes('@salesmanager.com');
-      const isLoanCoordinator = email.includes('@loancoordinator.com');
-      
       // For demo, accept any valid data
       if (name && email && mobile && password.length > 3) {
         const mockUser: User = {
@@ -98,8 +89,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
           name,
           email,
           mobile,
-          isVerified: false,
-          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
+          isVerified: false
         };
         
         setUser(mockUser);
@@ -129,8 +119,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: "google-user-" + Math.floor(Math.random() * 1000),
         name: "Google User",
         email: "google.user@gmail.com",
-        isVerified: true,
-        role: 'customer'
+        isVerified: true
       };
       
       setUser(mockUser);
