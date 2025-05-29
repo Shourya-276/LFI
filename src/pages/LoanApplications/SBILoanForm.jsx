@@ -198,7 +198,8 @@ export default function SBILoanForm() {
         </Button>
       </div>
       
-      <div ref={formRef} className="sbi-form-container" id="sbi-form-container">        {/* Header */}
+      <div ref={formRef} className="sbi-form-container" id="sbi-form-container">
+        {/* Header */}
         <div className="sbi-header-row">
           <div className="sbi-header-title">FORM A: PERSONAL DETAILS</div>
           <div className="sbi-header-options">
@@ -242,7 +243,6 @@ export default function SBILoanForm() {
                 <span className="sbi-checkbox-text">No</span>
               </label>
             </div>
-
             <div className="sbi-form-row">
               <span className="sbi-label-small">If Yes, CIF No/Account No.</span>
               <LetterBoxes length={11} value={fields.cif} onChange={v => setField("cif", v)} name="cif" />
@@ -263,8 +263,8 @@ export default function SBILoanForm() {
 
             {/* Date of Birth, PAN, Mobile */}
             <div className="sbi-form-row">
-              <span className="sbi-label">Date of Birth:</span>
-              <LetterBoxes length={10} value={fields.dob} onChange={v => setField("dob", v)} name="dob" />
+              <span className="sbi-label-dob">Date of Birth:</span>
+              <LetterBoxes length={8} value={fields.dob} onChange={v => setField("dob", v)} name="dob" />
               <span className="sbi-label-pan">PAN:</span>
               <LetterBoxes length={10} value={fields.pan} onChange={v => setField("pan", v)} name="pan" />
             </div>
@@ -364,8 +364,8 @@ export default function SBILoanForm() {
               <LetterBoxes length={36} value={fields.npr} onChange={v => setField("npr", v)} name="npr" />
             </div>
 
-            {/* Residential Status */}
-            <div className="sbi-form-row">
+            {/* CHANGED: Residential Status - Split into two rows */}
+            <div className="sbi-residential-status-row-1">
               <span className="sbi-label">Residential Status:</span>
               <label className="sbi-checkbox-label">
                 <input type="checkbox" className="sbi-checkbox" />
@@ -376,7 +376,7 @@ export default function SBILoanForm() {
                 <span className="sbi-checkbox-text">Non-Resident Indian (NRI)</span>
               </label>
             </div>
-            <div className="sbi-form-row">
+            <div className="sbi-residential-status-row-2">
               <label className="sbi-checkbox-label">
                 <input type="checkbox" className="sbi-checkbox" />
                 <span className="sbi-checkbox-text">Person Of Indian Origin (PIO)</span>
@@ -387,34 +387,38 @@ export default function SBILoanForm() {
               </label>
             </div>
 
-            {/* Defence Personnel Section */}
+            {/* CHANGED: Defence Personnel Section - Stack vertically */}
             <div className="sbi-defence-section">
-              <div className="sbi-form-row sbi-defence-row">
+              <div className="sbi-defence-row">
                 <span className="sbi-defence-label">FOR DEFENCE PERSONNEL:</span>
-                <label className="sbi-checkbox-label">
-                  <input type="checkbox" className="sbi-checkbox" />
-                  <span className="sbi-checkbox-text">Indian Army</span>
-                </label>
-                <label className="sbi-checkbox-label">
-                  <input type="checkbox" className="sbi-checkbox" />
-                  <span className="sbi-checkbox-text">Indian Navy</span>
-                </label>
-                <label className="sbi-checkbox-label">
-                  <input type="checkbox" className="sbi-checkbox" />
-                  <span className="sbi-checkbox-text">Indian Air force</span>
-                </label>
+                <div className="sbi-defence-options">
+                  <label className="sbi-checkbox-label">
+                    <input type="checkbox" className="sbi-checkbox" />
+                    <span className="sbi-checkbox-text">Indian Army</span>
+                  </label>
+                  <label className="sbi-checkbox-label">
+                    <input type="checkbox" className="sbi-checkbox" />
+                    <span className="sbi-checkbox-text">Indian Navy</span>
+                  </label>
+                  <label className="sbi-checkbox-label">
+                    <input type="checkbox" className="sbi-checkbox" />
+                    <span className="sbi-checkbox-text">Indian Air force</span>
+                  </label>
+                </div>
               </div>
               
-              <div className="sbi-form-row sbi-defence-row">
+              <div className="sbi-defence-row">
                 <span className="sbi-defence-label">IS YOUR SERVICE UNDER:</span>
-                <label className="sbi-checkbox-label">
-                  <input type="checkbox" className="sbi-checkbox" />
-                  <span className="sbi-checkbox-text">Defined Benefit Pension</span>
-                </label>
-                <label className="sbi-checkbox-label">
-                  <input type="checkbox" className="sbi-checkbox" />
-                  <span className="sbi-checkbox-text">New Pension Scheme</span>
-                </label>
+                <div className="sbi-defence-options">
+                  <label className="sbi-checkbox-label">
+                    <input type="checkbox" className="sbi-checkbox" />
+                    <span className="sbi-checkbox-text">Defined Benefit Pension</span>
+                  </label>
+                  <label className="sbi-checkbox-label">
+                    <input type="checkbox" className="sbi-checkbox" />
+                    <span className="sbi-checkbox-text">New Pension Scheme</span>
+                  </label>
+                </div>
               </div>
             </div>
           </div>
