@@ -19,12 +19,6 @@ import LoanCoordinatorBankSanctions from "./pages/LoanCoordinatorBankSanctions";
 import LoanCoordinatorDisbursement from "./pages/LoanCoordinatorDisbursement";
 import LoanCoordinatorReports from "./pages/LoanCoordinatorReports";
 import LoanCoordinatorTasks from "./pages/LoanCoordinatorTasks";
-import LoanAdministratorDashboard from "./pages/LoanAdministratorDashboard";
-import LoanAdministratorProfile from "./pages/LoanAdministratorProfile";
-import LoanAdministratorBankSanctions from "./pages/LoanAdministratorBankSanctions";
-import LoanAdministratorDisbursement from "./pages/LoanAdministratorDisbursement";
-import LoanAdministratorReports from "./pages/LoanAdministratorReports";
-import LoanAdministratorTasks from "./pages/LoanAdministratorTasks";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
@@ -72,10 +66,6 @@ const DashboardWrapper = () => {
   
   if (user?.role === 'loancoordinator') {
     return <LoanCoordinatorDashboard />;
-  }
-  
-  if (user?.role === 'loanadministrator') {
-    return <LoanAdministratorDashboard />;
   }
   
   return <Dashboard />;
@@ -132,14 +122,6 @@ const App = () => (
                 <Route path="/loan-coordinator-disbursement" element={<ProtectedRoute><LoanCoordinatorDisbursement /></ProtectedRoute>} />
                 <Route path="/loan-coordinator-reports" element={<ProtectedRoute><LoanCoordinatorReports /></ProtectedRoute>} />
                 <Route path="/loan-coordinator-tasks" element={<ProtectedRoute><LoanCoordinatorTasks /></ProtectedRoute>} />
-                
-                {/* Loan Administrator specific routes */}
-                <Route path="/loan-administrator-dashboard" element={<ProtectedRoute><LoanAdministratorDashboard /></ProtectedRoute>} />
-                <Route path="/loan-administrator-profile" element={<ProtectedRoute><LoanAdministratorProfile /></ProtectedRoute>} />
-                <Route path="/loan-administrator-bank-sanctions" element={<ProtectedRoute><LoanAdministratorBankSanctions /></ProtectedRoute>} />
-                <Route path="/loan-administrator-disbursement" element={<ProtectedRoute><LoanAdministratorDisbursement /></ProtectedRoute>} />
-                <Route path="/loan-administrator-reports" element={<ProtectedRoute><LoanAdministratorReports /></ProtectedRoute>} />
-                <Route path="/loan-administrator-tasks" element={<ProtectedRoute><LoanAdministratorTasks /></ProtectedRoute>} />
                 
                 {/* Catch-all route */}
                 <Route path="*" element={<NotFound />} />

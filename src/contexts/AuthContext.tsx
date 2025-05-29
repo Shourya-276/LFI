@@ -7,7 +7,7 @@ interface User {
   email: string;
   mobile?: string;
   isVerified: boolean;
-  role: 'customer' | 'salesmanager' | 'loancoordinator' | 'loanadministrator';
+  role: 'customer' | 'salesmanager' | 'loancoordinator';
 }
 
 interface AuthContextType {
@@ -53,22 +53,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Check user role based on email
       const isSalesManager = email.includes('@salesmanager.com');
       const isLoanCoordinator = email === 'aman@loancoordinator' || email.includes('@loancoordinator.com');
-      const isLoanAdministrator = email === 'soumil@loanadministrator.com' || email.includes('@loanadministrator.com');
       
       // For demo, accept any valid-looking email with password
       if (email && password.length > 3) {
-        let userRole: 'customer' | 'salesmanager' | 'loancoordinator' | 'loanadministrator' = 'customer';
-        
-        if (isSalesManager) userRole = 'salesmanager';
-        else if (isLoanCoordinator) userRole = 'loancoordinator';
-        else if (isLoanAdministrator) userRole = 'loanadministrator';
-        
         const mockUser: User = {
           id: "user-" + Math.floor(Math.random() * 1000),
           name: email.split("@")[0],
           email,
           isVerified: true,
-          role: userRole
+          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
         };
         
         setUser(mockUser);
@@ -97,23 +90,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       // Check user role based on email
       const isSalesManager = email.includes('@salesmanager.com');
       const isLoanCoordinator = email === 'aman@loancoordinator' || email.includes('@loancoordinator.com');
-      const isLoanAdministrator = email === 'soumil@loanadministrator.com' || email.includes('@loanadministrator.com');
       
       // For demo, accept any valid data
       if (name && email && mobile && password.length > 3) {
-        let userRole: 'customer' | 'salesmanager' | 'loancoordinator' | 'loanadministrator' = 'customer';
-        
-        if (isSalesManager) userRole = 'salesmanager';
-        else if (isLoanCoordinator) userRole = 'loancoordinator';
-        else if (isLoanAdministrator) userRole = 'loanadministrator';
-        
         const mockUser: User = {
           id: "user-" + Math.floor(Math.random() * 1000),
           name,
           email,
           mobile,
           isVerified: false,
-          role: userRole
+          role: isSalesManager ? 'salesmanager' : isLoanCoordinator ? 'loancoordinator' : 'customer'
         };
         
         setUser(mockUser);
