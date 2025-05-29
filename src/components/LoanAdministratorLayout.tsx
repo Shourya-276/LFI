@@ -171,76 +171,9 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
           </div>
         </header>
 
-        {/* Page Content */}
+        {/* Page Content - Full width now */}
         <main className="flex-1 p-6">
-          <div className="flex space-x-6">
-            <div className="flex-1">
-              {children}
-            </div>
-            
-            {/* Right Sidebar - Chat */}
-            <div className="w-80 bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-8 h-8 bg-brand-purple rounded-full flex items-center justify-center">
-                  <span className="text-white text-sm font-bold">LI</span>
-                </div>
-                <h3 className="font-semibold">Loan for India Team</h3>
-                <button className="ml-auto">⋯</button>
-              </div>
-              
-              <div className="space-y-4 mb-4 max-h-96 overflow-y-auto">
-                <div className="bg-green-100 dark:bg-green-900/20 p-3 rounded-lg">
-                  <p className="text-sm">Hello, my loan is approved but not credited to my account yet. Can you check?</p>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                  <div>
-                    <p className="font-medium text-sm">Priya Sharma</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Hi Rohan, I'll check with the bank. Can you confirm your loan reference number?</p>
-                  </div>
-                </div>
-                
-                <div className="bg-green-100 dark:bg-green-900/20 p-3 rounded-lg">
-                  <p className="text-sm">Sure! It's LOAN12345</p>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                  <div>
-                    <p className="font-medium text-sm">Priya Sharma</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Thanks! I've escalated your request to the manager. You'll get an update soon.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                  <div>
-                    <p className="font-medium text-sm">Aman Verma (Manager)</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">We checked with the bank, and the loan will be credited within 24 hours.</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-start space-x-2">
-                  <div className="w-6 h-6 bg-gray-300 rounded-full"></div>
-                  <div>
-                    <p className="font-medium text-sm">Priya Sharma</p>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Your loan will be credited within 24 hours. Let me know if you need anything else!</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex items-center space-x-2">
-                <input
-                  type="text"
-                  placeholder="Type Something.."
-                  className="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-brand-purple"
-                />
-                <button className="p-2">📎</button>
-                <button className="p-2 bg-green-500 text-white rounded-lg">➤</button>
-              </div>
-            </div>
-          </div>
+          {children}
         </main>
       </div>
     </div>

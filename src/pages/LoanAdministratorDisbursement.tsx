@@ -4,7 +4,7 @@ import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Search, Filter } from "lucide-react";
 
 const LoanAdministratorDisbursement = () => {
@@ -91,7 +91,7 @@ const LoanAdministratorDisbursement = () => {
 
   return (
     <LoanAdministratorLayout>
-      <div className="space-y-6">
+      <div className="max-w-7xl mx-auto space-y-6">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Disbursement Review</h1>
         
         <Card className="bg-white dark:bg-gray-800 p-6">
@@ -99,23 +99,23 @@ const LoanAdministratorDisbursement = () => {
           <div className="flex space-x-4 mb-6">
             <button
               onClick={() => setActiveTab("pending")}
-              className={`px-4 py-2 rounded-lg font-medium ${
+              className={`px-6 py-2 rounded-lg font-medium transition-colors ${
                 activeTab === "pending"
                   ? "bg-brand-purple text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               }`}
             >
               Pending
             </button>
             <button
               onClick={() => setActiveTab("completed")}
-              className={`px-4 py-2 rounded-lg font-medium ${
+              className={`px-6 py-2 rounded-lg font-medium transition-colors ${
                 activeTab === "completed"
                   ? "bg-brand-purple text-white"
-                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                  : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"
               }`}
             >
-              {activeTab === "completed" ? "Complete" : "Completed"}
+              Completed
             </button>
           </div>
 
@@ -138,34 +138,35 @@ const LoanAdministratorDisbursement = () => {
             </div>
           </div>
 
-          {/* Pending Tab Content */}
+          {/* Content */}
           {activeTab === "pending" && (
-            <>
+            <div className="space-y-6">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <table className="min-w-full">
                   <thead>
-                    <tr>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Pending Doc</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Hard Copy</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Pending Doc</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Hard Copy</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                     {pendingData.map((item, index) => (
-                      <tr key={index}>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.pendingDoc}</td>
-                        <td className="px-6 py-4 text-sm">
-                          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center">
-                            <span className="text-white text-xs">●</span>
-                          </div>
+                      <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.pendingDoc}</td>
+                        <td className="px-4 py-4">
+                          <Switch 
+                            checked={item.hardCopy} 
+                            className="data-[state=checked]:bg-green-500"
+                          />
                         </td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -173,38 +174,37 @@ const LoanAdministratorDisbursement = () => {
               </div>
               
               {/* Progress Bar */}
-              <div className="mt-6">
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-brand-purple h-2 rounded-full" style={{ width: "70%" }}></div>
+              <div className="mt-8">
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="bg-brand-purple h-3 rounded-full" style={{ width: "70%" }}></div>
                 </div>
               </div>
-            </>
+            </div>
           )}
 
-          {/* Completed Tab Content */}
           {activeTab === "completed" && (
-            <>
+            <div className="space-y-6">
               <div className="overflow-x-auto">
-                <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                <table className="min-w-full">
                   <thead>
-                    <tr>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Payment amount</th>
-                      <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">UTR</th>
+                    <tr className="border-b border-gray-200 dark:border-gray-700">
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Payment amount</th>
+                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">UTR</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                     {completedData.map((item, index) => (
-                      <tr key={index}>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.paymentAmount}</td>
-                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{item.utr}</td>
+                      <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.paymentAmount}</td>
+                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.utr}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -212,12 +212,12 @@ const LoanAdministratorDisbursement = () => {
               </div>
               
               {/* Progress Bar */}
-              <div className="mt-6">
-                <div className="w-full bg-gray-200 rounded-full h-2">
-                  <div className="bg-brand-purple h-2 rounded-full" style={{ width: "100%" }}></div>
+              <div className="mt-8">
+                <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="bg-brand-purple h-3 rounded-full" style={{ width: "100%" }}></div>
                 </div>
               </div>
-            </>
+            </div>
           )}
         </Card>
       </div>
