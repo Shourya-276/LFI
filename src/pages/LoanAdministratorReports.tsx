@@ -1,3 +1,41 @@
+
+/**
+ * LOAN ADMINISTRATOR REPORTS PAGE
+ * 
+ * This file contains the comprehensive reporting and analytics dashboard for Loan Administrator users.
+ * It provides detailed insights into loan performance, bank-wise statistics, and achievement tracking.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-reports
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Navigation available from admin sidebar menu
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - ReportsTabNavigation: Period selection and filtering
+ * - Card, Button: UI components from shadcn/ui
+ * 
+ * FEATURES:
+ * - Reporting period selection (monthly, quarterly, yearly)
+ * - Key performance statistics display
+ * - Achievement vs Target visualization with circular progress
+ * - Feedback and reviews tracking
+ * - Bank-wise performance comparison table
+ * 
+ * DATA VISUALIZATION:
+ * - Circular progress chart for achievement tracking
+ * - Statistics cards for key metrics
+ * - Tabular data for bank-wise performance
+ * - Star ratings for customer feedback
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Interactive charts with recharts library
+ * - Export functionality for reports
+ * - Real-time data integration
+ * - Advanced filtering and sorting
+ */
+
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";

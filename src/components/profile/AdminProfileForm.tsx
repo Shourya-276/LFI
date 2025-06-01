@@ -1,4 +1,31 @@
 
+/**
+ * ADMIN PROFILE FORM COMPONENT
+ * 
+ * This file contains a reusable form component for administrator profile management.
+ * It handles all form fields required for admin personal and professional information.
+ * 
+ * USAGE:
+ * - Imported and used in: LoanAdministratorProfile.tsx
+ * - Receives form data and change handlers as props
+ * - Separated from the main profile page for better code organization
+ * 
+ * FORM SECTIONS:
+ * - Personal Information: Name, middle name, surname
+ * - Contact Information: Email and mobile number
+ * - Personal Details: Gender, date of birth, employee code
+ * - Work Location: Headquarters and sub-headquarters selection
+ * 
+ * EXPORTS:
+ * - AdminProfileForm: Main form component
+ * - AdminProfileFormData: TypeScript interface for form data structure
+ * 
+ * DEPENDENCIES:
+ * - Uses shadcn/ui Input and Label components for consistent styling
+ * - Styled with Tailwind CSS for responsive layout
+ * - Follows existing form patterns from customer-facing forms
+ */
+
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";

@@ -1,10 +1,50 @@
-
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Filter, Plus, Repeat, UserCheck } from "lucide-react";
+
+/**
+ * LOAN ADMINISTRATOR TASKS PAGE
+ * 
+ * This file contains the task management page for Loan Administrator users.
+ * It provides comprehensive task tracking, creation, and management functionality.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-tasks
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Navigation available from admin sidebar menu
+ * 
+ * FEATURES:
+ * - Tab switching between pending and completed tasks
+ * - Task creation and assignment functionality
+ * - Prebuilt task templates for common activities
+ * - Task status management with visual indicators
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - Card, Button, Badge: UI components from shadcn/ui
+ * - Custom task cards with priority indicators
+ * 
+ * STATE MANAGEMENT:
+ * - Active tab switching between pending/completed
+ * - Task status tracking and updates
+ * - Sample task data with realistic scenarios
+ * 
+ * TASK CATEGORIES:
+ * - Follow-up tasks with customers
+ * - Document collection and verification
+ * - Appointment scheduling and management
+ * - UTR confirmation and processing
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Real-time task updates and notifications
+ * - Task assignment to team members
+ * - Integration with calendar systems
+ * - Automated task creation based on loan status
+ */
 
 /**
  * Interface for completed task items

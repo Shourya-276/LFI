@@ -1,4 +1,33 @@
 
+/**
+ * SANCTIONS TAB NAVIGATION COMPONENT
+ * 
+ * This file contains the navigation component for the Bank Sanctions page.
+ * It handles tab switching, search functionality, and filter options for sanctions management.
+ * 
+ * USAGE:
+ * - Imported and used in: LoanAdministratorBankSanctions.tsx
+ * - Provides consistent UI for sanctions page navigation
+ * - Handles both pending and completed sanctions tabs
+ * 
+ * FEATURES:
+ * - Tab switching between pending and completed sanctions
+ * - Search functionality with search term management
+ * - Filter options for data refinement
+ * - Status badges for uploaded/pending indicators
+ * 
+ * PROPS:
+ * - activeTab: Current active tab state
+ * - onTabChange: Callback for tab switching
+ * - searchTerm: Current search input value
+ * - onSearchChange: Callback for search input changes
+ * 
+ * DEPENDENCIES:
+ * - Uses shadcn/ui components (Button, Input, Badge)
+ * - Uses Lucide React icons (Search, Filter)
+ * - Styled with Tailwind CSS for consistent appearance
+ */
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

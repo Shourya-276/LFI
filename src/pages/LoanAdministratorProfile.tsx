@@ -1,4 +1,38 @@
 
+/**
+ * LOAN ADMINISTRATOR PROFILE PAGE
+ * 
+ * This file contains the profile management page for Loan Administrator users.
+ * It allows administrators to view and edit their personal and professional information.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-profile
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Navigation available from admin sidebar menu
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - ProfilePhotoSection: Profile picture upload component
+ * - AdminProfileForm: Form fields for profile data
+ * - Card, Button: UI components from shadcn/ui
+ * 
+ * STATE MANAGEMENT:
+ * - Uses React useState for form data management
+ * - Centralized state handling for all profile fields
+ * - Form validation and submission handling
+ * 
+ * FUNCTIONALITY:
+ * - Profile data input and editing
+ * - Form clearing and saving capabilities
+ * - Responsive design for different screen sizes
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Backend integration for data persistence
+ * - Form validation and error handling
+ * - Success/error notifications
+ */
+
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";

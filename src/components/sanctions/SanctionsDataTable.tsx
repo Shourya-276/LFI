@@ -1,4 +1,36 @@
 
+/**
+ * SANCTIONS DATA TABLE COMPONENT
+ * 
+ * This file contains the data table component for displaying sanctions information.
+ * It renders lead data with action buttons for document upload and status management.
+ * 
+ * USAGE:
+ * - Imported and used in: LoanAdministratorBankSanctions.tsx
+ * - Displays both pending and completed sanctions data
+ * - Provides interactive elements for document management
+ * 
+ * FEATURES:
+ * - Responsive table design for different screen sizes
+ * - Dynamic action buttons based on sanction status
+ * - Upload functionality for pending documents
+ * - Status indicators with appropriate styling
+ * 
+ * DATA STRUCTURE:
+ * - SanctionItem interface defines data shape
+ * - Supports lead ID, name, bank, pending docs, and action status
+ * 
+ * DEPENDENCIES:
+ * - Uses shadcn/ui components (Button, Badge)
+ * - Uses Lucide React icons (Upload)
+ * - Styled with Tailwind CSS for table layout
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Actual document upload implementation
+ * - Sorting and filtering capabilities
+ * - Pagination for large datasets
+ */
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";

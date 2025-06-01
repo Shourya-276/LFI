@@ -1,4 +1,38 @@
 
+/**
+ * LOAN ADMINISTRATOR BANK SANCTIONS PAGE
+ * 
+ * This file contains the Bank Sanctions management page for Loan Administrator users.
+ * It handles pending and completed loan sanctions with comprehensive document management.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-bank-sanctions
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Navigation available from admin sidebar menu
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - SanctionsTabNavigation: Tab switching and search functionality
+ * - SanctionsDataTable: Data display and action management
+ * - Card: UI container from shadcn/ui
+ * 
+ * STATE MANAGEMENT:
+ * - Tab switching between pending and completed sanctions
+ * - Search functionality for filtering sanctions data
+ * - Sample data management (ready for backend integration)
+ * 
+ * FUNCTIONALITY:
+ * - View pending sanctions requiring document upload
+ * - Manage completed sanctions with status tracking
+ * - Search and filter sanctions by various criteria
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Real-time data integration with backend API
+ * - Document upload and management system
+ * - Bulk operations for multiple sanctions
+ */
+
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";

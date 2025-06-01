@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
@@ -6,6 +5,45 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Search, Filter } from "lucide-react";
+
+/**
+ * LOAN ADMINISTRATOR DISBURSEMENT PAGE
+ * 
+ * This file contains the Disbursement management page for Loan Administrator users.
+ * It handles both pending disbursements and completed disbursement records with toggle controls.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-disbursement
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Navigation available from admin sidebar menu
+ * 
+ * FEATURES:
+ * - Tab switching between pending and completed disbursements
+ * - Toggle switches for hard copy document requirements
+ * - UTR (Unique Transaction Reference) tracking
+ * - Disbursement amount and status management
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - Card, Button: UI components from shadcn/ui
+ * - Custom toggle switches for hard copy controls
+ * 
+ * STATE MANAGEMENT:
+ * - Tab switching state management
+ * - Individual toggle states for each disbursement record
+ * - Sample data with realistic disbursement information
+ * 
+ * FUNCTIONALITY:
+ * - View and manage pending disbursements
+ * - Track completed disbursements with UTR numbers
+ * - Control hard copy document requirements per case
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Backend integration for real disbursement data
+ * - Bulk toggle operations
+ * - Export functionality for disbursement reports
+ */
 
 /**
  * Interface for disbursement tracking data

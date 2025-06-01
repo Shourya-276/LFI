@@ -1,4 +1,32 @@
 
+/**
+ * PROFILE PHOTO SECTION COMPONENT
+ * 
+ * This file contains a reusable component for profile picture display and upload functionality.
+ * It provides a consistent UI for profile photo management across different user types.
+ * 
+ * USAGE:
+ * - Imported and used in: LoanAdministratorProfile.tsx
+ * - Can be reused for other profile types (customer, sales manager, etc.)
+ * - Displays default user avatar with upload trigger
+ * 
+ * FEATURES:
+ * - Default user icon placeholder when no photo is uploaded
+ * - Camera icon overlay for upload functionality
+ * - Hover effects and accessibility considerations
+ * - Upload functionality placeholder (ready for backend integration)
+ * 
+ * DEPENDENCIES:
+ * - Uses Lucide React icons (User, Camera)
+ * - Styled with Tailwind CSS for consistent appearance
+ * - Follows existing design patterns from the project
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Actual file upload implementation
+ * - Image preview functionality
+ * - File type and size validation
+ */
+
 import React from "react";
 import { User, Camera } from "lucide-react";
 

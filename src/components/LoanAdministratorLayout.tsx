@@ -1,4 +1,31 @@
 
+/**
+ * LOAN ADMINISTRATOR LAYOUT COMPONENT
+ * 
+ * This file defines the main layout wrapper for all Loan Administrator dashboard pages.
+ * It provides a consistent navigation structure, header, and content area for admin users.
+ * 
+ * USAGE:
+ * - Imported and used by all Loan Administrator pages as a wrapper component
+ * - Used in: LoanAdministratorDashboard.tsx, LoanAdministratorProfile.tsx, 
+ *   LoanAdministratorBankSanctions.tsx, LoanAdministratorDisbursement.tsx,
+ *   LoanAdministratorReports.tsx, LoanAdministratorTasks.tsx
+ * 
+ * KEY FEATURES:
+ * - Responsive sidebar navigation with mobile menu support
+ * - User profile section with verification status display
+ * - Search functionality in the header
+ * - Theme toggle and notification support
+ * - Role-based navigation menu items
+ * 
+ * DEPENDENCIES:
+ * - Uses AuthContext for user authentication and logout functionality
+ * - Uses ThemeContext for dark/light mode toggling
+ * - Integrates with React Router for navigation
+ * - Uses Lucide React icons for UI elements
+ * - Styled with Tailwind CSS for responsive design
+ */
+
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";

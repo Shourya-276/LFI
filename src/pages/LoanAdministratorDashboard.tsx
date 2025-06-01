@@ -1,4 +1,33 @@
 
+/**
+ * LOAN ADMINISTRATOR DASHBOARD PAGE
+ * 
+ * This file contains the main dashboard page for Loan Administrator users.
+ * It displays key performance metrics, statistics, and recent lead activity.
+ * 
+ * USAGE:
+ * - Accessed via route: /loan-administrator-dashboard
+ * - Protected route - only accessible to users with 'loanadministrator' role
+ * - Uses LoanAdministratorLayout as the page wrapper
+ * - Defined in App.tsx routing configuration
+ * 
+ * FEATURES:
+ * - Dashboard statistics cards showing sanctions, leads, and disbursements
+ * - Recent leads activity table with status indicators
+ * - Responsive grid layout for different screen sizes
+ * - Real-time data display (currently using mock data)
+ * 
+ * COMPONENTS USED:
+ * - LoanAdministratorLayout: Main layout wrapper
+ * - Card: UI component for statistic displays
+ * - Custom interfaces for type safety (DashboardStatistic, RecentLead)
+ * 
+ * FUTURE ENHANCEMENTS:
+ * - Integration with backend API for real-time data
+ * - Interactive chart components for data visualization
+ * - Export functionality for reports
+ */
+
 import React from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
