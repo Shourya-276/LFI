@@ -3,8 +3,41 @@ import React from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
 
-const LoanAdministratorDashboard = () => {
-  const stats = [
+/**
+ * Interface for dashboard statistics cards
+ * Defines the structure for metric display components
+ */
+interface DashboardStatistic {
+  title: string;
+  value: string;
+  icon: string;
+  bgColor: string;
+  textColor: string;
+}
+
+/**
+ * Interface for recent leads data
+ * Defines the structure for lead information display
+ */
+interface RecentLead {
+  leadName: string;
+  status: string;
+  statusColor: string;
+  contact: string;
+  loanType: string;
+}
+
+/**
+ * Main dashboard page for Loan Administrator
+ * Displays key metrics, statistics, and recent lead activity
+ * Provides overview of loan processing performance and current workload
+ */
+const LoanAdministratorDashboard: React.FC = () => {
+  /**
+   * Dashboard statistics configuration
+   * Contains all the key performance indicators shown on the dashboard
+   */
+  const dashboardStatistics: DashboardStatistic[] = [
     {
       title: "Sanctions Approved",
       value: "₹50,00,000",
@@ -49,7 +82,11 @@ const LoanAdministratorDashboard = () => {
     }
   ];
 
-  const recentLeads = [
+  /**
+   * Recent leads data for activity tracking
+   * Shows the latest loan applications and their current status
+   */
+  const recentLeadsData: RecentLead[] = [
     {
       leadName: "Rajesh Sharma",
       status: "Approved",
@@ -94,56 +131,70 @@ const LoanAdministratorDashboard = () => {
     }
   ];
 
+  /**
+   * Renders individual statistic cards
+   * Displays key metrics with icons and navigation arrows
+   */
+  const renderStatisticCard = (stat: DashboardStatistic, index: number) => (
+    <Card key={index} className={`${stat.bgColor} border border-gray-200 dark:border-gray-700 p-6 relative`}>
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">{stat.title}</p>
+          <p className={`text-2xl font-bold ${stat.textColor}`}>{stat.value}</p>
+        </div>
+        <div className="text-2xl">{stat.icon}</div>
+        <button className="absolute top-4 right-4 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
+          →
+        </button>
+      </div>
+    </Card>
+  );
+
+  /**
+   * Renders the recent leads table
+   * Shows lead information with status indicators and contact details
+   */
+  const renderRecentLeadsTable = () => (
+    <Card className="bg-white dark:bg-gray-800 p-6">
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+          <thead>
+            <tr>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Contact</th>
+              <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Loan Type</th>
+            </tr>
+          </thead>
+          <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+            {recentLeadsData.map((lead, index) => (
+              <tr key={index}>
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.leadName}</td>
+                <td className="px-6 py-4 text-sm">
+                  <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${lead.statusColor}`}>
+                    {lead.status === "Approved" && "✓"} {lead.status}
+                  </span>
+                </td>
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.contact}</td>
+                <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.loanType}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </Card>
+  );
+
   return (
     <LoanAdministratorLayout>
       <div className="space-y-6">
-        {/* Stats Grid */}
+        {/* Statistics Grid - Key performance indicators */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {stats.map((stat, index) => (
-            <Card key={index} className={`${stat.bgColor} border border-gray-200 dark:border-gray-700 p-6 relative`}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm mb-1">{stat.title}</p>
-                  <p className={`text-2xl font-bold ${stat.textColor}`}>{stat.value}</p>
-                </div>
-                <div className="text-2xl">{stat.icon}</div>
-                <button className="absolute top-4 right-4 w-6 h-6 bg-gray-100 rounded-full flex items-center justify-center">
-                  →
-                </button>
-              </div>
-            </Card>
-          ))}
+          {dashboardStatistics.map((stat, index) => renderStatisticCard(stat, index))}
         </div>
 
-        {/* Recent Leads Table */}
-        <Card className="bg-white dark:bg-gray-800 p-6">
-          <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-              <thead>
-                <tr>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Contact</th>
-                  <th className="px-6 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Loan Type</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {recentLeads.map((lead, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.leadName}</td>
-                    <td className="px-6 py-4 text-sm">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${lead.statusColor}`}>
-                        {lead.status === "Approved" && "✓"} {lead.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.contact}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">{lead.loanType}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </Card>
+        {/* Recent Leads Activity Table */}
+        {renderRecentLeadsTable()}
       </div>
     </LoanAdministratorLayout>
   );

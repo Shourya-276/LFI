@@ -1,11 +1,15 @@
-
 import React, { useState } from "react";
 import LoanAdministratorLayout from "../components/LoanAdministratorLayout";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Filter } from "lucide-react";
+import ReportsTabNavigation from "../components/reports/ReportsTabNavigation";
 
-const LoanAdministratorReports = () => {
+/**
+ * Loan Administrator Reports Dashboard
+ * Provides comprehensive reporting and analytics for loan performance
+ * Features charts, statistics, and bank-wise performance data
+ */
+const LoanAdministratorReports: React.FC = () => {
   const [activeTab, setActiveTab] = useState("monthly");
 
   const statsData = [
@@ -30,37 +34,19 @@ const LoanAdministratorReports = () => {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Loan Performance Reports</h1>
         
         <Card className="bg-white dark:bg-gray-800 p-6">
-          {/* Tabs */}
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex space-x-4">
-              {["monthly", "quarterly", "yearly"].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-4 py-2 rounded-lg font-medium capitalize ${
-                    activeTab === tab
-                      ? "bg-brand-purple text-white"
-                      : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </div>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <Filter className="w-4 h-4" />
-              <span>Filter</span>
-            </Button>
-          </div>
+          <ReportsTabNavigation 
+            activeTab={activeTab}
+            onTabChange={setActiveTab}
+          />
 
-          {/* Reporting Period */}
+          {/* Reporting Period Display */}
           <div className="mb-6">
             <p className="text-sm font-medium text-gray-900 dark:text-white">
               <span className="font-bold">Reporting Period</span> 15 Mar - 15 Apr 2025
             </p>
           </div>
 
-          {/* Stats Cards */}
+          {/* Statistics Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
             {statsData.map((stat, index) => (
               <div key={index} className="text-center">
@@ -70,14 +56,13 @@ const LoanAdministratorReports = () => {
             ))}
           </div>
 
-          {/* Charts Section */}
+          {/* Charts and Analytics Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-            {/* Achievement vs Target */}
+            {/* Achievement vs Target Chart */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Achievement vs Target</h3>
               <div className="flex items-center justify-center h-48">
                 <div className="relative w-32 h-32">
-                  {/* Circular Progress */}
                   <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 120 120">
                     <circle
                       cx="60"
@@ -118,7 +103,7 @@ const LoanAdministratorReports = () => {
               </div>
             </div>
 
-            {/* Feedback & Reviews */}
+            {/* Feedback & Reviews Section */}
             <div>
               <h3 className="text-lg font-semibold mb-4">Feedback & Reviews</h3>
               <div className="space-y-4">
@@ -147,7 +132,7 @@ const LoanAdministratorReports = () => {
             </div>
           </div>
 
-          {/* Bank-wise Table */}
+          {/* Bank-wise Performance Table */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Bank-Wise Sanction & Disbursement Report</h3>
             <div className="overflow-x-auto">

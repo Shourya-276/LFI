@@ -7,11 +7,30 @@ import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { Search, Filter } from "lucide-react";
 
-const LoanAdministratorDisbursement = () => {
+/**
+ * Interface for disbursement tracking data
+ * Defines structure for both pending and completed disbursement records
+ */
+interface DisbursementRecord {
+  leadId: string;
+  leadName: string;
+  bankName: string;
+  pendingDoc?: string;
+  hardCopy?: boolean;
+  status?: string;
+  paymentAmount?: string;
+  utr?: string;
+}
+
+/**
+ * Loan Administrator Disbursement Management Page
+ * Handles tracking of loan disbursements in pending and completed states
+ * Features toggle switches for hard copy document status and comprehensive data views
+ */
+const LoanAdministratorDisbursement: React.FC = () => {
   const [activeTab, setActiveTab] = useState("pending");
   const [searchTerm, setSearchTerm] = useState("");
-
-  const pendingData = [
+  const [pendingRecords, setPendingRecords] = useState<DisbursementRecord[]>([
     {
       leadId: "#13123",
       leadName: "Rahul Sharma",
@@ -21,73 +40,152 @@ const LoanAdministratorDisbursement = () => {
       status: "Under Review"
     },
     {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
-      pendingDoc: "DOC1,DOC2",
-      hardCopy: true,
+      leadId: "#13124",
+      leadName: "Priya Singh",
+      bankName: "SBI",
+      pendingDoc: "DOC3,DOC4",
+      hardCopy: false,
       status: "Under Review"
     },
     {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
-      pendingDoc: "DOC1,DOC2",
-      hardCopy: true,
-      status: "Under Review"
-    },
-    {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
-      pendingDoc: "DOC1,DOC2",
-      hardCopy: true,
-      status: "Under Review"
-    },
-    {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
-      pendingDoc: "DOC1,DOC2",
-      hardCopy: true,
-      status: "Under Review"
-    },
-    {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
-      pendingDoc: "DOC1,DOC2",
+      leadId: "#13125",
+      leadName: "Amit Kumar",
+      bankName: "ICICI",
+      pendingDoc: "DOC5,DOC6",
       hardCopy: true,
       status: "Under Review"
     }
-  ];
+  ]);
 
-  const completedData = [
+  /**
+   * Sample data for completed disbursements
+   * Shows final disbursement records with payment details
+   */
+  const completedRecords: DisbursementRecord[] = [
     {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
+      leadId: "#13120",
+      leadName: "Rajesh Gupta",
       bankName: "HDFC",
       status: "Completed",
       paymentAmount: "₹12,20,000",
-      utr: "#"
+      utr: "UTR123456789"
     },
     {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
+      leadId: "#13121",
+      leadName: "Neha Sharma",
+      bankName: "SBI",
       status: "Completed",
-      paymentAmount: "₹12,20,000",
-      utr: "#"
+      paymentAmount: "₹8,50,000",
+      utr: "UTR987654321"
     },
     {
-      leadId: "#13123",
-      leadName: "Rahul Sharma",
-      bankName: "HDFC",
+      leadId: "#13122",
+      leadName: "Vikash Mehta",
+      bankName: "ICICI",
       status: "Completed",
-      paymentAmount: "₹12,20,000",
-      utr: "#"
+      paymentAmount: "₹15,75,000",
+      utr: "UTR456789123"
     }
   ];
+
+  /**
+   * Handles tab switching between pending and completed disbursements
+   */
+  const handleTabChange = (tab: string): void => {
+    setActiveTab(tab);
+  };
+
+  /**
+   * Handles search input changes for filtering records
+   */
+  const handleSearchChange = (value: string): void => {
+    setSearchTerm(value);
+    // TODO: Implement search filtering logic
+  };
+
+  /**
+   * Handles toggle switch changes for hard copy status
+   * Updates the specific record's hard copy status in the state
+   */
+  const handleHardCopyToggle = (index: number, checked: boolean): void => {
+    setPendingRecords(prev => 
+      prev.map((record, i) => 
+        i === index ? { ...record, hardCopy: checked } : record
+      )
+    );
+  };
+
+  /**
+   * Renders the pending disbursements table with toggle switches
+   * Includes hard copy status toggles and document tracking
+   */
+  const renderPendingTable = () => (
+    <div className="overflow-x-auto">
+      <table className="min-w-full">
+        <thead>
+          <tr className="border-b border-gray-200 dark:border-gray-700">
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Pending Doc</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Hard Copy</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+          {pendingRecords.map((item, index) => (
+            <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.pendingDoc}</td>
+              <td className="px-4 py-4">
+                <Switch 
+                  checked={item.hardCopy || false} 
+                  onCheckedChange={(checked) => handleHardCopyToggle(index, checked)}
+                  className="data-[state=checked]:bg-green-500"
+                />
+              </td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+
+  /**
+   * Renders the completed disbursements table with payment details
+   * Shows final disbursement information including UTR numbers
+   */
+  const renderCompletedTable = () => (
+    <div className="overflow-x-auto">
+      <table className="min-w-full">
+        <thead>
+          <tr className="border-b border-gray-200 dark:border-gray-700">
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Payment Amount</th>
+            <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">UTR</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+          {completedRecords.map((item, index) => (
+            <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
+              <td className="px-4 py-4 text-sm text-green-600 font-medium">{item.status}</td>
+              <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100 font-medium">{item.paymentAmount}</td>
+              <td className="px-4 py-4 text-sm text-blue-600">{item.utr}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 
   return (
     <LoanAdministratorLayout>
@@ -95,10 +193,10 @@ const LoanAdministratorDisbursement = () => {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Disbursement Review</h1>
         
         <Card className="bg-white dark:bg-gray-800 p-6">
-          {/* Tabs */}
+          {/* Tab Navigation */}
           <div className="flex space-x-4 mb-6">
             <button
-              onClick={() => setActiveTab("pending")}
+              onClick={() => handleTabChange("pending")}
               className={`px-6 py-2 rounded-lg font-medium transition-colors ${
                 activeTab === "pending"
                   ? "bg-brand-purple text-white"
@@ -108,7 +206,7 @@ const LoanAdministratorDisbursement = () => {
               Pending
             </button>
             <button
-              onClick={() => setActiveTab("completed")}
+              onClick={() => handleTabChange("completed")}
               className={`px-6 py-2 rounded-lg font-medium transition-colors ${
                 activeTab === "completed"
                   ? "bg-brand-purple text-white"
@@ -119,7 +217,7 @@ const LoanAdministratorDisbursement = () => {
             </button>
           </div>
 
-          {/* Search and Filter */}
+          {/* Search and Filter Controls */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4">
               <div className="relative">
@@ -127,7 +225,7 @@ const LoanAdministratorDisbursement = () => {
                 <Input
                   placeholder="Search by Lead Name, Lead ID"
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={(e) => handleSearchChange(e.target.value)}
                   className="pl-10 w-80"
                 />
               </div>
@@ -138,87 +236,18 @@ const LoanAdministratorDisbursement = () => {
             </div>
           </div>
 
-          {/* Content */}
-          {activeTab === "pending" && (
-            <div className="space-y-6">
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Pending Doc</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Hard Copy</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {pendingData.map((item, index) => (
-                      <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.pendingDoc}</td>
-                        <td className="px-4 py-4">
-                          <Switch 
-                            checked={item.hardCopy} 
-                            className="data-[state=checked]:bg-green-500"
-                          />
-                        </td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div className="bg-brand-purple h-3 rounded-full" style={{ width: "70%" }}></div>
-                </div>
-              </div>
+          {/* Content Tables */}
+          {activeTab === "pending" ? renderPendingTable() : renderCompletedTable()}
+          
+          {/* Progress Indicator */}
+          <div className="mt-8">
+            <div className="w-full bg-gray-200 rounded-full h-3">
+              <div 
+                className="bg-brand-purple h-3 rounded-full" 
+                style={{ width: activeTab === "pending" ? "70%" : "100%" }}
+              ></div>
             </div>
-          )}
-
-          {activeTab === "completed" && (
-            <div className="space-y-6">
-              <div className="overflow-x-auto">
-                <table className="min-w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200 dark:border-gray-700">
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead ID</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Lead Name</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Bank Name</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Status</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">Payment amount</th>
-                      <th className="px-4 py-3 text-left text-sm font-medium text-gray-500 dark:text-gray-400">UTR</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                    {completedData.map((item, index) => (
-                      <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadId}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.leadName}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.bankName}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.status}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.paymentAmount}</td>
-                        <td className="px-4 py-4 text-sm text-gray-900 dark:text-gray-100">{item.utr}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <div className="w-full bg-gray-200 rounded-full h-3">
-                  <div className="bg-brand-purple h-3 rounded-full" style={{ width: "100%" }}></div>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </Card>
       </div>
     </LoanAdministratorLayout>

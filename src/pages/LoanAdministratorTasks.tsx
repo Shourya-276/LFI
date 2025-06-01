@@ -6,10 +6,42 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Filter, Plus, Repeat, UserCheck } from "lucide-react";
 
-const LoanAdministratorTasks = () => {
+/**
+ * Interface for completed task items
+ * Defines the structure for displaying completed task information
+ */
+interface CompletedTask {
+  title: string;
+  completedDate: string;
+  utrNumber?: string;
+  description?: string;
+  location?: string;
+  icon: string;
+  color: string;
+}
+
+/**
+ * Interface for prebuilt task templates
+ * Defines reusable task templates for common administrative actions
+ */
+interface PrebuiltTask {
+  title: string;
+  icon: string;
+}
+
+/**
+ * Task Management Page for Loan Administrators
+ * Handles task creation, assignment, and tracking for loan processing workflow
+ * Provides both custom task creation and prebuilt task templates
+ */
+const LoanAdministratorTasks: React.FC = () => {
   const [activeTab, setActiveTab] = useState("pending");
 
-  const completedTasks = [
+  /**
+   * Completed tasks data with detailed information
+   * Shows historical task completion with timestamps and additional context
+   */
+  const completedTasksData: CompletedTask[] = [
     {
       title: "UTR Confirmed for ₹2.5L",
       completedDate: "2 Apr, 3:45 PM",
@@ -40,11 +72,119 @@ const LoanAdministratorTasks = () => {
     }
   ];
 
-  const prebuiltTasks = [
+  /**
+   * Prebuilt task templates for common administrative workflows
+   * Provides quick access to frequently used task types
+   */
+  const prebuiltTasksData: PrebuiltTask[] = [
     { title: "Call lead before appointment", icon: "★" },
     { title: "Upload signed loan documents", icon: "★" },
     { title: "Confirm disbursement UTR", icon: "★" }
   ];
+
+  /**
+   * Handles tab switching between pending and completed tasks
+   */
+  const handleTabChange = (tab: string): void => {
+    setActiveTab(tab);
+  };
+
+  /**
+   * Handles task creation action
+   * Placeholder function for creating new custom tasks
+   */
+  const handleCreateTask = (): void => {
+    console.log("Creating new task...");
+    // TODO: Implement task creation functionality
+  };
+
+  /**
+   * Handles prebuilt task selection
+   * Placeholder function for using prebuilt task templates
+   */
+  const handlePrebuiltTask = (): void => {
+    console.log("Accessing prebuilt tasks...");
+    // TODO: Implement prebuilt task selection functionality
+  };
+
+  /**
+   * Handles task assignment action
+   * Placeholder function for assigning tasks to team members
+   */
+  const handleAssignTask = (): void => {
+    console.log("Assigning task...");
+    // TODO: Implement task assignment functionality
+  };
+
+  /**
+   * Renders individual completed task cards
+   * Shows task details with completion status and additional information
+   */
+  const renderCompletedTaskCard = (task: CompletedTask, index: number) => (
+    <Card key={index} className="p-4 border border-gray-200 dark:border-gray-700">
+      <div className="flex items-start space-x-3">
+        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white ${
+          task.color === "green" ? "bg-green-500" : "bg-blue-500"
+        }`}>
+          <span className="text-sm">{task.icon}</span>
+        </div>
+        <div className="flex-1">
+          <h3 className="font-medium text-gray-900 dark:text-white mb-1">{task.title}</h3>
+          <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-1">
+            <span className="mr-2">📅</span>
+            <span>{task.completedDate}</span>
+          </div>
+          {task.utrNumber && (
+            <p className="text-sm text-gray-600 dark:text-gray-400">{task.utrNumber}</p>
+          )}
+          {task.description && (
+            <p className="text-sm text-gray-600 dark:text-gray-400">{task.description}</p>
+          )}
+          {task.location && (
+            <p className="text-sm text-gray-600 dark:text-gray-400">{task.location}</p>
+          )}
+        </div>
+      </div>
+    </Card>
+  );
+
+  /**
+   * Renders action cards for task management functions
+   * Provides quick access to main task management features
+   */
+  const renderActionCards = () => (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+      <Card 
+        className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+        onClick={handleCreateTask}
+      >
+        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <Plus className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+        </div>
+        <h3 className="font-medium text-gray-900 dark:text-white">Create Task</h3>
+      </Card>
+      
+      <Card 
+        className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+        onClick={handlePrebuiltTask}
+      >
+        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <Repeat className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+        </div>
+        <h3 className="font-medium text-gray-900 dark:text-white">Prebuilt Tasks</h3>
+      </Card>
+      
+      <Card 
+        className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer transition-colors"
+        onClick={handleAssignTask}
+      >
+        <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
+          <UserCheck className="w-6 h-6 text-gray-600 dark:text-gray-300" />
+        </div>
+        <h3 className="font-medium text-gray-900 dark:text-white">Assign Task</h3>
+      </Card>
+    </div>
+  );
 
   return (
     <LoanAdministratorLayout>
@@ -52,11 +192,11 @@ const LoanAdministratorTasks = () => {
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Tasks</h1>
         
         <Card className="bg-white dark:bg-gray-800 p-6">
-          {/* Tabs and Filter */}
+          {/* Tab Navigation and Filter */}
           <div className="flex items-center justify-between mb-6">
             <div className="flex space-x-4">
               <button
-                onClick={() => setActiveTab("pending")}
+                onClick={() => handleTabChange("pending")}
                 className={`px-4 py-2 rounded-lg font-medium ${
                   activeTab === "pending"
                     ? "bg-brand-purple text-white"
@@ -66,7 +206,7 @@ const LoanAdministratorTasks = () => {
                 Pending
               </button>
               <button
-                onClick={() => setActiveTab("completed")}
+                onClick={() => handleTabChange("completed")}
                 className={`px-4 py-2 rounded-lg font-medium ${
                   activeTab === "completed"
                     ? "bg-brand-purple text-white"
@@ -84,33 +224,7 @@ const LoanAdministratorTasks = () => {
 
           {/* Completed Tasks Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-            {completedTasks.map((task, index) => (
-              <Card key={index} className="p-4 border border-gray-200 dark:border-gray-700">
-                <div className="flex items-start space-x-3">
-                  <div className={`w-6 h-6 rounded-full flex items-center justify-center text-white ${
-                    task.color === "green" ? "bg-green-500" : "bg-blue-500"
-                  }`}>
-                    <span className="text-sm">{task.icon}</span>
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-medium text-gray-900 dark:text-white mb-1">{task.title}</h3>
-                    <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mb-1">
-                      <span className="mr-2">📅</span>
-                      <span>{task.completedDate}</span>
-                    </div>
-                    {task.utrNumber && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{task.utrNumber}</p>
-                    )}
-                    {task.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{task.description}</p>
-                    )}
-                    {task.location && (
-                      <p className="text-sm text-gray-600 dark:text-gray-400">{task.location}</p>
-                    )}
-                  </div>
-                </div>
-              </Card>
-            ))}
+            {completedTasksData.map((task, index) => renderCompletedTaskCard(task, index))}
           </div>
 
           {/* Show More Button */}
@@ -118,41 +232,20 @@ const LoanAdministratorTasks = () => {
             <Button variant="outline">Show More</Button>
           </div>
 
-          {/* Action Buttons */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-            <Card className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Plus className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </div>
-              <h3 className="font-medium text-gray-900 dark:text-white">Create Task</h3>
-            </Card>
-            
-            <Card className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                <Repeat className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </div>
-              <h3 className="font-medium text-gray-900 dark:text-white">Prebuilt Tasks</h3>
-            </Card>
-            
-            <Card className="p-6 text-center border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 cursor-pointer">
-              <div className="w-12 h-12 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                <UserCheck className="w-6 h-6 text-gray-600 dark:text-gray-300" />
-              </div>
-              <h3 className="font-medium text-gray-900 dark:text-white">Assign Task</h3>
-            </Card>
-          </div>
+          {/* Action Cards */}
+          {renderActionCards()}
 
           {/* Prebuilt Tasks Section */}
           <div>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Prebuilt Tasks</h3>
             <div className="space-y-3">
-              {prebuiltTasks.map((task, index) => (
-                <div key={index} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg">
+              {prebuiltTasksData.map((task, index) => (
+                <div key={index} className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
                   <div className="flex items-center space-x-3">
                     <span className="text-lg">{task.icon}</span>
                     <span className="text-gray-900 dark:text-white">{task.title}</span>
                   </div>
-                  <button className="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center">
+                  <button className="w-8 h-8 bg-gray-100 dark:bg-gray-600 rounded-full flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-500 transition-colors">
                     →
                   </button>
                 </div>

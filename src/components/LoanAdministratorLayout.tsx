@@ -10,14 +10,24 @@ interface LoanAdministratorLayoutProps {
   children: React.ReactNode;
 }
 
-interface NavLinkProps {
+interface NavigationLinkProps {
   to: string;
   icon: React.ElementType;
   children: React.ReactNode;
   isActive?: boolean;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({ to, icon: Icon, children, isActive = false }) => (
+interface NavigationItem {
+  to: string;
+  icon: React.ElementType;
+  label: string;
+}
+
+/**
+ * Custom navigation link component for the sidebar
+ * Handles active state styling and icon display
+ */
+const NavigationLink: React.FC<NavigationLinkProps> = ({ to, icon: Icon, children, isActive = false }) => (
   <Link
     to={to}
     className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
@@ -31,17 +41,34 @@ const NavLink: React.FC<NavLinkProps> = ({ to, icon: Icon, children, isActive = 
   </Link>
 );
 
+/**
+ * Main layout component for Loan Administrator dashboard
+ * Provides consistent navigation, header, and content structure across all admin pages
+ * Features responsive design with mobile-friendly collapsible sidebar
+ */
 const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ children }) => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const location = useLocation();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const isActive = (path: string) => location.pathname === path;
+  /**
+   * Determines if the current route matches the provided path
+   * Used for highlighting active navigation items
+   */
+  const isCurrentRoute = (path: string): boolean => location.pathname === path;
 
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  /**
+   * Closes the mobile menu when navigation occurs
+   * Improves mobile user experience
+   */
+  const handleMobileMenuClose = (): void => setIsMobileMenuOpen(false);
 
-  const navItems = [
+  /**
+   * Navigation configuration for the sidebar
+   * Centralized menu structure for easy maintenance
+   */
+  const navigationItems: NavigationItem[] = [
     { to: "/loan-administrator-dashboard", icon: Home, label: "Home" },
     { to: "/loan-administrator-profile", icon: User, label: "My Profile" },
     { to: "/loan-administrator-bank-sanctions", icon: Building2, label: "Bank Sanctions" },
@@ -52,21 +79,21 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
 
   return (
     <div className="min-h-screen bg-blue-50 dark:bg-gray-900 flex w-full">
-      {/* Mobile overlay */}
+      {/* Mobile Menu Overlay - Dark backdrop for mobile navigation */}
       {isMobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
-          onClick={closeMobileMenu}
+          onClick={handleMobileMenuClose}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar Navigation Panel */}
       <div
         className={`fixed lg:static inset-y-0 left-0 z-50 w-80 bg-white dark:bg-gray-800 shadow-lg transform ${
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         } lg:translate-x-0 transition-transform duration-300 ease-in-out flex flex-col`}
       >
-        {/* User Profile Section */}
+        {/* User Profile Section - Displays admin info and verification status */}
         <div className="p-6 border-b border-gray-200 dark:border-gray-700">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -80,32 +107,33 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
                 <p className="text-sm text-green-600 font-medium">Loan Administrator ✓</p>
               </div>
             </div>
-            <button className="lg:hidden" onClick={closeMobileMenu}>
+            {/* Mobile menu close button */}
+            <button className="lg:hidden" onClick={handleMobileMenuClose}>
               <X className="w-6 h-6" />
             </button>
           </div>
           <button className="mt-3 text-sm text-brand-purple hover:underline">verify</button>
         </div>
 
-        {/* Navigation Menu */}
+        {/* Main Navigation Menu */}
         <nav className="flex-1 p-4 space-y-2">
-          {navItems.map((item) => (
-            <NavLink
+          {navigationItems.map((item) => (
+            <NavigationLink
               key={item.to}
               to={item.to}
               icon={item.icon}
-              isActive={isActive(item.to)}
+              isActive={isCurrentRoute(item.to)}
             >
               {item.label}
-            </NavLink>
+            </NavigationLink>
           ))}
         </nav>
 
-        {/* Bottom Navigation */}
+        {/* Bottom Navigation - FAQ and Logout */}
         <div className="p-4 border-t border-gray-200 dark:border-gray-700 space-y-2">
-          <NavLink to="/faq" icon={HelpCircle}>
+          <NavigationLink to="/faq" icon={HelpCircle}>
             FAQ
-          </NavLink>
+          </NavigationLink>
           <button
             onClick={logout}
             className="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 w-full text-left transition-colors"
@@ -114,22 +142,15 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
             <span>Logout</span>
           </button>
         </div>
-
-        {/* AI Assistant Button */}
-        <div className="p-4">
-          <Button className="w-full bg-gray-800 hover:bg-gray-900 text-white">
-            <Settings className="w-4 h-4 mr-2" />
-            AI Loan Assistant
-          </Button>
-        </div>
       </div>
 
-      {/* Main Content */}
+      {/* Main Content Area */}
       <div className="flex-1 flex flex-col lg:ml-0">
-        {/* Top Navigation */}
+        {/* Top Header Navigation Bar */}
         <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
+              {/* Left section - Mobile menu trigger and logo */}
               <div className="flex items-center space-x-4">
                 <button
                   className="lg:hidden"
@@ -144,6 +165,7 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
                 />
               </div>
 
+              {/* Center section - Search functionality */}
               <div className="flex-1 max-w-2xl mx-8">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -155,6 +177,7 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
                 </div>
               </div>
 
+              {/* Right section - Theme toggle, notifications, and user avatar */}
               <div className="flex items-center space-x-4">
                 <button
                   onClick={toggleTheme}
@@ -171,7 +194,7 @@ const LoanAdministratorLayout: React.FC<LoanAdministratorLayoutProps> = ({ child
           </div>
         </header>
 
-        {/* Page Content - Full width now */}
+        {/* Page Content Container - Full width responsive design */}
         <main className="flex-1 p-6">
           {children}
         </main>
