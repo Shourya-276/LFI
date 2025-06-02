@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import FormPageA1 from './formPageA1';
 import FormPageA2 from './formPageA2';
-// import FormPageB from './FormPageB';
-// import FullPageCapture from './FullPageCapture'; // COMMENTED OUT
+import FormPageB from './formPageB1';
+import FormDecPage1 from './formDecPage1';
+import FormDecPage2 from './formDecPage2';
 import './SBIform.css';
 
 export default function SBILoanFormContainer() {
@@ -74,12 +75,29 @@ export default function SBILoanFormContainer() {
     chairmanName: "",
     bankName: "",
     capitalFund: "",
-    // Add fields for Form B and other sections
+    // Declaration fields
+    communicationPreference: { email: false, phone: false, sms: false },
+    marketingResponse: "", // for the editable input box
+    declarationPlace: "",
+    declarationDate: "",
+    // NEW - Acknowledgment receipt fields
+    loanReceivedDate: "",
+    documentReceivedDate: "",
+    feeAmount1: "",
+    feeAmount2: "",
+    feeAmount3: "",
+    chequeNumber: "",
+    additionalInfo1: "",
+    additionalInfo2: "",
+    chequeDate: "",
+    payableAt: "",
+    additionalDetails: "",
+    // Form B fields
     sampleFieldB: "",
     annualIncome: ""
   });
 
-  const totalPages = 3; // A1, A2, B (adjust based on your total pages)
+  const totalPages = 5; // A1, A2, B, Dec1, Dec2
 
   const updateFormData = (newData) => {
     setFormData(prev => ({ ...prev, ...newData }));
@@ -98,56 +116,87 @@ export default function SBILoanFormContainer() {
   };
 
   const renderCurrentPage = () => {
-    switch (currentPage) {
-      case 1:
-        return (
-          <FormPageA1
-            formData={formData}
-            updateFormData={updateFormData}
-            onNext={nextPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        );
-      case 2:
-        return (
-          <FormPageA2
-            formData={formData}
-            updateFormData={updateFormData}
-            onNext={nextPage}
-            onPrev={prevPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        );
-      case 3:
-        return (
-          <FormPageB
-            formData={formData}
-            updateFormData={updateFormData}
-            onNext={nextPage}
-            onPrev={prevPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        );
-      default:
-        return (
-          <FormPageA1 
-            formData={formData} 
-            updateFormData={updateFormData}
-            onNext={nextPage}
-            currentPage={currentPage}
-            totalPages={totalPages}
-          />
-        );
+    try {
+      switch (currentPage) {
+        case 1:
+          return (
+            <FormPageA1
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+        case 2:
+          return (
+            <FormPageA2
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              onPrev={prevPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+        case 3:
+          return (
+            <FormPageB
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              onPrev={prevPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+        case 4:
+          return (
+            <FormDecPage1
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              onPrev={prevPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+        case 5:
+          return (
+            <FormDecPage2
+              formData={formData}
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              onPrev={prevPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+        default:
+          return (
+            <FormPageA1 
+              formData={formData} 
+              updateFormData={updateFormData}
+              onNext={nextPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            />
+          );
+      }
+    } catch (error) {
+      console.error('Error rendering page:', error);
+      return (
+        <div style={{ padding: '20px', textAlign: 'center' }}>
+          <h2>Error loading page {currentPage}</h2>
+          <p>Please check the console for details.</p>
+          <button onClick={() => setCurrentPage(1)}>Go to Page 1</button>
+        </div>
+      );
     }
   };
 
   return (
     <div className="sbi-form-wrapper">
-      {/* REMOVED - Page indicator */}
-      
       {/* Hover Navigation Arrows */}
       <div className="hover-nav-container">
         {currentPage > 1 && (
@@ -163,9 +212,6 @@ export default function SBILoanFormContainer() {
       </div>
       
       {renderCurrentPage()}
-      
-      {/* COMMENTED OUT - Add the Full Page Capture component at the bottom with screen share functionality */}
-      {/* <FullPageCapture targetElementId="sbi-form-container" /> */}
     </div>
   );
 }

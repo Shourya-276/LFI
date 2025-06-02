@@ -251,7 +251,7 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
             </div>
             
             <div className="sbi-form-row sbi-kyc-row">
-              <span className="sbi-label-kyc-long">6) Letter issued by National Population Register Containing Name and Address:</span>
+              <span className="sbi-label-kyc">6) Letter issued by National Population Register Containing Name and Address:</span>
               <LetterBoxes length={36} value={formData.npr} onChange={v => setField("npr", v)} name="npr" />
             </div>
 
