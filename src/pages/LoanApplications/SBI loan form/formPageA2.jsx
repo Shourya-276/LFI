@@ -73,9 +73,26 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
 
   return (
     <div>
-      {/* REMOVED - Buttons on top */}
-      
       <div ref={formRef} className="sbi-form-container-fullwidth" id="sbi-form-container">
+        {/* Watermark - FIXED POSITIONING */}
+        <div className="sbi-watermark">
+          <img 
+            src="./SBI-logo.png" 
+            alt="SBI Watermark"
+            onError={(e) => {
+              console.log('Image failed to load, showing fallback text');
+              e.target.style.display = 'none';
+              if (!e.target.parentNode.querySelector('.sbi-watermark-text')) {
+                const textWatermark = document.createElement('div');
+                textWatermark.className = 'sbi-watermark-text';
+                textWatermark.textContent = 'SBI';
+                e.target.parentNode.appendChild(textWatermark);
+              }
+            }}
+            onLoad={() => console.log('SBI logo loaded successfully')}
+          />
+        </div>
+
         <div className="sbi-address-section">
           {/* Address type for communication */}
           <div className="sbi-form-row">
@@ -107,17 +124,21 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
             </label>
           </div>
 
-          {/* Years/months residing */}
-          <div className="sbi-form-row">
+          {/* Years/months residing - INLINE as per PDF */}
+          <div className="sbi-years-months-row">
             <span className="sbi-label">Years residing in current address:</span>
             <LetterBoxes length={2} value={formData.yearsInCurrentAddress} onChange={v => setField("yearsInCurrentAddress", v)} name="yearsInCurrentAddress" />
             <span className="sbi-label-months">Months residing in current address:</span>
             <LetterBoxes length={2} value={formData.monthsInCurrentAddress} onChange={v => setField("monthsInCurrentAddress", v)} name="monthsInCurrentAddress" />
           </div>
 
-          {/* Relationship with Primary Applicant */}
-          <div className="sbi-form-row sbi-relationship-row">
+          {/* Relationship with Primary Applicant - LABEL ON SEPARATE LINE */}
+          <div className="sbi-form-row">
             <span className="sbi-label-relationship">Relationship with Primary Applicant:</span>
+          </div>
+          
+          {/* Relationship checkboxes - START FROM NEW LINE */}
+          <div className="sbi-relationship-row">
             <label className="sbi-checkbox-label">
               <input type="checkbox" className="sbi-checkbox" />
               <span className="sbi-checkbox-text">Spouse</span>
@@ -152,7 +173,8 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
             </label>
           </div>
 
-          <div className="sbi-form-row">
+          {/* Others - SEPARATE LINE as per PDF */}
+          <div className="sbi-others-row">
             <label className="sbi-checkbox-label">
               <input type="checkbox" className="sbi-checkbox" />
               <span className="sbi-checkbox-text">Others, Please specify</span>
@@ -170,10 +192,13 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
             <span className="sbi-label-long">No. of units acquired in single residential housing project/co-operative residential complex:</span>
             <LetterBoxes length={2} value={formData.unitsAcquired} onChange={v => setField("unitsAcquired", v)} name="unitsAcquired" />
           </div>
-
+          
           {/* Builder/Partner question */}
           <div className="sbi-form-row">
-            <span className="sbi-label-very-long">Is the customer, who is Builder/ Partner/Director/Owner/Promoter acquiring at/house /unit/plot in the project developed by them /their Company?</span>
+            <span className="sbi-label-very-long">Is the customer, who is Builder/ Partner/Director/Owner/Promoter acquiring at/house /unit/plot in the</span>
+        </div>
+          <div className="sbi-form-row">
+            <span className="sbi-label-very-long">project developed by them /their Company?</span>
             <label className="sbi-checkbox-label">
               <input type="checkbox" className="sbi-checkbox" />
               <span className="sbi-checkbox-text">Yes</span>
@@ -186,7 +211,7 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
 
           {/* Power of attorney */}
           <div className="sbi-form-row">
-            <span className="sbi-label">Power of attorney provided:</span>
+            <span className="sbi-label-attorney">Power of attorney provided:</span>
             <label className="sbi-checkbox-label">
               <input type="checkbox" className="sbi-checkbox" />
               <span className="sbi-checkbox-text">Yes</span>
@@ -199,8 +224,11 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
 
           {/* POA Holder Name */}
           <div className="sbi-form-row">
-            <span className="sbi-label-medium">If Yes: Name of the POA Holder:</span>
-            <LetterBoxes length={40} value={formData.poaHolderName} onChange={v => setField("poaHolderName", v)} name="poaHolderName" />
+            <span className="sbi-label-medium">If Yes:</span>
+          </div>
+          <div className="sbi-form-row">
+            <span className="sbi-label-medium">Name of the POA Holder:</span>
+            <LetterBoxes length={34} value={formData.poaHolderName} onChange={v => setField("poaHolderName", v)} name="poaHolderName" />
           </div>
 
           {/* POA Contact */}
@@ -211,7 +239,10 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
 
           {/* Director in other bank */}
           <div className="sbi-form-row">
-            <span className="sbi-label-very-long">Is Applicant / co-Applicant / Guarantor a director including Chairman and Managing Director) in another bank or specified near relative of any of the director ((including Chairman and Managing Director) of SBI /Other Bank</span>
+            <span className="sbi-label-very-long">Is Applicant / co-Applicant / Guarantor a director including Chairman and Managing Director) in another</span>
+          </div>
+          <div className="sbi-form-row">
+            <span className="sbi-label-very-long">bank or specified near relative of any of the director ((including Chairman and Managing Director) of SBI /Other Bank</span>
             <label className="sbi-checkbox-label">
               <input type="checkbox" className="sbi-checkbox" />
               <span className="sbi-checkbox-text">Yes</span>
@@ -225,19 +256,18 @@ export default function FormPageA2({ formData, updateFormData, onNext, onPrev, c
           {/* Chairman/MD name */}
           <div className="sbi-form-row">
             <span className="sbi-label-medium">Name of the Chairman/ MD or other director:</span>
-            <LetterBoxes length={40} value={formData.chairmanName} onChange={v => setField("chairmanName", v)} name="chairmanName" />
+            <LetterBoxes length={23} value={formData.chairmanName} onChange={v => setField("chairmanName", v)} name="chairmanName" />
           </div>
 
-          {/* Bank name */}
+          {/* Bank name - WITHOUT Capital Fund */}
           <div className="sbi-form-row">
-            <span className="sbi-label-very-long">Indicate Name of Bank/ Subsidiary/ Schedule co-operative Banks/ Trustees of Mutual Fund/ Venture Capital Fund:</span>
-            <LetterBoxes length={40} value={formData.bankName} onChange={v => setField("bankName", v)} name="bankName" />
+            <span className="sbi-label-very-long">Indicate Name of Bank/ Subsidiary/ Schedule co-operative Banks/ Trustees of Mutual Fund/ Venture</span>
           </div>
 
-          {/* Capital Fund */}
+          {/* Capital Fund - SEPARATE LINE with its own letter boxes */}
           <div className="sbi-form-row">
             <span className="sbi-label">Capital Fund:</span>
-            <LetterBoxes length={40} value={formData.capitalFund} onChange={v => setField("capitalFund", v)} name="capitalFund" />
+            <LetterBoxes length={38} value={formData.capitalFund} onChange={v => setField("capitalFund", v)} name="capitalFund" />
           </div>
         </div>
       </div>

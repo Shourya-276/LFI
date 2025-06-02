@@ -1,7 +1,5 @@
 // FormPageA1.jsx
 import React, { useRef, useEffect } from 'react';
-// import jsPDF from "jspdf"; // COMMENTED OUT
-// import html2canvas from "html2canvas"; // COMMENTED OUT
 
 function LetterBoxes({ length, value, onChange, name, className = "" }) {
   const inputRefs = useRef([]);
@@ -75,9 +73,23 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
 
   return (
     <div>
-      {/* REMOVED - Buttons on top */}
-      
       <div ref={formRef} className="sbi-form-container-fullwidth" id="sbi-form-container">
+        {/* Watermark - Add your SBI logo here */}
+        <div className="sbi-watermark">
+          <img 
+            src="./SBI-logo.png" 
+            alt="SBI Watermark"
+            onError={(e) => {
+              // Fallback to text if image fails to load
+              e.target.style.display = 'none';
+              const textWatermark = document.createElement('div');
+              textWatermark.className = 'sbi-watermark-text';
+              textWatermark.textContent = 'SBI';
+              e.target.parentNode.appendChild(textWatermark);
+            }}
+          />
+        </div>
+
         {/* Header */}
         <div className="sbi-header-row">
           <div className="sbi-header-title">FORM A: PERSONAL DETAILS</div>
@@ -136,14 +148,14 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
                   <span>Middle Name</span>
                   <span>Last Name</span>
                 </div>
-                <LetterBoxes length={36} value={formData.name} onChange={v => setField("name", v)} name="name" />
+                <LetterBoxes length={30} value={formData.name} onChange={v => setField("name", v)} name="name" />
               </div>
             </div>
 
             {/* Date of Birth, PAN, Mobile */}
             <div className="sbi-form-row">
               <span className="sbi-label">Date of Birth:</span>
-              <LetterBoxes length={10} value={formData.dob} onChange={v => setField("dob", v)} name="dob" />
+              <LetterBoxes length={8} value={formData.dob} onChange={v => setField("dob", v)} name="dob" />
               <span className="sbi-label-pan">PAN:</span>
               <LetterBoxes length={10} value={formData.pan} onChange={v => setField("pan", v)} name="pan" />
             </div>
@@ -156,7 +168,7 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
             {/* Email */}
             <div className="sbi-form-row">
               <span className="sbi-label">e-mail:</span>
-              <LetterBoxes length={20} value={formData.email} onChange={v => setField("email", v)} name="email" />
+              <LetterBoxes length={30} value={formData.email} onChange={v => setField("email", v)} name="email" />
             </div>
 
             {/* Spouse */}
@@ -324,40 +336,39 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
 
           {/* Permanent Address */}
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 1:</span>
-            <LetterBoxes length={50} value={formData.perm_addr1} onChange={v => setField("perm_addr1", v)} name="perm_addr1" />
+            <span className="sbi-label-address">Address 1:</span>
+            <LetterBoxes length={40} value={formData.perm_addr1} onChange={v => setField("perm_addr1", v)} name="perm_addr1" />
           </div>
           
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 2:</span>
-            <LetterBoxes length={50} value={formData.perm_addr2} onChange={v => setField("perm_addr2", v)} name="perm_addr2" />
+            <span className="sbi-label-address">Address 2:</span>
+            <LetterBoxes length={40} value={formData.perm_addr2} onChange={v => setField("perm_addr2", v)} name="perm_addr2" />
           </div>
           
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 3:</span>
-            <LetterBoxes length={50} value={formData.perm_addr3} onChange={v => setField("perm_addr3", v)} name="perm_addr3" />
+            <span className="sbi-label-address">Address 3:</span>
+            <LetterBoxes length={40} value={formData.perm_addr3} onChange={v => setField("perm_addr3", v)} name="perm_addr3" />
           </div>
           
-          <div className="sbi-form-row">
-            <span className="sbi-label">Village:</span>
-            <LetterBoxes length={10} value={formData.perm_village} onChange={v => setField("perm_village", v)} name="perm_village" />
-            <span className="sbi-label-city">City:</span>
-            <LetterBoxes length={16} value={formData.perm_city} onChange={v => setField("perm_city", v)} name="perm_city" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">Village:</span>
+            <LetterBoxes length={9} value={formData.perm_village} onChange={v => setField("perm_village", v)} name="perm_village" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">City:</span>
+            <LetterBoxes length={16} value={formData.perm_city} onChange={v => setField("perm_city", v)} name="perm_city" className="letter-box-row-address" />
           </div>
           
-          <div className="sbi-form-row">
-            <span className="sbi-label">District:</span>
-            <LetterBoxes length={12} value={formData.perm_district} onChange={v => setField("perm_district", v)} name="perm_district" />
-            <span className="sbi-label-state">State:</span>
-            <LetterBoxes length={16} value={formData.perm_state} onChange={v => setField("perm_state", v)} name="perm_state" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">District:</span>
+            <LetterBoxes length={9} value={formData.perm_district} onChange={v => setField("perm_district", v)} name="perm_district" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">State:</span>
+            <LetterBoxes length={16} value={formData.perm_state} onChange={v => setField("perm_state", v)} name="perm_state" className="letter-box-row-address" />
           </div>
           
-          {/* PAGE BREAK HERE - Country and Pin Code */}
-          <div className="sbi-form-row">
-            <span className="sbi-label">Country:</span>
-            <LetterBoxes length={12} value={formData.perm_country} onChange={v => setField("perm_country", v)} name="perm_country" />
-            <span className="sbi-label-pincode">Pin Code:</span>
-            <LetterBoxes length={6} value={formData.perm_pincode} onChange={v => setField("perm_pincode", v)} name="perm_pincode" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">Country:</span>
+            <LetterBoxes length={9} value={formData.perm_country} onChange={v => setField("perm_country", v)} name="perm_country" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">Pin Code:</span>
+            <LetterBoxes length={6} value={formData.perm_pincode} onChange={v => setField("perm_pincode", v)} name="perm_pincode" className="letter-box-row-address" />
           </div>
 
           {/* Current address same as permanent */}
@@ -375,39 +386,39 @@ export default function FormPageA1({ formData, updateFormData, onNext, currentPa
 
           {/* Current Address */}
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 1:</span>
-            <LetterBoxes length={50} value={formData.curr_addr1} onChange={v => setField("curr_addr1", v)} name="curr_addr1" />
+            <span className="sbi-label-address">Address 1:</span>
+            <LetterBoxes length={40} value={formData.curr_addr1} onChange={v => setField("curr_addr1", v)} name="curr_addr1" />
           </div>
           
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 2:</span>
-            <LetterBoxes length={50} value={formData.curr_addr2} onChange={v => setField("curr_addr2", v)} name="curr_addr2" />
+            <span className="sbi-label-address">Address 2:</span>
+            <LetterBoxes length={40} value={formData.curr_addr2} onChange={v => setField("curr_addr2", v)} name="curr_addr2" />
           </div>
           
           <div className="sbi-form-row">
-            <span className="sbi-label">Address 3:</span>
-            <LetterBoxes length={50} value={formData.curr_addr3} onChange={v => setField("curr_addr3", v)} name="curr_addr3" />
+            <span className="sbi-label-address">Address 3:</span>
+            <LetterBoxes length={40} value={formData.curr_addr3} onChange={v => setField("curr_addr3", v)} name="curr_addr3" />
           </div>
           
-          <div className="sbi-form-row">
-            <span className="sbi-label">Village:</span>
-            <LetterBoxes length={10} value={formData.curr_village} onChange={v => setField("curr_village", v)} name="curr_village" />
-            <span className="sbi-label-city">City:</span>
-            <LetterBoxes length={16} value={formData.curr_city} onChange={v => setField("curr_city", v)} name="curr_city" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">Village:</span>
+            <LetterBoxes length={9} value={formData.curr_village} onChange={v => setField("curr_village", v)} name="curr_village" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">City:</span>
+            <LetterBoxes length={16} value={formData.curr_city} onChange={v => setField("curr_city", v)} name="curr_city" className="letter-box-row-address" />
           </div>
           
-          <div className="sbi-form-row">
-            <span className="sbi-label">District:</span>
-            <LetterBoxes length={12} value={formData.curr_district} onChange={v => setField("curr_district", v)} name="curr_district" />
-            <span className="sbi-label-state">State:</span>
-            <LetterBoxes length={16} value={formData.curr_state} onChange={v => setField("curr_state", v)} name="curr_state" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">District:</span>
+            <LetterBoxes length={9} value={formData.curr_district} onChange={v => setField("curr_district", v)} name="curr_district" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">State:</span>
+            <LetterBoxes length={16} value={formData.curr_state} onChange={v => setField("curr_state", v)} name="curr_state" className="letter-box-row-address" />
           </div>
           
-          <div className="sbi-form-row">
-            <span className="sbi-label">Country:</span>
-            <LetterBoxes length={12} value={formData.curr_country} onChange={v => setField("curr_country", v)} name="curr_country" />
-            <span className="sbi-label-pincode">Pin Code:</span>
-            <LetterBoxes length={6} value={formData.curr_pincode} onChange={v => setField("curr_pincode", v)} name="curr_pincode" />
+          <div className="sbi-address-field-row">
+            <span className="sbi-label-address-left">Country:</span>
+            <LetterBoxes length={9} value={formData.curr_country} onChange={v => setField("curr_country", v)} name="curr_country" className="letter-box-row-address" />
+            <span className="sbi-label-address-right">Pin Code:</span>
+            <LetterBoxes length={6} value={formData.curr_pincode} onChange={v => setField("curr_pincode", v)} name="curr_pincode" className="letter-box-row-address" />
           </div>
         </div>
       </div>

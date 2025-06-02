@@ -1,28 +1,78 @@
+/* Reset all margins and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .sbi-form-container {
   width: 940px;
   min-height: 1320px;
   background: #ffffff;
-  /* border: 2px solid #000000; */ /* REMOVED BORDER */
   box-sizing: border-box;
   margin: 0 auto;
   font-family: 'Arial', sans-serif;
-  font-size: 16px; /* INCREASED from 15px */
-  line-height: 1.6; /* INCREASED from 1.5 */
+  font-size: 17px;
+  line-height: 1.7;
   position: relative;
 }
 
-/* Form wrapper styles */
+/* Form wrapper styles - REMOVE SIDE MARGINS */
 .sbi-form-wrapper {
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   background: #f5f5f5;
-  padding: 0; /* REMOVED all padding */
-  position: relative; /* For positioning hover arrows */
+  padding: 0;
+  margin: 0;
+  position: relative;
 }
 
 /* REMOVED - Page indicator */
 .page-indicator {
-  display: none; /* HIDDEN COMPLETELY */
+  display: none;
+}
+
+/* Watermark styles */
+.sbi-watermark {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 300px;
+  height: 300px;
+  opacity: 50%; /* Very transparent */
+  z-index: -1; /* Behind all content */
+  pointer-events: none; /* Don't interfere with form interactions */
+  user-select: none; /* Prevent selection */
+}
+
+.sbi-watermark img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Alternative text watermark if image doesn't load */
+.sbi-watermark-text {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 120px;
+  font-weight: bold;
+  color: #4a3c9a;
+  opacity: 0.03;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
 }
 
 /* NEW - Hover Navigation Arrows */
@@ -82,21 +132,19 @@
   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-/* Full-width form container - SIGNIFICANTLY INCREASED SIZE */
+/* Full-width form container - REMOVE SIDE MARGINS */
 .sbi-form-container-fullwidth {
-  width: 98%; /* INCREASED from 100% to reduce side margins */
+  width: 100vw;
   max-width: none;
-  min-height: 100vh; /* Full viewport height */
+  min-height: 100vh;
   background: #ffffff;
-  /* border: 2px solid #000000; */ /* REMOVED BORDER */
   box-sizing: border-box;
-  margin: 0 auto; /* Center the form */
+  margin: 0;
   font-family: 'Arial', sans-serif;
-  font-size: 16px; /* INCREASED from 15px */
-  line-height: 1.6; /* INCREASED from 1.5 */
+  font-size: 17px;
+  line-height: 1.7;
   position: relative;
-  padding: 25px 20px; /* REDUCED horizontal padding, INCREASED vertical */
-  margin-top: 0;
+  padding: 0;
 }
 
 /* Remove the bottom capture component styling */
@@ -110,45 +158,46 @@
   display: none !important;
 }
 
-/* Header Styles - INCREASED SIZE */
+/* Header Styles */
 .sbi-header-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: #4a3c9a;
   color: #ffffff;
-  height: 50px; /* INCREASED height */
-  padding: 0 25px; /* INCREASED padding */
+  height: 50px;
+  padding: 0 30px;
   border-bottom: 1px solid #000000;
-  margin-bottom: 18px; /* INCREASED margin */
+  margin-bottom: 15px;
+  width: 100%;
 }
 
 .sbi-header-title {
   font-weight: bold;
-  font-size: 18px; /* INCREASED font size */
-  letter-spacing: 0.3px;
+  font-size: 19px;
+  letter-spacing: 0.4px;
 }
 
 .sbi-header-options {
   display: flex;
   align-items: center;
-  gap: 32px; /* INCREASED gap */
+  gap: 38px;
 }
 
 .sbi-checkbox-label {
   display: flex;
   align-items: center;
-  font-size: 15px; /* INCREASED font size */
+  font-size: 16px;
   font-weight: 500;
   cursor: pointer;
   margin: 0;
 }
 
-/* Custom checkbox styling for simple white checkmarks */
+/* Custom checkbox styling - MATCHED TO LETTER BOX SIZE */
 .sbi-checkbox {
-  width: 18px; /* INCREASED size */
-  height: 18px; /* INCREASED size */
-  margin-right: 8px; /* INCREASED margin */
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
   cursor: pointer;
   appearance: none;
   -webkit-appearance: none;
@@ -165,11 +214,11 @@
 }
 
 .sbi-checkbox:checked::after {
-  content: "✓";
+  content: "✔";
   position: absolute;
-  top: -1.5px;
-  left: 1px;
-  font-size: 14px; /* INCREASED font size */
+  top: -1px;
+  left: 7px;
+  font-size: 20px;
   color: #000000;
   font-weight: bold;
 }
@@ -180,11 +229,11 @@
   white-space: nowrap;
 }
 
-/* Main content layout - INCREASED SPACING */
+/* Main content layout */
 .sbi-main-row {
   display: flex;
-  padding: 18px 22px 0 22px; /* INCREASED padding */
-  gap: 22px; /* INCREASED gap */
+  padding: 15px 30px 0 30px;
+  gap: 28px;
 }
 
 .sbi-fields {
@@ -195,144 +244,249 @@
 .sbi-form-row {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 14px; /* INCREASED margin */
+  margin-bottom: 12px;
   flex-wrap: wrap;
-  gap: 12px; /* INCREASED gap */
+  gap: 15px;
 }
 
 .sbi-name-row {
   align-items: flex-start;
 }
 
-/* Label styles - INCREASED SIZES */
+/* SPECIAL - Address type and residential type rows with column alignment */
+.sbi-address-type-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: nowrap;
+  gap: 15px;
+}
+
+.sbi-residential-type-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: nowrap;
+  gap: 15px;
+}
+
+/* SPECIAL - Checkbox columns for alignment */
+.sbi-checkbox-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 150px; /* Ensure consistent column width */
+}
+
+/* Address field row with tight spacing */
+.sbi-address-field-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  flex-wrap: nowrap;
+  gap: 8px;
+}
+
+/* Label styles - REMOVED BOLD FROM ALL LABELS */
 .sbi-label {
-  min-width: 170px; /* INCREASED width */
+  min-width: 130px;
   font-weight: normal;
-  font-size: 15px; /* INCREASED font size */
+  font-size: 17px;
   color: #000000;
   display: flex;
   align-items: center;
   flex-shrink: 0;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
+  margin-right: 1px;
+}
+
+.sbi-label-address {
+  min-width: 80px;
+  font-weight: normal;
+  font-size: 17px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 2px;
+  margin-right: 1px;
+}
+
+.sbi-label-address-right {
+  min-width: 92px;
+  font-weight: normal;
+  font-size: 17px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 0.5px;
+  margin-right: 1px;
+}
+
+
+.sbi-label-address-left {
+  min-width: 90px;
+  font-weight: normal;
+  font-size: 17px;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 0.5px;
+  margin-right: 1px;
 }
 
 .sbi-label-small {
-  min-width: 200px; /* INCREASED width */
+  min-width: 200px;
   font-weight: normal;
-  font-size: 15px; /* INCREASED font size */
+  font-size: 17px;
   color: #000000;
   flex-shrink: 0;
+  margin-right: 12px;
 }
 
 .sbi-label-pan {
-  min-width: 48px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 50px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 14px; /* INCREASED margin */
+  margin-left: 15px;
+  margin-right: 10px;
 }
 
 .sbi-label-mobile {
-  min-width: 65px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 70px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 14px; /* INCREASED margin */
+  margin-left: 15px;
+  margin-right: 10px;
 }
 
 .sbi-label-marital {
-  min-width: 105px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 110px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 18px; /* INCREASED margin */
+  margin-left: 20px;
+  margin-right: 10px;
 }
 
 .sbi-label-kyc {
-  min-width: 190px; /* INCREASED width */
+  min-width: 220px;
   font-weight: normal;
-  font-size: 15px; /* INCREASED font size */
+  font-size: 17px;
   color: #000000;
 }
 
 .sbi-label-kyc-long {
-  min-width: 270px; /* INCREASED width */
+  min-width: 300px;
   font-weight: normal;
-  font-size: 15px; /* INCREASED font size */
+  font-size: 17px;
   color: #000000;
-  margin-right: 14px; /* INCREASED margin */
+  margin-right: 18px;
   display: inline-block;
   vertical-align: top;
   white-space: normal;
-  max-width: 450px; /* INCREASED max width */
+  max-width: 480px;
 }
 
 .sbi-label-city {
-  min-width: 55px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: auto;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 18px; /* INCREASED margin */
+  margin-left: 8px;
+  margin-right: 8px;
+  white-space: nowrap;
 }
 
 .sbi-label-state {
-  min-width: 60px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: auto;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 18px; /* INCREASED margin */
+  margin-left: 8px;
+  margin-right: 8px;
+  white-space: nowrap;
 }
 
 .sbi-label-pincode {
-  min-width: 85px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: auto;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 18px; /* INCREASED margin */
+  margin-left: 8px;
+  margin-right: 8px;
+  white-space: nowrap;
 }
 
 .sbi-label-months {
-  min-width: 270px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 320px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  margin-left: 18px; /* INCREASED margin */
+  margin-left: 55px;
 }
 
 .sbi-label-same-address {
-  min-width: 340px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 380px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
 }
 
 .sbi-label-relationship {
-  min-width: 240px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 270px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
+  width: 100%;
+  margin-bottom: 12px;
 }
 
 .sbi-label-long {
-  min-width: 500px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 560px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
 }
 
 .sbi-label-medium {
-  min-width: 270px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 300px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
 }
 
 .sbi-label-very-long {
-  min-width: 680px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 740px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  line-height: 1.5; /* INCREASED line height */
+  line-height: 1.6;
+}
+
+/* NEW - Bank name label for the combined row */
+.sbi-label-bank-name {
+  min-width: auto;
+  font-weight: normal;
+  font-size: 17px;
+  color: #000000;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+
+/* NEW - Capital Fund label for inline placement */
+.sbi-label-capital-fund {
+  min-width: auto;
+  font-weight: normal;
+  font-size: 17px;
+  color: #000000;
+  margin-left: 15px;
+  margin-right: 8px;
+  white-space: nowrap;
 }
 
 /* Name field specific styles */
@@ -341,16 +495,17 @@
   flex-direction: column;
   flex: 1;
   min-width: 0;
+  margin-left: 0;
 }
 
 .sbi-name-labels {
   display: flex;
-  font-size: 13px; /* INCREASED font size */
+  font-size: 15px;
   color: #666666;
-  margin-bottom: 5px; /* INCREASED margin */
+  margin-bottom: 6px;
   justify-content: space-between;
   width: 100%;
-  padding: 0 5px; /* INCREASED padding */
+  padding: 0 6px;
 }
 
 .sbi-name-labels span {
@@ -358,28 +513,38 @@
   text-align: left;
 }
 
-/* Letter box styles - INCREASED SIZES */
+/* Letter box styles */
 .letter-box-row {
   display: flex;
-  gap: 4px; /* INCREASED gap */
+  gap: 4px;
   flex-wrap: wrap;
   align-items: center;
   min-width: 0;
   flex: 1 1 0%;
+  margin-left: 0;
+}
+
+.letter-box-row-address {
+  display: flex;
+  gap: 2px;
+  flex-wrap: nowrap;
+  align-items: center;
+  min-width: 0;
+  margin-left: 0;
 }
 
 .letter-box {
-  width: 25px; /* INCREASED width */
-  height: 25px; /* INCREASED height */
+  width: 30px;
+  height: 30px;
   border: 1px solid #000000;
   text-align: center;
-  font-size: 14px; /* INCREASED font size */
+  font-size: 16px;
   font-family: 'Courier New', 'Consolas', monospace;
-  font-weight: normal;
+  font-weight: bold;
   background: #ffffff;
   color: #000000;
   padding: 0;
-  margin-bottom: 6px; /* INCREASED margin */
+  margin-bottom: 8px;
   outline: none;
   box-sizing: border-box;
   text-transform: uppercase;
@@ -390,79 +555,79 @@
   background: #f8f8ff;
 }
 
-/* KYC section - INCREASED SPACING */
+/* KYC section - REDUCED SPACING */
 .sbi-kyc-title {
-  margin-top: 18px; /* INCREASED margin */
-  margin-bottom: 18px; /* INCREASED margin */
+  margin-top: 10px;
+  margin-bottom: 8px;
 }
 
 .sbi-kyc-row {
-  margin-bottom: 10px; /* INCREASED margin */
+  margin-bottom: 8px;
 }
 
-/* Residential Status - INCREASED SPACING */
+/* Residential Status - REDUCED SPACING */
 .sbi-residential-status-row-1 {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 14px; /* INCREASED margin */
+  margin-bottom: 8px;
   flex-wrap: nowrap;
-  gap: 14px; /* INCREASED gap */
+  gap: 20px;
   width: 100%;
 }
 
 .sbi-residential-status-row-2 {
   display: flex;
   align-items: flex-start;
-  margin-bottom: 14px; /* INCREASED margin */
+  margin-bottom: 8px;
   flex-wrap: nowrap;
-  gap: 14px; /* INCREASED gap */
+  gap: 20px;
   width: 100%;
-  margin-left: 185px; /* INCREASED margin */
+  margin-left: 290px;
 }
 
-/* Defence personnel section - INCREASED SPACING */
+/* Defence personnel section - SIGNIFICANTLY REDUCED SPACING */
 .sbi-defence-section {
   background: #f5f5f5;
   border: 1px solid #cccccc;
-  padding: 14px; /* INCREASED padding */
-  margin: 16px 0; /* INCREASED margin */
+  padding: 4px;
+  margin: 1px 0;
   border-radius: 2px;
 }
 
 .sbi-defence-row {
   background: transparent;
   border: none;
-  padding: 6px 0; /* INCREASED padding */
-  margin: 6px 0; /* INCREASED margin */
+  padding: 4px 0;
+  margin: 4px 0;
   border-radius: 0;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px; /* INCREASED gap */
+  gap: 6px;
 }
 
 .sbi-defence-label {
-  min-width: 220px; /* INCREASED width */
-  font-weight: bold;
-  font-size: 15px; /* INCREASED font size */
+  min-width: 260px;
+  font-weight: normal;
+  font-size: 17px;
   color: #000000;
-  padding: 5px 12px; /* INCREASED padding */
+  padding: 4px 8px;
   border-radius: 2px;
-  margin-bottom: 10px; /* INCREASED margin */
+  margin-bottom: 4px;
   width: 100%;
 }
 
 .sbi-defence-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px; /* INCREASED gap */
+  gap: 12px;
   align-items: center;
-  margin-left: 14px; /* INCREASED margin */
+  margin-left: 12px;
 }
 
-/* Photo and signature section - INCREASED SIZES */
+/* Photo and signature section */
 .sbi-photo-col {
-  width: 190px; /* INCREASED width */
+  width: 220px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -470,84 +635,107 @@
 }
 
 .sbi-photo-box {
-  width: 180px; /* INCREASED width */
-  height: 220px; /* INCREASED height */
+  width: 210px;
+  height: 260px;
   border: 1px solid #000000;
   background: #ffffff;
   color: #666666;
-  font-size: 14px; /* INCREASED font size */
+  font-size: 16px;
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 22px; /* INCREASED margin */
-  line-height: 1.5; /* INCREASED line height */
-  padding: 8px; /* INCREASED padding */
+  margin-bottom: 28px;
+  line-height: 1.6;
+  padding: 12px;
 }
 
 .sbi-sign-box {
-  width: 180px; /* INCREASED width */
-  height: 100px; /* INCREASED height */
+  width: 210px;
+  height: 120px;
   border: 1px solid #000000;
   background: #ffffff;
   color: #666666;
-  font-size: 14px; /* INCREASED font size */
+  font-size: 16px;
   text-align: end;
   display: flex;
   align-items: end;
   justify-content: center;
-  padding-bottom: 5px; /* INCREASED padding */
+  padding-bottom: 8px;
 }
 
-/* Address section - INCREASED SPACING */
+/* Address section - REDUCED SPACING */
 .sbi-address-section {
-  margin-top: 22px; /* INCREASED margin */
-  padding: 0 22px; /* INCREASED padding */
+  margin-top: 15px;
+  padding: 0 30px;
 }
 
 .sbi-address-header {
-  margin-bottom: 16px; /* INCREASED margin */
+  margin-bottom: 12px;
 }
 
 .sbi-address-label-row {
-  margin-bottom: 10px; /* INCREASED margin */
+  margin-bottom: 8px;
 }
 
 .sbi-address-label-residential,
 .sbi-address-label-permanent {
   font-weight: bold;
-  font-size: 16px; /* INCREASED font size */
+  font-size: 19px;
   color: #ffffff;
   background: #4a3c9a;
-  padding: 8px 20px; /* INCREASED padding */
+  padding: 10px 28px;
   border-radius: 2px;
   white-space: nowrap;
   display: inline-block;
 }
 
-/* Relationship row - INCREASED SPACING */
+/* Relationship row for FormPageA2 */
 .sbi-relationship-row {
+  display: flex;
   flex-wrap: wrap;
-  gap: 18px; /* INCREASED gap */
+  gap: 25px;
+  align-items: flex-start;
+  margin-bottom: 15px;
 }
 
-/* Same address row - INCREASED SPACING */
+/* Years/Months row for FormPageA2 */
+.sbi-years-months-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  flex-wrap: nowrap;
+  gap: 18px;
+}
+
+/* Same address row - REDUCED SPACING */
 .sbi-same-address-row {
-  margin: 14px 0; /* INCREASED margin */
+  margin: 8px 0;
   background: #f9f9f9;
   border: 1px solid #dddddd;
-  padding: 9px 14px; /* INCREASED padding */
+  padding: 8px 12px;
   border-radius: 2px;
+  font-size: 17px;
 }
 
-/* Checkbox styling for better alignment */
+/* Checkbox styling */
 .sbi-form-row .sbi-checkbox-label {
-  margin-right: 18px; /* INCREASED margin */
-  font-size: 15px; /* INCREASED font size */
+  margin-right: 22px;
+  font-size: 17px;
   font-weight: normal;
   color: #000000;
   display: flex;
   align-items: center;
+}
+
+/* Others row for FormPageA2 */
+.sbi-others-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 22px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 18px;
 }
 
 /* Ensure proper spacing and alignment */
@@ -573,7 +761,7 @@
   }
 }
 
-/* Override existing container styles for print */
+/* Print styles for watermark */
 @media print {
   .sbi-form-container {
     border: none;
@@ -604,6 +792,31 @@
     box-shadow: none;
   }
   
+  .sbi-watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    width: 400px;
+    height: 400px;
+    opacity: 0.08; /* Slightly more visible in print */
+    z-index: -1;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
+  .sbi-watermark-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-45deg);
+    font-size: 150px;
+    opacity: 0.05;
+    z-index: -1;
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+  
   .letter-box {
     border: 1px solid #000000 !important;
     background: #ffffff !important;
@@ -619,14 +832,12 @@
   }
   
   .sbi-checkbox:checked {
-    background: #ffffff !important;
-    border: 1px solid #000000 !important;
-  }
+  background: #ffffff;
+  border: 1px solid #000000;
+}
   
   .sbi-checkbox:checked::after {
-    color: #000000 !important;
-    -webkit-print-color-adjust: exact;
-    color-adjust: exact;
+    display: none
   }
   
   .sbi-header-row {
@@ -645,12 +856,7 @@
   }
 }
 
-/* Make sure all borders are consistent */
-* {
-  box-sizing: border-box;
-}
-
 /* Additional spacing adjustments */
 .sbi-form-row:last-child {
-  margin-bottom: 14px; /* INCREASED margin */
+  margin-bottom: 12px;
 }
