@@ -169,10 +169,10 @@ const LoanCoordinatorProfile = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="subHeadquarters">Sub Headquarters</Label>
+                <Label htmlFor="reportingOffice">Reporting Office</Label>
                 <Select value={formData.subHeadquarters} onValueChange={(value) => handleInputChange("subHeadquarters", value)}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select sub headquarters" />
+                    <SelectValue placeholder="Select Reporting Office" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="andheri">Andheri</SelectItem>

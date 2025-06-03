@@ -85,8 +85,8 @@ const AdminProfileForm: React.FC<AdminProfileFormProps> = ({ formData, onInputCh
    * Sub-headquarters options based on main headquarters
    * Currently static but can be made dynamic based on headquarters selection
    */
-  const subHeadquartersOptions = [
-    { value: "", label: "Sub Headquarters" },
+  const reportingOfficeOptions = [
+    { value: "", label: "Reporting Office" },
     { value: "andheri", label: "Andheri" },
     { value: "bandra", label: "Bandra" },
     { value: "thane", label: "Thane" },
@@ -220,15 +220,15 @@ const AdminProfileForm: React.FC<AdminProfileFormProps> = ({ formData, onInputCh
           </select>
         </div>
         <div>
-          <Label htmlFor="subHeadquarters">Sub Headquarters</Label>
+          <Label htmlFor="reportingOffice">Reporting Office</Label>
           <select
-            id="subHeadquarters"
-            name="subHeadquarters"
+            id="reportingOffice"
+            name="reportingOffice"
             value={formData.subHeadquarters}
             onChange={onInputChange}
             className="mt-1 w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-purple"
           >
-            {subHeadquartersOptions.map((option) => (
+            {reportingOfficeOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
