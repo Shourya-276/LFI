@@ -16,18 +16,13 @@
  * - Header with search functionality and user actions
  * - Responsive design matching the reference images
  * - Tab-based navigation system
- * 
- * PROPS:
- * - activeTab: Currently selected tab
- * - setActiveTab: Function to change active tab
- * - children: Content to render in main area
  */
 
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Bell, Settings, User, Home, Users, DollarSign, FileText } from "lucide-react";
+import { Search, Bell, Settings, User, Home, Users, DollarSign, FileText, LogOut } from "lucide-react";
 
 interface ReferralLayoutProps {
   children: React.ReactNode;
@@ -102,11 +97,19 @@ const ReferralLayout: React.FC<ReferralLayoutProps> = ({ children, activeTab, se
           </nav>
         </div>
 
-        {/* AI Loan Assistant */}
-        <div className="p-4 border-t">
+        {/* AI Loan Assistant and Logout */}
+        <div className="p-4 border-t space-y-2">
           <Button className="w-full bg-indigo-700 hover:bg-indigo-800 text-white">
             <Settings className="w-4 h-4 mr-2" />
             AI Loan Assistant
+          </Button>
+          <Button 
+            variant="outline" 
+            className="w-full text-red-600 border-red-200 hover:bg-red-50 hover:text-red-700"
+            onClick={logout}
+          >
+            <LogOut className="w-4 h-4 mr-2" />
+            Logout
           </Button>
         </div>
       </div>
