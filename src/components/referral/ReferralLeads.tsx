@@ -29,15 +29,96 @@ const ReferralLeads = () => {
   });
 
   const leads = [
-    { id: "#1", date: "31 | 05 | 25", name: "Priya Mehta", loanType: "HL", bankName: "SBI", status: "In process" },
-    { id: "#2", date: "1 | 06 | 25", name: "Rajesh Sharma", loanType: "HL", bankName: "Hdfc", status: "Pending" },
-    { id: "#3", date: "2 | 05 | 25", name: "Anil Gupta", loanType: "HL", bankName: "kotak", status: "In process" },
-    { id: "#4", date: "4 | 05 | 25", name: "Rajesh Sharma", loanType: "HL", bankName: "ICIC", status: "Pending" },
-    { id: "#5", date: "6 | 05 | 25", name: "Priya Mehta", loanType: "HL", bankName: "SBI", status: "Pending" },
-    { id: "#6", date: "9 | 05 | 25", name: "Priya Mehta", loanType: "HL", bankName: "Hdfc", status: "Pending" },
-    { id: "#7", date: "10 | 05 | 25", name: "Neha Verma", loanType: "HL", bankName: "kotak", status: "In process" },
-    { id: "#8", date: "18 | 05 | 25", name: "Priya Mehta", loanType: "HL", bankName: "ICIC", status: "Pending" },
-    { id: "#9", date: "21 | 05 | 25", name: "Anil Gupta", loanType: "HL", bankName: "ICIC", status: "Rejected" },
+    { 
+      id: "#1", 
+      name: "Priya Mehta", 
+      loanType: "HL", 
+      loanAmount: "₹3,00,000", 
+      bankName: "SBI", 
+      payoutAmount: "₹40,000", 
+      status: "In process", 
+      payoutDate: "10 | 05 | 25" 
+    },
+    { 
+      id: "#2", 
+      name: "Rajesh Sharma", 
+      loanType: "HL", 
+      loanAmount: "₹2,00,000", 
+      bankName: "HDFC", 
+      payoutAmount: "₹20,000", 
+      status: "Pending", 
+      payoutDate: "10 | 05 | 25" 
+    },
+    { 
+      id: "#3", 
+      name: "Anil Gupta", 
+      loanType: "HL", 
+      loanAmount: "₹7,00,000", 
+      bankName: "ICIC", 
+      payoutAmount: "₹50,000", 
+      status: "In process", 
+      payoutDate: "2 | 05 | 25" 
+    },
+    { 
+      id: "#4", 
+      name: "Rajesh Sharma", 
+      loanType: "HL", 
+      loanAmount: "₹8,00,000", 
+      bankName: "Kotak", 
+      payoutAmount: "₹50,000", 
+      status: "Pending", 
+      payoutDate: "4 | 05 | 25" 
+    },
+    { 
+      id: "#5", 
+      name: "Priya Mehta", 
+      loanType: "HL", 
+      loanAmount: "₹10,00,000", 
+      bankName: "SBI", 
+      payoutAmount: "₹70,000", 
+      status: "Pending", 
+      payoutDate: "6 | 05 | 25" 
+    },
+    { 
+      id: "#6", 
+      name: "Priya Mehta", 
+      loanType: "HL", 
+      loanAmount: "₹22,00,000", 
+      bankName: "HDFC", 
+      payoutAmount: "₹50,000", 
+      status: "Pending", 
+      payoutDate: "9 | 05 | 25" 
+    },
+    { 
+      id: "#7", 
+      name: "Neha Verma", 
+      loanType: "HL", 
+      loanAmount: "₹5,00,000", 
+      bankName: "ICIC", 
+      payoutAmount: "₹40,000", 
+      status: "In process", 
+      payoutDate: "10 | 05 | 25" 
+    },
+    { 
+      id: "#8", 
+      name: "Priya Mehta", 
+      loanType: "HL", 
+      loanAmount: "₹5,00,000", 
+      bankName: "SBI", 
+      payoutAmount: "₹40,000", 
+      status: "Pending", 
+      payoutDate: "18 | 05 | 25" 
+    },
+    { 
+      id: "#9", 
+      name: "Anil Gupta", 
+      loanType: "HL", 
+      loanAmount: "₹5,00,000", 
+      bankName: "HDFC", 
+      payoutAmount: "₹40,000", 
+      status: "Rejected", 
+      payoutDate: "21 | 05 | 25" 
+    },
   ];
 
   const filters = ["Sanctioned", "Approved", "Pending"];
@@ -141,28 +222,31 @@ const ReferralLeads = () => {
             ))}
           </div>
 
-          {/* Leads Table */}
+          {/* Leads Table with Scroll */}
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[1000px]">
               <thead>
                 <tr className="border-b">
-                  <th className="text-left py-3">Lead Number</th>
-                  <th className="text-left py-3">Date</th>
-                  <th className="text-left py-3">Name</th>
-                  <th className="text-left py-3">Loan type</th>
-                  <th className="text-left py-3">Bank Name</th>
-                  <th className="text-left py-3">Status</th>
+                  <th className="text-left py-3 px-2">Lead Number</th>
+                  <th className="text-left py-3 px-2">Name</th>
+                  <th className="text-left py-3 px-2">Loan type</th>
+                  <th className="text-left py-3 px-2">Loan Amount</th>
+                  <th className="text-left py-3 px-2">Bank Name</th>
+                  <th className="text-left py-3 px-2">Payout Amount</th>
+                  <th className="text-left py-3 px-2">Status</th>
+                  <th className="text-left py-3 px-2">Payout Date</th>
                 </tr>
               </thead>
               <tbody>
                 {leads.map((lead, index) => (
                   <tr key={index} className="border-b hover:bg-gray-50">
-                    <td className="py-3">{lead.id}</td>
-                    <td className="py-3">{lead.date}</td>
-                    <td className="py-3">{lead.name}</td>
-                    <td className="py-3">{lead.loanType}</td>
-                    <td className="py-3">{lead.bankName}</td>
-                    <td className="py-3">
+                    <td className="py-3 px-2">{lead.id}</td>
+                    <td className="py-3 px-2">{lead.name}</td>
+                    <td className="py-3 px-2">{lead.loanType}</td>
+                    <td className="py-3 px-2 font-medium">{lead.loanAmount}</td>
+                    <td className="py-3 px-2">{lead.bankName}</td>
+                    <td className="py-3 px-2 font-medium">{lead.payoutAmount}</td>
+                    <td className="py-3 px-2">
                       <span className={`px-2 py-1 rounded text-xs ${
                         lead.status === "In process" ? "bg-green-100 text-green-700" :
                         lead.status === "Pending" ? "bg-yellow-100 text-yellow-700" :
@@ -171,6 +255,7 @@ const ReferralLeads = () => {
                         {lead.status}
                       </span>
                     </td>
+                    <td className="py-3 px-2">{lead.payoutDate}</td>
                   </tr>
                 ))}
               </tbody>
