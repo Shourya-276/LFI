@@ -25,6 +25,7 @@ import LoanAdministratorBankSanctions from "./pages/LoanAdministratorBankSanctio
 import LoanAdministratorDisbursement from "./pages/LoanAdministratorDisbursement";
 import LoanAdministratorReports from "./pages/LoanAdministratorReports";
 import LoanAdministratorTasks from "./pages/LoanAdministratorTasks";
+import ReferralDashboard from "./pages/ReferralDashboard";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
@@ -65,6 +66,11 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 // Role-based dashboard wrapper
 const DashboardWrapper = () => {
   const { user } = useAuth();
+  
+  // Special case for referral user
+  if (user?.email === 'aman@referral.com') {
+    return <Navigate to="/referral-dashboard" />;
+  }
   
   if (user?.role === 'salesmanager') {
     return <SalesManagerDashboard />;
@@ -117,6 +123,9 @@ const App = () => (
                 <Route path="/document" element={<ProtectedRoute><DocumentUpload /></ProtectedRoute>} />
                 <Route path="/disbursement" element={<ProtectedRoute><Disbursement /></ProtectedRoute>} />
                 <Route path="/review" element={<ProtectedRoute><Review /></ProtectedRoute>} />
+                
+                {/* Referral Dashboard - Special User */}
+                <Route path="/referral-dashboard" element={<ProtectedRoute><ReferralDashboard /></ProtectedRoute>} />
                 
                 {/* Sales Manager specific routes */}
                 <Route path="/leads" element={<ProtectedRoute><LeadsManagement /></ProtectedRoute>} />

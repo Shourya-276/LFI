@@ -1,0 +1,144 @@
+
+/**
+ * REFERRAL LAYOUT COMPONENT
+ * 
+ * This component provides the main layout structure for the referral dashboard.
+ * It includes the header, sidebar navigation, and main content area designed
+ * to match the reference images exactly.
+ * 
+ * USAGE:
+ * - Used exclusively by ReferralDashboard.tsx
+ * - Wraps all referral dashboard content
+ * - Provides navigation between different tabs
+ * 
+ * FEATURES:
+ * - Sidebar with user info and navigation menu
+ * - Header with search functionality and user actions
+ * - Responsive design matching the reference images
+ * - Tab-based navigation system
+ * 
+ * PROPS:
+ * - activeTab: Currently selected tab
+ * - setActiveTab: Function to change active tab
+ * - children: Content to render in main area
+ */
+
+import React from "react";
+import { useAuth } from "../contexts/AuthContext";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Search, Bell, Settings, User, Home, Users, DollarSign, FileText } from "lucide-react";
+
+interface ReferralLayoutProps {
+  children: React.ReactNode;
+  activeTab: string;
+  setActiveTab: (tab: string) => void;
+}
+
+const ReferralLayout: React.FC<ReferralLayoutProps> = ({ children, activeTab, setActiveTab }) => {
+  const { user, logout } = useAuth();
+
+  const navigationItems = [
+    { id: "home", label: "Home", icon: Home },
+    { id: "profile", label: "My Profile", icon: User },
+    { id: "leads", label: "View Leads", icon: Users },
+    { id: "payout", label: "Payout Summary", icon: DollarSign },
+    { id: "invoice", label: "Invoice", icon: FileText },
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex w-full">
+      {/* Sidebar */}
+      <div className="w-72 bg-white shadow-lg flex flex-col">
+        {/* Logo */}
+        <div className="p-6 border-b">
+          <img 
+            src="/lovable-uploads/fa221462-754a-4d8b-ba2c-5c28aca42f6c.png"
+            alt="Loan for India"
+            className="h-8"
+          />
+        </div>
+
+        {/* User Info */}
+        <div className="p-6 border-b bg-gray-50">
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold">
+              R
+            </div>
+            <div>
+              <div className="font-semibold">Referral</div>
+            </div>
+          </div>
+          <div className="space-y-1">
+            <div className="text-sm text-gray-600">+91 7588072877 <span className="text-green-500">●</span></div>
+            <div className="text-sm text-gray-600">amitthakur@gmail.com</div>
+            <div className="text-sm">
+              <span className="text-gray-600">Referral - Mumbai</span>
+              <span className="text-green-500 ml-2">●</span>
+            </div>
+            <Button variant="outline" size="sm" className="text-xs mt-2">
+              verify
+            </Button>
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex-1 p-4">
+          <nav className="space-y-2">
+            {navigationItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id)}
+                className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg text-left transition-colors ${
+                  activeTab === item.id
+                    ? "bg-blue-100 text-blue-700 border-l-4 border-blue-700"
+                    : "text-gray-600 hover:bg-gray-100"
+                }`}
+              >
+                <item.icon className="w-5 h-5" />
+                <span>{item.label}</span>
+              </button>
+            ))}
+          </nav>
+        </div>
+
+        {/* AI Loan Assistant */}
+        <div className="p-4 border-t">
+          <Button className="w-full bg-indigo-700 hover:bg-indigo-800 text-white">
+            <Settings className="w-4 h-4 mr-2" />
+            AI Loan Assistant
+          </Button>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <div className="bg-white shadow-sm p-4 flex items-center justify-between border-b">
+          <div className="flex-1 max-w-md">
+            <div className="relative">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Input
+                placeholder="Search information"
+                className="pl-10 bg-gray-50 border-gray-200"
+              />
+            </div>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button variant="ghost" size="sm">
+              <Bell className="w-5 h-5" />
+            </Button>
+            <div className="w-8 h-8 bg-gray-300 rounded-full"></div>
+          </div>
+        </div>
+
+        {/* Page Content */}
+        <div className="flex-1 p-6 overflow-auto">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ReferralLayout;
