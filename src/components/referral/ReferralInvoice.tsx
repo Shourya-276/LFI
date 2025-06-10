@@ -16,13 +16,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import ReferralTaxInvoice from "./ReferralTaxInvoice";
-import ReferralInvoiceHistory from "./ReferralInvoiceHistory";
 
 const ReferralInvoice = () => {
   const [showInvoice, setShowInvoice] = useState(false);
-  const [showHistory, setShowHistory] = useState(false);
   const [invoiceData, setInvoiceData] = useState({
     companyName: "",
     address: "",
@@ -49,43 +46,8 @@ const ReferralInvoice = () => {
     setInvoiceData(prev => ({ ...prev, [field]: value }));
   };
 
-  const validateForm = () => {
-    const requiredFields = [
-      { field: 'companyName', label: 'Company Name' },
-      { field: 'customer1', label: 'Customer 1' },
-      { field: 'amount1', label: 'Customer 1 Amount' },
-      { field: 'connectorName', label: 'Connector Name' },
-      { field: 'bankName', label: 'Bank Name' }
-    ];
-
-    for (const { field, label } of requiredFields) {
-      if (!invoiceData[field as keyof typeof invoiceData].trim()) {
-        toast.error(`${label} is required`);
-        return false;
-      }
-    }
-
-    // Validate amounts are numbers
-    if (invoiceData.amount1 && isNaN(parseFloat(invoiceData.amount1))) {
-      toast.error("Customer 1 amount must be a valid number");
-      return false;
-    }
-
-    if (invoiceData.amount2 && isNaN(parseFloat(invoiceData.amount2))) {
-      toast.error("Customer 2 amount must be a valid number");
-      return false;
-    }
-
-    return true;
-  };
-
   const handleCreateInvoice = () => {
-    if (!validateForm()) {
-      return;
-    }
-
     setShowInvoice(true);
-    toast.success("Invoice created successfully!");
   };
 
   const handleClear = () => {
@@ -110,48 +72,17 @@ const ReferralInvoice = () => {
       ifscCode: "",
       branchName: "",
     });
-    toast.success("Form cleared");
   };
-
-  const handleViewHistory = () => {
-    setShowHistory(true);
-  };
-
-  const handleViewInvoiceFromHistory = (historicalInvoiceData: any) => {
-    setInvoiceData(historicalInvoiceData);
-    setShowHistory(false);
-    setShowInvoice(true);
-  };
-
-  if (showHistory) {
-    return (
-      <ReferralInvoiceHistory
-        onBack={() => setShowHistory(false)}
-        onViewInvoice={handleViewInvoiceFromHistory}
-      />
-    );
-  }
 
   if (showInvoice) {
-    return (
-      <ReferralTaxInvoice
-        invoiceData={invoiceData}
-        onBack={() => setShowInvoice(false)}
-        onViewHistory={handleViewHistory}
-      />
-    );
+    return <ReferralTaxInvoice invoiceData={invoiceData} onBack={() => setShowInvoice(false)} />;
   }
 
   return (
     <div className="max-w-2xl">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            Create Invoice
-            <Button variant="outline" onClick={handleViewHistory}>
-              View History
-            </Button>
-          </CardTitle>
+          <CardTitle>Create Invoice</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Company Details */}
@@ -160,13 +91,12 @@ const ReferralInvoice = () => {
             <h4 className="font-medium mb-3">Company Details:</h4>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <Label htmlFor="companyName">Company Name: *</Label>
+                <Label htmlFor="companyName">Company Name:</Label>
                 <Input
                   id="companyName"
                   placeholder="Company Name"
                   value={invoiceData.companyName}
                   onChange={(e) => handleInputChange("companyName", e.target.value)}
-                  required
                 />
               </div>
               <div>
@@ -190,7 +120,7 @@ const ReferralInvoice = () => {
                 />
               </div>
               <div>
-                <Label htmlFor="stateCode">State code:</Label>
+                <Label htmlFor="stateCode">State code-</Label>
                 <Input
                   id="stateCode"
                   placeholder="State Code"
@@ -213,26 +143,24 @@ const ReferralInvoice = () => {
           {/* Billing Details */}
           <div>
             <h4 className="font-medium mb-3">Billing Details:</h4>
-            <p className="text-sm text-gray-600 mb-3">Customer Names: (can add multiple names)</p>
+            <p className="text-sm text-gray-600 mb-3">Customer Names:(can add multiple names)</p>
+            <Button variant="outline" size="sm" className="mb-4">Add Customer</Button>
             
             <div className="space-y-3">
               <div className="flex items-center gap-2">
                 <span className="text-sm">1.</span>
                 <Input
-                  placeholder="Customer *"
+                  placeholder="Customer"
                   value={invoiceData.customer1}
                   onChange={(e) => handleInputChange("customer1", e.target.value)}
                   className="flex-1"
-                  required
                 />
                 <span>→</span>
                 <Input
-                  placeholder="Customer amount *"
+                  placeholder="Customer amount"
                   value={invoiceData.amount1}
                   onChange={(e) => handleInputChange("amount1", e.target.value)}
                   className="w-32"
-                  type="number"
-                  required
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -249,7 +177,6 @@ const ReferralInvoice = () => {
                   value={invoiceData.amount2}
                   onChange={(e) => handleInputChange("amount2", e.target.value)}
                   className="w-32"
-                  type="number"
                 />
               </div>
             </div>
@@ -261,7 +188,6 @@ const ReferralInvoice = () => {
                   value={invoiceData.cgst}
                   onChange={(e) => handleInputChange("cgst", e.target.value)}
                   className="w-16"
-                  type="number"
                 />
                 <span>%</span>
               </div>
@@ -271,7 +197,6 @@ const ReferralInvoice = () => {
                   value={invoiceData.sgst}
                   onChange={(e) => handleInputChange("sgst", e.target.value)}
                   className="w-16"
-                  type="number"
                 />
                 <span>%</span>
               </div>
@@ -284,23 +209,21 @@ const ReferralInvoice = () => {
             <h4 className="font-medium mb-3">Connector Details:</h4>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <Label htmlFor="connectorName">Connector's Name: *</Label>
+                <Label htmlFor="connectorName">Connector's Name:</Label>
                 <Input
                   id="connectorName"
                   placeholder="Name"
                   value={invoiceData.connectorName}
                   onChange={(e) => handleInputChange("connectorName", e.target.value)}
-                  required
                 />
               </div>
               <div>
-                <Label htmlFor="bankName">Bank Name: *</Label>
+                <Label htmlFor="bankName">Bank Name:</Label>
                 <Input
                   id="bankName"
                   placeholder="Bank Name"
                   value={invoiceData.bankName}
                   onChange={(e) => handleInputChange("bankName", e.target.value)}
-                  required
                 />
               </div>
             </div>
