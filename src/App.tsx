@@ -26,6 +26,11 @@ import LoanAdministratorDisbursement from "./pages/LoanAdministratorDisbursement
 import LoanAdministratorReports from "./pages/LoanAdministratorReports";
 import LoanAdministratorTasks from "./pages/LoanAdministratorTasks";
 import ReferralDashboard from "./pages/ReferralDashboard";
+import ConnectorDashboard from "./pages/ConnectorDashboard";
+import ConnectorProfile from "./pages/ConnectorProfile";
+import ConnectorLeads from "./pages/ConnectorLeads";
+import ConnectorPayout from "./pages/ConnectorPayout";
+import ConnectorInvoice from "./pages/ConnectorInvoice";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
@@ -67,9 +72,13 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 const DashboardWrapper = () => {
   const { user } = useAuth();
   
-  // Special case for referral user
+  // Special cases for specific users
   if (user?.email === 'aman@referral.com') {
     return <Navigate to="/referral-dashboard" />;
+  }
+  
+  if (user?.email === 'aman@connector.com') {
+    return <Navigate to="/connector-dashboard" />;
   }
   
   if (user?.role === 'salesmanager') {
@@ -126,6 +135,13 @@ const App = () => (
                 
                 {/* Referral Dashboard - Special User */}
                 <Route path="/referral-dashboard" element={<ProtectedRoute><ReferralDashboard /></ProtectedRoute>} />
+                
+                {/* Connector Dashboard - Special User */}
+                <Route path="/connector-dashboard" element={<ProtectedRoute><ConnectorDashboard /></ProtectedRoute>} />
+                <Route path="/connector-profile" element={<ProtectedRoute><ConnectorProfile /></ProtectedRoute>} />
+                <Route path="/connector-leads" element={<ProtectedRoute><ConnectorLeads /></ProtectedRoute>} />
+                <Route path="/connector-payout" element={<ProtectedRoute><ConnectorPayout /></ProtectedRoute>} />
+                <Route path="/connector-invoice" element={<ProtectedRoute><ConnectorInvoice /></ProtectedRoute>} />
                 
                 {/* Sales Manager specific routes */}
                 <Route path="/leads" element={<ProtectedRoute><LeadsManagement /></ProtectedRoute>} />
