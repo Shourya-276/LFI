@@ -20,10 +20,9 @@
 
 import React from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { useTheme } from "../contexts/ThemeContext";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Search, Bell, Settings, User, Home, Users, DollarSign, FileText, LogOut, Sun, Moon } from "lucide-react";
+import { Search, Bell, Settings, User, Home, Users, DollarSign, FileText, LogOut } from "lucide-react";
 
 interface ReferralLayoutProps {
   children: React.ReactNode;
@@ -33,7 +32,6 @@ interface ReferralLayoutProps {
 
 const ReferralLayout: React.FC<ReferralLayoutProps> = ({ children, activeTab, setActiveTab }) => {
   const { user, logout } = useAuth();
-  const { theme, toggleTheme } = useTheme();
 
   const navigationItems = [
     { id: "home", label: "Home", icon: Home },
@@ -130,9 +128,6 @@ const ReferralLayout: React.FC<ReferralLayoutProps> = ({ children, activeTab, se
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" onClick={toggleTheme}>
-              {theme === "light" ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-            </Button>
             <Button variant="ghost" size="sm">
               <Bell className="w-5 h-5" />
             </Button>
