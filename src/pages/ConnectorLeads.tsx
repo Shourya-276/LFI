@@ -100,7 +100,7 @@ const ConnectorLeads = () => {
             <div className="h-1 flex-1 bg-gray-300 mx-2"></div>
             
             <div className="text-center">
-              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-500 text-xs mb-2">></div>
+              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-gray-500 text-xs mb-2">{'>'}</div>
               <div className="text-sm font-medium text-green-600">Final Step</div>
               <div className="text-xs text-gray-600">Stage 6</div>
             </div>
