@@ -26,6 +26,11 @@ import LoanAdministratorDisbursement from "./pages/LoanAdministratorDisbursement
 import LoanAdministratorReports from "./pages/LoanAdministratorReports";
 import LoanAdministratorTasks from "./pages/LoanAdministratorTasks";
 import ReferralDashboard from "./pages/ReferralDashboard";
+import ConnectorDashboard from "./pages/ConnectorDashboard";
+import ConnectorProfile from "./pages/ConnectorProfile";
+import ConnectorLeads from "./pages/ConnectorLeads";
+import ConnectorPayout from "./pages/ConnectorPayout";
+import ConnectorInvoice from "./pages/ConnectorInvoice";
 import Profile from "./pages/Profile";
 import CheckEligibility from "./pages/CheckEligibility";
 import SalesManagerCheckEligibility from "./pages/SalesManagerCheckEligibility";
