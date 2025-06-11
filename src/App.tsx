@@ -72,6 +72,11 @@ const DashboardWrapper = () => {
     return <Navigate to="/referral-dashboard" />;
   }
   
+  // Special case for connector user
+  if (user?.email === 'aman@connector.com') {
+    return <Navigate to="/connector-dashboard" />;
+  }
+  
   if (user?.role === 'salesmanager') {
     return <SalesManagerDashboard />;
   }
@@ -126,6 +131,13 @@ const App = () => (
                 
                 {/* Referral Dashboard - Special User */}
                 <Route path="/referral-dashboard" element={<ProtectedRoute><ReferralDashboard /></ProtectedRoute>} />
+                
+                {/* Connector Dashboard Routes */}
+                <Route path="/connector-dashboard" element={<ProtectedRoute><ConnectorDashboard /></ProtectedRoute>} />
+                <Route path="/connector-profile" element={<ProtectedRoute><ConnectorProfile /></ProtectedRoute>} />
+                <Route path="/connector-leads" element={<ProtectedRoute><ConnectorLeads /></ProtectedRoute>} />
+                <Route path="/connector-payout" element={<ProtectedRoute><ConnectorPayout /></ProtectedRoute>} />
+                <Route path="/connector-invoice" element={<ProtectedRoute><ConnectorInvoice /></ProtectedRoute>} />
                 
                 {/* Sales Manager specific routes */}
                 <Route path="/leads" element={<ProtectedRoute><LeadsManagement /></ProtectedRoute>} />
