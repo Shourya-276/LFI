@@ -1,6 +1,7 @@
 
 import React from "react";
 import ConnectorLayout from "../components/ConnectorLayout";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 const ConnectorDashboard = () => {
   const performanceData = [
@@ -21,9 +22,9 @@ const ConnectorDashboard = () => {
 
   return (
     <ConnectorLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-1 gap-6">
         {/* Performance Metrics */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6">
           <div className="bg-white rounded-lg p-6 shadow-sm">
             <h2 className="text-lg font-semibold mb-2">Performance Metrics</h2>
             <p className="text-sm text-gray-600 mb-6">Month wise Overview</p>
@@ -50,18 +51,17 @@ const ConnectorDashboard = () => {
               <h3 className="text-base font-semibold mb-2">Monthly Performance</h3>
               <p className="text-xs text-gray-500 mb-4">Performance Metrics</p>
               
-              <div className="flex items-end gap-2 h-40">
-                {performanceData.map((item, index) => (
-                  <div key={index} className="flex-1 flex flex-col items-center">
-                    <div 
-                      className="w-full bg-gray-400 rounded-t"
-                      style={{ height: `${item.value}%` }}
-                    ></div>
-                    <span className="text-xs text-gray-500 mt-2">{item.month}</span>
-                  </div>
-                ))}
+              <div className="h-64">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={performanceData}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="value" fill="#9CA3AF" />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
-              <p className="text-xs text-gray-500 text-right mt-2">Months</p>
             </div>
           </div>
 
@@ -109,91 +109,6 @@ const ConnectorDashboard = () => {
                 </tbody>
               </table>
             </div>
-          </div>
-        </div>
-
-        {/* Right Sidebar - Team Chat */}
-        <div className="bg-white rounded-lg p-4 shadow-sm h-fit">
-          <div className="flex items-center justify-between mb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs font-bold">LFI</span>
-              </div>
-              <span className="font-medium">Loan for India Team</span>
-            </div>
-            <button>
-              <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z" />
-              </svg>
-            </button>
-          </div>
-
-          <div className="space-y-3 mb-4 max-h-80 overflow-y-auto">
-            <div className="bg-green-100 p-3 rounded text-sm">
-              Hello, my loan is approved but not credited to my account yet. Can you check?
-            </div>
-            
-            <div className="flex items-start gap-2">
-              <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">P</span>
-              </div>
-              <div className="text-sm">
-                <p className="font-medium">Priya sharma</p>
-                <p>Hi Rohan, I'll check with the bank. Can you confirm your loan reference number?</p>
-              </div>
-            </div>
-
-            <div className="bg-green-100 p-3 rounded text-sm">
-              Sure! It's LOAN12345
-            </div>
-
-            <div className="flex items-start gap-2">
-              <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">P</span>
-              </div>
-              <div className="text-sm">
-                <p className="font-medium">Priya Sharma</p>
-                <p>Thanks! I've escalated your request to the manager. You'll get an update soon.</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2">
-              <div className="w-6 h-6 bg-red-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">A</span>
-              </div>
-              <div className="text-sm">
-                <p className="font-medium">Aman Verma (Manager)</p>
-                <p>We checked with the bank, and the loan will be credited within 24 hours.</p>
-              </div>
-            </div>
-
-            <div className="flex items-start gap-2">
-              <div className="w-6 h-6 bg-blue-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-xs">P</span>
-              </div>
-              <div className="text-sm">
-                <p className="font-medium">Priya Sharma</p>
-                <p>Your loan will be credited within 24 hours. Let me know if you need anything else!</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2">
-            <input
-              type="text"
-              placeholder="Type Something..."
-              className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="p-2 text-gray-400">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" />
-              </svg>
-            </button>
-            <button className="p-2 bg-green-500 text-white rounded-lg">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
