@@ -48,7 +48,7 @@ const ConnectorLayout: React.FC<ConnectorLayoutProps> = ({ children }) => {
             <p className="text-sm text-gray-600">Connector - Mumbai <span className="w-2 h-2 bg-green-500 rounded-full inline-block ml-2"></span></p>
           </div>
 
-          <nav className="space-y-2 mb-6">
+          <nav className="space-y-2">
             {menuItems.map((item) => {
               const Icon = item.icon;
               const isActive = location.pathname === item.path;
@@ -68,7 +68,9 @@ const ConnectorLayout: React.FC<ConnectorLayoutProps> = ({ children }) => {
               );
             })}
           </nav>
+        </div>
 
+        <div className="absolute bottom-4 left-4 right-4">
           <Button
             onClick={handleLogout}
             variant="outline"
@@ -86,7 +88,19 @@ const ConnectorLayout: React.FC<ConnectorLayoutProps> = ({ children }) => {
         <header className="bg-white border-b px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <h1 className="text-xl font-semibold text-gray-900">Loan For India</h1>
+              <img src="/lovable-uploads/ba532ea3-fc3d-42af-9b62-6a559550b93d.png" alt="Loan For India" className="h-8" />
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Search information"
+                  className="pl-4 pr-10 py-2 bg-gray-100 rounded-lg w-80 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                </button>
+              </div>
             </div>
             <div className="flex items-center gap-4">
               <button className="p-2 rounded-lg bg-gray-100">
