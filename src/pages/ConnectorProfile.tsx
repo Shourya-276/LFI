@@ -61,7 +61,6 @@ const ConnectorProfile = () => {
 
   const handleSave = () => {
     console.log("Saving profile data:", formData);
-    // Handle save logic here
   };
 
   return (
@@ -72,6 +71,20 @@ const ConnectorProfile = () => {
             <CardTitle>My Profile</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Photo Upload Section */}
+            <div className="flex flex-col items-center space-y-4">
+              <div className="text-center">
+                <h3 className="font-semibold mb-2">Photo</h3>
+                <p className="text-sm text-gray-600">JPG/PNG/PDF format accepted</p>
+              </div>
+              <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 text-center">
+                <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
+                <p className="text-gray-600 dark:text-gray-400">Upload photo</p>
+                <p className="text-sm text-gray-500 mt-1">Drag file here or</p>
+                <Button variant="outline" className="mt-2">Browse</Button>
+              </div>
+            </div>
+
             {/* Personal Details */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div>
@@ -266,10 +279,52 @@ const ConnectorProfile = () => {
             {/* Bank Documents */}
             <div className="pt-4">
               <h3 className="text-lg font-semibold mb-4">Bank Documents</h3>
-              <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center">
-                <Upload className="w-8 h-8 mx-auto mb-2 text-gray-400" />
-                <p className="text-gray-600 dark:text-gray-400">Drag file here</p>
-                <p className="text-sm text-gray-500 mt-1">Photo</p>
+              
+              <div className="space-y-4">
+                <div>
+                  <h4 className="font-medium mb-2">Pan card</h4>
+                  <p className="text-sm text-gray-600 mb-2">JPG/PNG/PDF format accepted</p>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Drag file here or Browse
+                  </Button>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Aadhar card</h4>
+                  <p className="text-sm text-gray-600 mb-2">JPG/PNG/PDF format accepted</p>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Drag file here or Browse
+                  </Button>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Cancelled Cheque</h4>
+                  <p className="text-sm text-gray-600 mb-2">JPG/PNG/PDF format accepted</p>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Drag file here or Browse
+                  </Button>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">Rera Certificate</h4>
+                  <p className="text-sm text-gray-600 mb-2">JPG/PNG/PDF format accepted</p>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Drag file here or Browse
+                  </Button>
+                </div>
+
+                <div>
+                  <h4 className="font-medium mb-2">GST Certificate</h4>
+                  <p className="text-sm text-gray-600 mb-2">JPG/PNG/PDF format accepted</p>
+                  <Button variant="outline" className="flex items-center gap-2">
+                    <Upload className="w-4 h-4" />
+                    Drag file here or Browse
+                  </Button>
+                </div>
               </div>
             </div>
 

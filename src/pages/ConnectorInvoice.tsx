@@ -15,14 +15,11 @@ const ConnectorInvoice = () => {
   const [customers, setCustomers] = useState([{ name: "", amount: "" }]);
   
   const [invoiceData, setInvoiceData] = useState({
-    // Company Details
-    companyName: "",
+    companyName: "Loan for India(Default)",
     companyAddress: "",
     gstNumber: "",
     panNumber: "",
     stateCode: "",
-    
-    // Connector Details
     connectorName: "",
     bankName: "",
     gstNo: "",
@@ -31,8 +28,6 @@ const ConnectorInvoice = () => {
     accountType: "",
     ifscCode: "",
     branchName: "",
-    
-    // Tax Details
     cgst: "9",
     sgst: "9"
   });
@@ -66,14 +61,13 @@ const ConnectorInvoice = () => {
   const downloadInvoice = () => {
     const doc = new jsPDF();
     
-    // Add invoice content
     doc.setFontSize(20);
     doc.text("Tax Invoice", 105, 20, { align: "center" });
     
     doc.setFontSize(12);
     doc.text("Company details:", 20, 40);
-    doc.text(`Invoice No: [127482162]`, 20, 50);
-    doc.text(`Date: [01/04/2004]`, 20, 60);
+    doc.text("Invoice No: [127482162]", 20, 50);
+    doc.text("Date: [01/04/2004]", 20, 60);
     doc.text("To,", 20, 70);
     doc.text("Loan For India", 20, 80);
     doc.text("B/905/906/9th Floor, Damji Shamji Corporate Square Ghatkopar East-77", 20, 90);
@@ -248,15 +242,75 @@ const ConnectorInvoice = () => {
                     onChange={(e) => setInvoiceData(prev => ({ ...prev, accountType: e.target.value }))}
                   />
                 </div>
+                <div>
+                  <Label>PAN NO:</Label>
+                  <Input 
+                    placeholder="Company PAN number"
+                    value={invoiceData.panNo}
+                    onChange={(e) => setInvoiceData(prev => ({ ...prev, panNo: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label>Bank Account number:</Label>
+                  <Input 
+                    placeholder="ACC Number"
+                    value={invoiceData.accountNumber}
+                    onChange={(e) => setInvoiceData(prev => ({ ...prev, accountNumber: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label>IFSC Code:</Label>
+                  <Input 
+                    placeholder="Code"
+                    value={invoiceData.ifscCode}
+                    onChange={(e) => setInvoiceData(prev => ({ ...prev, ifscCode: e.target.value }))}
+                  />
+                </div>
+                <div>
+                  <Label>Branch Name:</Label>
+                  <Input 
+                    placeholder="Branch Name"
+                    value={invoiceData.branchName}
+                    onChange={(e) => setInvoiceData(prev => ({ ...prev, branchName: e.target.value }))}
+                  />
+                </div>
               </div>
             </div>
 
-            <Button 
-              onClick={generateInvoice}
-              className="w-full bg-indigo-600 hover:bg-indigo-700"
-            >
-              Generate Invoice
-            </Button>
+            <div className="flex gap-4 pt-6">
+              <Button 
+                variant="outline" 
+                onClick={() => {
+                  setInvoiceData({
+                    companyName: "Loan for India(Default)",
+                    companyAddress: "",
+                    gstNumber: "",
+                    panNumber: "",
+                    stateCode: "",
+                    connectorName: "",
+                    bankName: "",
+                    gstNo: "",
+                    panNo: "",
+                    accountNumber: "",
+                    accountType: "",
+                    ifscCode: "",
+                    branchName: "",
+                    cgst: "9",
+                    sgst: "9"
+                  });
+                  setCustomers([{ name: "", amount: "" }]);
+                }}
+                className="flex-1"
+              >
+                Clear
+              </Button>
+              <Button 
+                onClick={generateInvoice}
+                className="flex-1 bg-indigo-600 hover:bg-indigo-700"
+              >
+                Create Invoice
+              </Button>
+            </div>
           </CardContent>
         </Card>
 
