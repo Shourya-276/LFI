@@ -48,6 +48,7 @@ const personalDetailsSchema = z.object({
   dateOfBirth: z.date({
     required_error: "Please select a date of birth",
   }),
+  maritalStatus: z.string().min(1, "Please select your marital status"),
   streetAddress: z.string().min(1, "Street address is required"),
   pinCode: z.string().min(6, "Pin code must be 6 digits"),
   country: z.string().min(1, "Please select your country"),
@@ -73,6 +74,7 @@ const PersonalDetailsForm = () => {
     panCardNumber: application.personalDetails?.panCardNumber || "",
     gender: application.personalDetails?.gender || "",
     dateOfBirth: application.personalDetails?.dateOfBirth ? new Date(application.personalDetails.dateOfBirth) : undefined,
+    maritalStatus: application.personalDetails?.maritalStatus || "",
     streetAddress: application.personalDetails?.streetAddress || "",
     pinCode: application.personalDetails?.pinCode || "",
     country: application.personalDetails?.country || "india",
@@ -105,6 +107,7 @@ const PersonalDetailsForm = () => {
       aadhaarNumber: data.aadhaarNumber,
       panCardNumber: data.panCardNumber,
       gender: data.gender,
+      maritalStatus: data.maritalStatus,
       dateOfBirth: data.dateOfBirth.toISOString(),
       streetAddress: data.streetAddress,
       pinCode: data.pinCode,
@@ -294,6 +297,31 @@ const PersonalDetailsForm = () => {
                       />
                     </PopoverContent>
                   </Popover>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="maritalStatus"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Marital Status</FormLabel>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Marital Status" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="married">Married</SelectItem>
+                      <SelectItem value="unmarried">Unmarried</SelectItem>
+                      <SelectItem value="single">Single</SelectItem>
+                      <SelectItem value="widowed">Widowed</SelectItem>
+                      <SelectItem value="divorced">Divorced</SelectItem>
+                      <SelectItem value="separated">Separated</SelectItem>
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
